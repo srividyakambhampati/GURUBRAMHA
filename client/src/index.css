@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #4F8CFF;
+  --primary-soft: #EAF3FF;
+  --secondary: #7C6CFF;
+  --secondary-soft: #F4F1FF;
+  --bg-main: #F8FAFC;
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --glass-white: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+body {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+@layer components {
+  .section-container {
+    @apply w-full max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12;
+  }
+
+  .mesh-gradient {
+    background: linear-gradient(135deg, #F8FAFC 0%, #EEF4FF 50%, #F5F3FF 100%);
+    position: relative;
+  }
+
+  .mesh-gradient::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(79, 140, 255, 0.08) 0%, transparent 70%);
+    filter: blur(80px);
+    z-index: 0;
+  }
+
+  .glass-card {
+    @apply bg-[rgba(255,255,255,0.85)] backdrop-blur-xl border border-[rgba(255,255,255,0.4)] rounded-[24px] p-8 shadow-2xl shadow-indigo-100/50;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/25 hover:scale-105 active:scale-95 transition-all;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-2xl hover:bg-slate-50 active:scale-95 transition-all;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600;
+  }
+
+  .heading-xl {
+    @apply text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1];
+  }
+
+  .heading-lg {
+    @apply text-3xl md:text-5xl font-extrabold text-slate-900;
+  }
+
+  .nav-glass {
+    @apply fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-lg border-b border-white/20;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 10px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Bright Theme Specific Adjustments */
+.dark-mode-overlay {
+  display: none;
+}
