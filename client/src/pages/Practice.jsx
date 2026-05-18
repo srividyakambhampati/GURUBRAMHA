@@ -34,7 +34,8 @@ import {
   Maximize2,
   ChevronDown,
   Globe,
-  Award
+  Award,
+  ArrowRight
 } from 'lucide-react';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';

@@ -121,7 +121,7 @@ const Home = () => {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
           >
-            <Link to="/signup" className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-black text-base shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
+            <Link to={user ? "/courses" : "/login"} className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-black text-base shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
               <Rocket size={18} /> Get Started
             </Link>
             <Link to="/courses" className="px-8 py-4 border-2 border-slate-700 text-white rounded-2xl font-black text-base hover:bg-slate-800/50 transition-all">

@@ -126,6 +126,18 @@ const SubscriptionPopup = ({ onClose, type }) => {
                 ))}
             </div>
 
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Selected Billing Tier</label>
+              <select 
+                value={selectedPlan}
+                onChange={(e) => setSelectedPlan(Number(e.target.value))}
+                className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-500 outline-none font-bold text-slate-700 transition-all text-sm cursor-pointer"
+              >
+                <option value={0}>Monthly Plan — ₹299 / month</option>
+                <option value={1}>Annual Savings — ₹2,999 / year (Recommended)</option>
+              </select>
+            </div>
+
             <div className="flex flex-col gap-4">
                 <button 
                     onClick={handleSubscribe}
