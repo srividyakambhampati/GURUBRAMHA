@@ -30,6 +30,8 @@ import {
 } from 'lucide-react';
 import Footer from '../components/Footer';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Documents = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -139,7 +141,7 @@ const Documents = () => {
   }, [location]);
 
   const handleLinkDigiLocker = () => {
-    window.location.href = 'http://localhost:5000/api/digilocker/authorize';
+    window.location.href = `${API_BASE_URL}/api/digilocker/authorize`;
   };
 
   return (

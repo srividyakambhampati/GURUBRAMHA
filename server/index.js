@@ -8,8 +8,19 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.FRONTEND_URL // Will be added in Azure App Service Configuration
+];
+
 app.use(cors({
-    origin: 'http://localhost:5173', // Vite default port
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 app.use(express.json());

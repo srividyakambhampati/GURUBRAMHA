@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export const loadRazorpay = () => {
   return new Promise((resolve) => {
     const script = document.createElement('script');
@@ -12,7 +14,7 @@ export const loadRazorpay = () => {
 
 export const handlePayment = async ({ amount, currency = 'INR', description, user, onSuccess }) => {
   try {
-    const { data: order } = await axios.post('http://localhost:5000/api/payment/order', {
+    const { data: order } = await axios.post(`${API_BASE_URL}/api/payment/order`, {
       amount,
       currency,
       receipt: `receipt_${Date.now()}`
@@ -42,7 +44,7 @@ export const handlePayment = async ({ amount, currency = 'INR', description, use
       order_id: order.id,
       handler: async (response) => {
         try {
-          const verifyRes = await axios.post('http://localhost:5000/api/payment/verify', response);
+          const verifyRes = await axios.post(`${API_BASE_URL}/api/payment/verify`, response);
           if (verifyRes.data.message === "Payment verified successfully") {
             alert('✅ Payment Successful! Welcome to GuruBramha Academy.');
             if (onSuccess) {
