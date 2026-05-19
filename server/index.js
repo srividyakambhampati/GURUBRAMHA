@@ -33,9 +33,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('✅ Connected to MongoDB'))
-    .catch((err) => console.error('❌ MongoDB connection error:', err));
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI)
+        .then(() => console.log('✅ Connected to MongoDB'))
+        .catch((err) => console.error('❌ MongoDB connection error:', err));
+} else {
+    console.error('❌ WARNING: MONGODB_URI is not defined in the environment variables. Database features will fail.');
+}
 
 const paymentRoutes = require('./routes/payment');
 const digilockerRoutes = require('./routes/digilocker');
@@ -43,6 +47,32 @@ const digilockerRoutes = require('./routes/digilocker');
 // API routes
 app.use('/api/payment', paymentRoutes);
 app.use('/api/digilocker', digilockerRoutes);
+
+// Debug endpoint to check files on Azure
+app.get('/api/debug', (req, res) => {
+    const fs = require('fs');
+    try {
+        const pubPath = path.join(__dirname, 'public');
+        const files = fs.readdirSync(pubPath);
+        const indexHtml = path.join(pubPath, 'index.html');
+        const stats = fs.statSync(indexHtml);
+        const content = fs.readFileSync(indexHtml, 'utf8');
+        res.json({
+            status: 'ok',
+            publicFiles: files,
+            indexSize: stats.size,
+            indexPreview: content.substring(0, 200)
+        });
+    } catch (e) {
+        res.status(500).json({ error: e.toString() });
+    }
+});
+
+// Request logger
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
 
 // Serve React static files from server/public
 const clientDistPath = path.join(__dirname, 'public');
