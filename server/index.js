@@ -76,10 +76,20 @@ app.use((req, res, next) => {
 
 // Serve React static files from server/public
 const clientDistPath = path.join(__dirname, 'public');
-app.use(express.static(clientDistPath, { maxAge: '1d' }));
+app.use(express.static(clientDistPath, {
+    setHeaders: (res, path) => {
+        if (path.endsWith('index.html')) {
+            // Do not cache index.html
+            res.setHeader('Cache-Control', 'no-cache');
+        } else {
+            // Cache static assets for 1 year
+            res.setHeader('Cache-Control', 'public, max-age=31536000');
+        }
+    }
+}));
 
 // For any non-API route, serve the React app (client-side routing)
-app.use((req, res) => {
+app.get('/*', (req, res) => {
     const indexPath = path.join(__dirname, 'public', 'index.html');
     res.sendFile(indexPath, (err) => {
         if (err) {
