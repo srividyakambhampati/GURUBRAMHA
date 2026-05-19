@@ -89,7 +89,7 @@ app.use(express.static(clientDistPath, {
 }));
 
 // For any non-API route, serve the React app (client-side routing)
-app.get('/*', (req, res) => {
+app.get(/.*/, (req, res) => {
     const indexPath = path.join(__dirname, 'public', 'index.html');
     res.sendFile(indexPath, (err) => {
         if (err) {
