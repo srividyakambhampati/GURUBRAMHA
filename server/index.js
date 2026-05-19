@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -49,6 +50,14 @@ const digilockerRoutes = require('./routes/digilocker');
 // app.use('/api/auth', authRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/digilocker', digilockerRoutes);
+
+// Serve the React frontend in production
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Handle any other route by sending the React index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
