@@ -52,7 +52,7 @@ app.use('/api/digilocker', digilockerRoutes);
 app.use(express.static(path.join(__dirname, 'client-dist')));
 
 // Handle any other route by sending the React index.html
-app.get('*', (req, res) => {
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'client-dist/index.html'));
 });
 
