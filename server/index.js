@@ -74,15 +74,19 @@ app.use((req, res, next) => {
     next();
 });
 
-// Serve React static files from server/public
-const clientDistPath = path.join(__dirname, 'public');
+// Serve React static files
+// Locally, it uses ../client/dist. On Azure, the Github Action copies it to ./public
+const fs = require('fs');
+let clientDistPath = path.join(__dirname, '../client/dist');
+if (fs.existsSync(path.join(__dirname, 'public', 'index.html'))) {
+    clientDistPath = path.join(__dirname, 'public');
+}
+
 app.use(express.static(clientDistPath, {
     setHeaders: (res, path) => {
         if (path.endsWith('index.html')) {
-            // Do not cache index.html
             res.setHeader('Cache-Control', 'no-cache');
         } else {
-            // Cache static assets for 1 year
             res.setHeader('Cache-Control', 'public, max-age=31536000');
         }
     }
@@ -90,7 +94,7 @@ app.use(express.static(clientDistPath, {
 
 // For any non-API route, serve the React app (client-side routing)
 app.get(/.*/, (req, res) => {
-    const indexPath = path.join(__dirname, 'public', 'index.html');
+    const indexPath = path.join(clientDistPath, 'index.html');
     res.sendFile(indexPath, (err) => {
         if (err) {
             console.error('Error sending index.html:', err);
