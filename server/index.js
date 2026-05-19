@@ -32,10 +32,7 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('✅ Connected to MongoDB'))
     .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// Basic route
-app.get('/', (req, res) => {
-    res.send('GuruBramha API is running...');
-});
+
 
 // Import routes (to be created)
 // const authRoutes = require('./routes/auth');
