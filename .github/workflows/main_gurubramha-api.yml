@@ -29,7 +29,8 @@ jobs:
           cd client
           npm run build
           cd ..
-          cp -r client/dist server/client-dist
+          mkdir -p server/public
+          cp -r client/dist/. server/public/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4

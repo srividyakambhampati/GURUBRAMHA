@@ -49,11 +49,11 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/digilocker', digilockerRoutes);
 
 // Serve the React frontend in production
-app.use(express.static(path.join(__dirname, 'client-dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Handle any other route by sending the React index.html
 app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'client-dist/index.html'));
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.listen(PORT, () => {
