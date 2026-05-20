@@ -49,6 +49,7 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/digilocker', digilockerRoutes);
 
 // Debug endpoint to check files on Azure
+let lastError = null;
 app.get('/api/debug', (req, res) => {
     const fs = require('fs');
     try {
@@ -57,14 +58,24 @@ app.get('/api/debug', (req, res) => {
         const indexHtml = path.join(pubPath, 'index.html');
         const stats = fs.statSync(indexHtml);
         const content = fs.readFileSync(indexHtml, 'utf8');
+        
+        let assetsFiles = [];
+        try {
+            assetsFiles = fs.readdirSync(path.join(pubPath, 'assets'));
+        } catch (assetErr) {
+            assetsFiles = ['Error listing assets: ' + assetErr.toString()];
+        }
+
         res.json({
             status: 'ok',
             publicFiles: files,
+            assetsFiles: assetsFiles,
             indexSize: stats.size,
-            indexPreview: content.substring(0, 200)
+            indexPreview: content.substring(0, 200),
+            lastError: lastError ? { message: lastError.message, stack: lastError.stack } : null
         });
     } catch (e) {
-        res.status(500).json({ error: e.toString() });
+        res.status(500).json({ error: e.toString(), lastError: lastError ? { message: lastError.message, stack: lastError.stack } : null });
     }
 });
 
@@ -98,6 +109,7 @@ app.get(/.*/, (req, res) => {
     res.sendFile(indexPath, (err) => {
         if (err) {
             console.error('Error sending index.html:', err);
+            lastError = err;
             res.status(500).send('Application error: could not load frontend.');
         }
     });
