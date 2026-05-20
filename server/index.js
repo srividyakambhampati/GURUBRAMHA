@@ -94,11 +94,15 @@ if (fs.existsSync(path.join(__dirname, 'public', 'index.html'))) {
 }
 
 app.use(express.static(clientDistPath, {
-    setHeaders: (res, path) => {
-        if (path.endsWith('index.html')) {
-            res.setHeader('Cache-Control', 'no-cache');
-        } else {
-            res.setHeader('Cache-Control', 'public, max-age=31536000');
+    setHeaders: (res, filePath) => {
+        try {
+            if (typeof filePath === 'string' && filePath.endsWith('index.html')) {
+                res.setHeader('Cache-Control', 'no-cache');
+            } else {
+                res.setHeader('Cache-Control', 'public, max-age=31536000');
+            }
+        } catch (headerErr) {
+            console.error('Error in setHeaders callback:', headerErr);
         }
     }
 }));
