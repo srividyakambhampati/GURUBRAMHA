@@ -118,6 +118,17 @@ app.get(/.*/, (req, res) => {
     });
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('⚠️ Unhandled Express Error:', err);
+    lastError = err;
+    res.status(500).json({
+        error: 'Express Unhandled Error',
+        message: err.message,
+        stack: err.stack
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     console.log(`📁 Serving static files from: ${clientDistPath}`);
