@@ -88,10 +88,9 @@ app.use((req, res, next) => {
 // Serve React static files
 // Locally, it uses ../client/dist. On Azure, the Github Action copies it to ./public
 const fs = require('fs');
-let clientDistPath = path.join(__dirname, '../client/dist');
-if (fs.existsSync(path.join(__dirname, 'public', 'index.html'))) {
-    clientDistPath = path.join(__dirname, 'public');
-}
+const clientDistPath = (process.env.NODE_ENV === 'production' || !fs.existsSync(path.join(__dirname, '../client/dist')))
+    ? path.join(__dirname, 'public')
+    : path.join(__dirname, '../client/dist');
 
 app.use(express.static(clientDistPath, {
     setHeaders: (res, filePath) => {
