@@ -14,7 +14,15 @@ const allowedOrigins = [
   'http://localhost:3000',
 ];
 if (process.env.FRONTEND_URL) {
+  // Add the URL as provided
   allowedOrigins.push(process.env.FRONTEND_URL);
+  
+  // Also add it without a trailing slash (if it has one) or with a trailing slash (if it doesn't)
+  if (process.env.FRONTEND_URL.endsWith('/')) {
+    allowedOrigins.push(process.env.FRONTEND_URL.slice(0, -1));
+  } else {
+    allowedOrigins.push(process.env.FRONTEND_URL + '/');
+  }
 }
 
 app.use(cors({
