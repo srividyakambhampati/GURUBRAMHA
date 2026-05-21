@@ -3,155 +3,275 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const fs = require('fs');
+
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// CORS — allow localhost in dev; in production, same-domain requests have no Origin header so they pass automatically
+// Azure prefers PORT from environment
+const PORT = process.env.PORT || 8080;
+
+/* ======================================================
+   CORS CONFIGURATION
+====================================================== */
+
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
     'https://gray-meadow-0f33d7a00.7.azurestaticapps.net'
 ];
 
-app.use(cors({
-    origin: function (origin, callback) {
-
-        console.log("Incoming Origin:", origin);
-
-        // Allow requests with no origin
-        if (!origin) return callback(null, true);
-
-        // Remove trailing slash if exists
-        const cleanOrigin = origin.replace(/\/$/, '');
-
-        if (allowedOrigins.includes(cleanOrigin)) {
-            callback(null, true);
-        } else {
-            console.log("Blocked by CORS:", cleanOrigin);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true
-}));
 if (process.env.FRONTEND_URL) {
-  // Add the URL as provided
-  allowedOrigins.push(process.env.FRONTEND_URL);
-  
-  // Also add it without a trailing slash (if it has one) or with a trailing slash (if it doesn't)
-  if (process.env.FRONTEND_URL.endsWith('/')) {
-    allowedOrigins.push(process.env.FRONTEND_URL.slice(0, -1));
-  } else {
-    allowedOrigins.push(process.env.FRONTEND_URL + '/');
-  }
+    allowedOrigins.push(process.env.FRONTEND_URL);
 }
 
 app.use(cors({
     origin: function (origin, callback) {
-        // Allow requests with no origin (same-domain, mobile apps, Postman)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
+
+        console.log('Incoming Origin:', origin);
+
+        // Allow requests without origin
+        // (Postman, mobile apps, same-origin requests)
+        if (!origin) {
+            return callback(null, true);
         }
+
+        // Remove trailing slash
+        const cleanOrigin = origin.replace(/\/$/, '');
+
+        // Allow localhost
+        if (cleanOrigin.includes('localhost')) {
+            return callback(null, true);
+        }
+
+        // Allow Azure Static Web Apps
+        if (cleanOrigin.includes('azurestaticapps.net')) {
+            return callback(null, true);
+        }
+
+        // Allow Azure App Service / SCM / Kudu
+        if (cleanOrigin.includes('azurewebsites.net')) {
+            return callback(null, true);
+        }
+
+        // Allow manually added origins
+        if (allowedOrigins.includes(cleanOrigin)) {
+            return callback(null, true);
+        }
+
+        console.log('Blocked by CORS:', cleanOrigin);
+
+        callback(new Error('Not allowed by CORS'));
     },
+
     credentials: true
 }));
+
+/* ======================================================
+   MIDDLEWARE
+====================================================== */
+
 app.use(express.json());
 app.use(cookieParser());
 
-// Database connection
-if (process.env.MONGODB_URI) {
-    mongoose.connect(process.env.MONGODB_URI)
-        .then(() => console.log('✅ Connected to MongoDB'))
-        .catch((err) => console.error('❌ MongoDB connection error:', err));
-} else {
-    console.error('❌ WARNING: MONGODB_URI is not defined in the environment variables. Database features will fail.');
-}
+/* ======================================================
+   REQUEST LOGGER
+====================================================== */
 
-const paymentRoutes = require('./routes/payment');
-const digilockerRoutes = require('./routes/digilocker');
-
-// API routes
-app.use('/api/payment', paymentRoutes);
-app.use('/api/digilocker', digilockerRoutes);
-
-// Debug endpoint to check files on Azure
-let lastError = null;
-app.get('/api/debug', (req, res) => {
-    const fs = require('fs');
-    try {
-        const pubPath = path.join(__dirname, 'public');
-        const files = fs.readdirSync(pubPath);
-        const indexHtml = path.join(pubPath, 'index.html');
-        const stats = fs.statSync(indexHtml);
-        const content = fs.readFileSync(indexHtml, 'utf8');
-        
-        let assetsFiles = [];
-        try {
-            assetsFiles = fs.readdirSync(path.join(pubPath, 'assets'));
-        } catch (assetErr) {
-            assetsFiles = ['Error listing assets: ' + assetErr.toString()];
-        }
-
-        res.json({
-            status: 'ok',
-            publicFiles: files,
-            assetsFiles: assetsFiles,
-            indexSize: stats.size,
-            indexPreview: content.substring(0, 200),
-            lastError: lastError ? { message: lastError.message, stack: lastError.stack } : null
-        });
-    } catch (e) {
-        res.status(500).json({ error: e.toString(), lastError: lastError ? { message: lastError.message, stack: lastError.stack } : null });
-    }
-});
-
-// Request logger
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next();
 });
 
-// Serve React static files
-// Locally, it uses ../client/dist. On Azure, the Github Action copies it to ./public
-const fs = require('fs');
-const clientDistPath = (process.env.NODE_ENV === 'production' || !fs.existsSync(path.join(__dirname, '../client/dist')))
-    ? path.join(__dirname, 'public')
-    : path.join(__dirname, '../client/dist');
+/* ======================================================
+   DATABASE CONNECTION
+====================================================== */
+
+if (process.env.MONGODB_URI) {
+
+    mongoose.connect(process.env.MONGODB_URI)
+
+        .then(() => {
+            console.log('✅ Connected to MongoDB');
+        })
+
+        .catch((err) => {
+            console.error('❌ MongoDB connection error:', err);
+        });
+
+} else {
+
+    console.error(
+        '❌ WARNING: MONGODB_URI is not defined in environment variables.'
+    );
+}
+
+/* ======================================================
+   ROUTES
+====================================================== */
+
+const paymentRoutes = require('./routes/payment');
+const digilockerRoutes = require('./routes/digilocker');
+
+app.use('/api/payment', paymentRoutes);
+app.use('/api/digilocker', digilockerRoutes);
+
+/* ======================================================
+   DEBUG ENDPOINT
+====================================================== */
+
+let lastError = null;
+
+app.get('/api/debug', (req, res) => {
+
+    try {
+
+        const pubPath = path.join(__dirname, 'public');
+
+        const files = fs.readdirSync(pubPath);
+
+        let assetsFiles = [];
+
+        try {
+
+            assetsFiles = fs.readdirSync(
+                path.join(pubPath, 'assets')
+            );
+
+        } catch (assetErr) {
+
+            assetsFiles = [
+                'Error listing assets: ' + assetErr.toString()
+            ];
+        }
+
+        const indexHtml = path.join(pubPath, 'index.html');
+
+        const stats = fs.statSync(indexHtml);
+
+        const content = fs.readFileSync(indexHtml, 'utf8');
+
+        res.json({
+            status: 'ok',
+            publicFiles: files,
+            assetsFiles,
+            indexSize: stats.size,
+            indexPreview: content.substring(0, 200),
+
+            lastError: lastError
+                ? {
+                    message: lastError.message,
+                    stack: lastError.stack
+                }
+                : null
+        });
+
+    } catch (e) {
+
+        res.status(500).json({
+            error: e.toString(),
+
+            lastError: lastError
+                ? {
+                    message: lastError.message,
+                    stack: lastError.stack
+                }
+                : null
+        });
+    }
+});
+
+/* ======================================================
+   STATIC FILES
+====================================================== */
+
+const clientDistPath =
+    (
+        process.env.NODE_ENV === 'production' ||
+        !fs.existsSync(path.join(__dirname, '../client/dist'))
+    )
+        ? path.join(__dirname, 'public')
+        : path.join(__dirname, '../client/dist');
+
+console.log('📁 Serving static files from:', clientDistPath);
 
 app.use(express.static(clientDistPath, {
+
     setHeaders: (res, filePath) => {
+
         try {
-            if (typeof filePath === 'string' && filePath.endsWith('index.html')) {
-                res.setHeader('Cache-Control', 'no-cache');
+
+            if (
+                typeof filePath === 'string' &&
+                filePath.endsWith('index.html')
+            ) {
+
+                res.setHeader(
+                    'Cache-Control',
+                    'no-cache'
+                );
+
             } else {
-                res.setHeader('Cache-Control', 'public, max-age=31536000');
+
+                res.setHeader(
+                    'Cache-Control',
+                    'public, max-age=31536000'
+                );
             }
+
         } catch (headerErr) {
-            console.error('Error in setHeaders callback:', headerErr);
+
+            console.error(
+                'Error in setHeaders callback:',
+                headerErr
+            );
         }
     }
 }));
 
-// For any non-API route, serve the React app (client-side routing)
+/* ======================================================
+   REACT CLIENT-SIDE ROUTING
+====================================================== */
+
 app.get(/.*/, (req, res) => {
-    const indexPath = path.join(clientDistPath, 'index.html');
+
+    const indexPath = path.join(
+        clientDistPath,
+        'index.html'
+    );
+
     res.sendFile(indexPath, (err) => {
+
         if (err) {
-            console.error('Error sending index.html:', err);
+
+            console.error(
+                'Error sending index.html:',
+                err
+            );
+
             lastError = err;
-            res.status(500).send('Application error: could not load frontend.');
+
+            res.status(500).send(
+                'Application error: could not load frontend.'
+            );
         }
     });
 });
 
-// Error handling middleware
+/* ======================================================
+   ERROR HANDLER
+====================================================== */
+
 app.use((err, req, res, next) => {
-    console.error('⚠️ Unhandled Express Error:', err);
+
+    console.error(
+        '⚠️ Unhandled Express Error:',
+        err
+    );
+
     lastError = err;
+
     res.status(500).json({
         error: 'Express Unhandled Error',
         message: err.message,
@@ -159,7 +279,15 @@ app.use((err, req, res, next) => {
     });
 });
 
+/* ======================================================
+   START SERVER
+====================================================== */
+
 app.listen(PORT, () => {
+
     console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📁 Serving static files from: ${clientDistPath}`);
+
+    console.log(
+        `📁 Serving static files from: ${clientDistPath}`
+    );
 });
