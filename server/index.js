@@ -10,10 +10,31 @@ const PORT = process.env.PORT || 5000;
 
 // CORS — allow localhost in dev; in production, same-domain requests have no Origin header so they pass automatically
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
-  'https://gray-meadow-0f33d7a00.7.azurestaticapps.net',
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://gray-meadow-0f33d7a00.7.azurestaticapps.net'
 ];
+
+app.use(cors({
+    origin: function (origin, callback) {
+
+        console.log("Incoming Origin:", origin);
+
+        // Allow requests with no origin
+        if (!origin) return callback(null, true);
+
+        // Remove trailing slash if exists
+        const cleanOrigin = origin.replace(/\/$/, '');
+
+        if (allowedOrigins.includes(cleanOrigin)) {
+            callback(null, true);
+        } else {
+            console.log("Blocked by CORS:", cleanOrigin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
 if (process.env.FRONTEND_URL) {
   // Add the URL as provided
   allowedOrigins.push(process.env.FRONTEND_URL);
