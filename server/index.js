@@ -10,19 +10,20 @@ const PORT = process.env.PORT || 5000;
 
 // CORS — allow localhost in dev; in production, same-domain requests have no Origin header so they pass automatically
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://gray-meadow-0f33d7a00.7.azurestaticapps.net',
 ];
 if (process.env.FRONTEND_URL) {
-  // Add the URL as provided
-  allowedOrigins.push(process.env.FRONTEND_URL);
-  
-  // Also add it without a trailing slash (if it has one) or with a trailing slash (if it doesn't)
-  if (process.env.FRONTEND_URL.endsWith('/')) {
-    allowedOrigins.push(process.env.FRONTEND_URL.slice(0, -1));
-  } else {
-    allowedOrigins.push(process.env.FRONTEND_URL + '/');
-  }
+    // Add the URL as provided
+    allowedOrigins.push(process.env.FRONTEND_URL);
+
+    // Also add it without a trailing slash (if it has one) or with a trailing slash (if it doesn't)
+    if (process.env.FRONTEND_URL.endsWith('/')) {
+        allowedOrigins.push(process.env.FRONTEND_URL.slice(0, -1));
+    } else {
+        allowedOrigins.push(process.env.FRONTEND_URL + '/');
+    }
 }
 
 app.use(cors({
@@ -66,7 +67,7 @@ app.get('/api/debug', (req, res) => {
         const indexHtml = path.join(pubPath, 'index.html');
         const stats = fs.statSync(indexHtml);
         const content = fs.readFileSync(indexHtml, 'utf8');
-        
+
         let assetsFiles = [];
         try {
             assetsFiles = fs.readdirSync(path.join(pubPath, 'assets'));
