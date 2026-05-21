@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
+  'https://gray-meadow-0f33d7a00.7.azurestaticapps.net',
 ];
 if (process.env.FRONTEND_URL) {
   // Add the URL as provided
