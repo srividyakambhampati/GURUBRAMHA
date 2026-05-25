@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import Profile from './pages/Profile';
 import Documents from './pages/Documents';
 import MyCourses from './pages/MyCourses';
+import ComingSoon from './pages/ComingSoon';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AnimatePresence } from 'framer-motion';
 
@@ -61,6 +62,7 @@ function App() {
               <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="/documents" element={<ProtectedRoute><Documents /></ProtectedRoute>} />
               <Route path="/my-courses" element={<ProtectedRoute><MyCourses /></ProtectedRoute>} />
+              <Route path="/coming-soon" element={<ProtectedRoute><ComingSoon /></ProtectedRoute>} />
             </Routes>
           </PageWrapper>
         </main>

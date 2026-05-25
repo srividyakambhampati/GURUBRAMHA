@@ -266,7 +266,7 @@ const Interview = () => {
             <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-5xl md:text-8xl font-black text-white mb-10 tracking-tight"
+                className="text-5xl md:text-8xl font-black text-slate-900 mb-10 tracking-tight"
             >
                 Elite <span className="text-[#FFB800]">Roadmaps</span>
             </motion.h1>
@@ -283,7 +283,7 @@ const Interview = () => {
         >
             <div className="flex flex-col lg:flex-row items-center gap-10">
                 <div className="relative flex-grow w-full group">
-                    <div className="absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-indigo-600 transition-colors">
+                    <div className="absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-orange-600 transition-colors">
                         <Search size={24} />
                     </div>
                     <input 
@@ -291,7 +291,7 @@ const Interview = () => {
                         placeholder="Identify specific company roadmaps (e.g. Google, Amazon...)"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-20 pr-10 py-6 bg-slate-50 border border-slate-100 rounded-[30px] font-black text-slate-900 shadow-inner outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all placeholder:text-slate-300"
+                        className="w-full pl-20 pr-10 py-6 bg-slate-50 border border-slate-100 rounded-[30px] font-black text-slate-900 shadow-inner outline-none focus:ring-4 focus:ring-orange-500/10 transition-all placeholder:text-slate-300"
                     />
                 </div>
                 <div className="flex items-center gap-4 overflow-x-auto pb-4 lg:pb-0 w-full lg:w-auto">
@@ -302,7 +302,7 @@ const Interview = () => {
                             className={`px-10 py-5 rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap shadow-2xl ${
                                 activeFilter === filter 
                                     ? 'bg-slate-900 text-[#FFB800] scale-105 shadow-slate-900/40' 
-                                    : 'bg-slate-50 text-slate-400 border border-slate-100 hover:border-indigo-200'
+                                    : 'bg-slate-50 text-slate-400 border border-slate-100 hover:border-orange-200'
                             }`}
                         >
                             {filter}
@@ -320,7 +320,7 @@ const Interview = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-white rounded-[48px] p-0 shadow-2xl hover:shadow-indigo-500/20 transition-all group overflow-hidden flex flex-col border border-white/20"
+                    className="bg-white rounded-[48px] p-0 shadow-2xl hover:shadow-orange-500/20 transition-all group overflow-hidden flex flex-col border border-white/20"
                 >
                     <div className="p-10 flex-grow">
                         <div className="flex items-start justify-between mb-10">
@@ -329,20 +329,20 @@ const Interview = () => {
                             </div>
                             <button 
                                 onClick={(e) => { e.stopPropagation(); toggleBookmark(company.id); }}
-                                className={`p-4 rounded-2xl transition-all shadow-sm ${bookmarked.includes(company.id) ? 'bg-[#FFB800] text-slate-900' : 'bg-slate-50 text-slate-300 hover:text-indigo-600'}`}
+                                className={`p-4 rounded-2xl transition-all shadow-sm ${bookmarked.includes(company.id) ? 'bg-[#FFB800] text-slate-900' : 'bg-slate-50 text-slate-300 hover:text-orange-600'}`}
                             >
                                 <Bookmark size={22} fill={bookmarked.includes(company.id) ? 'currentColor' : 'none'} />
                             </button>
                         </div>
                         <div className="mb-10">
-                            <h3 className="text-3xl font-black text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors tracking-tight">{company.name}</h3>
+                            <h3 className="text-3xl font-black text-slate-900 mb-3 group-hover:text-orange-600 transition-colors tracking-tight">{company.name}</h3>
                             <div className="flex flex-wrap gap-3">
                                 <span className="px-4 py-1.5 bg-slate-900 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
                                     {company.type}
                                 </span>
                                 <span className={`px-4 py-1.5 text-[9px] font-black uppercase tracking-widest rounded-full ${
-                                    company.difficulty === 'Expert' ? 'bg-red-600 text-white' : 
-                                    company.difficulty === 'Hard' ? 'bg-orange-500 text-white' : 'bg-green-500 text-white'
+                                    company.difficulty === 'Expert' ? 'bg-red-600 text-slate-900' : 
+                                    company.difficulty === 'Hard' ? 'bg-orange-500 text-slate-900' : 'bg-green-500 text-slate-900'
                                 } shadow-lg shadow-black/10`}>
                                     {company.difficulty}
                                 </span>
@@ -361,7 +361,7 @@ const Interview = () => {
                     </div>
                     <button 
                         onClick={() => handleAction(company)}
-                        className="w-full py-7 bg-slate-900 text-white font-black uppercase text-[10px] tracking-[0.3em] group-hover:bg-indigo-600 group-hover:text-[#FFB800] transition-all flex items-center justify-center gap-4"
+                        className="w-full py-7 bg-slate-900 text-white font-black uppercase text-[10px] tracking-[0.3em] group-hover:bg-orange-600 group-hover:text-[#FFB800] transition-all flex items-center justify-center gap-4"
                     >
                         Access Roadmap <ChevronRight size={18} />
                     </button>
@@ -375,7 +375,7 @@ const Interview = () => {
                 <div className="w-24 h-24 bg-white/5 rounded-[40px] flex items-center justify-center text-slate-800 mx-auto mb-8 border border-white/5 shadow-2xl">
                     <Shield size={44} />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-4 tracking-tight">No protocols identified</h3>
+                <h3 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">No protocols identified</h3>
                 <p className="text-slate-500 font-bold text-lg">Try adjusting your filtration parameters.</p>
             </div>
         )}
@@ -391,14 +391,14 @@ const Interview = () => {
                     exit={{ scale: 0.95, opacity: 0, y: 30 }}
                     className="w-full max-w-7xl bg-white rounded-[64px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] relative border border-white/20 overflow-hidden flex flex-col lg:flex-row max-h-[90vh]"
                 >
-                    <button onClick={() => setSelectedCompany(null)} className="absolute top-10 right-10 p-5 text-slate-400 hover:text-indigo-600 bg-slate-50 rounded-[24px] transition-all z-[1010] shadow-xl"><X size={32} /></button>
+                    <button onClick={() => setSelectedCompany(null)} className="absolute top-10 right-10 p-5 text-slate-400 hover:text-orange-600 bg-slate-50 rounded-[24px] transition-all z-[1010] shadow-xl"><X size={32} /></button>
                     
                     {/* Left Info Panel */}
                     <div className="lg:w-[450px] bg-slate-900 p-16 overflow-y-auto flex-shrink-0 flex flex-col">
                         <div className="w-32 h-32 bg-white rounded-[40px] flex items-center justify-center p-6 shadow-2xl mb-16 self-center lg:self-start">
                             <img src={selectedCompany.logo} alt={selectedCompany.name} className="w-full h-full object-contain" />
                         </div>
-                        <h2 className="text-5xl font-black text-white mb-6 tracking-tighter leading-none">{selectedCompany.name}</h2>
+                        <h2 className="text-5xl font-black text-slate-900 mb-6 tracking-tighter leading-none">{selectedCompany.name}</h2>
                         <div className="inline-block self-start px-6 py-2 bg-[#FFB800] text-slate-900 text-[10px] font-black uppercase tracking-[0.3em] rounded-full mb-16 shadow-2xl">
                             {selectedCompany.type}
                         </div>
@@ -449,7 +449,7 @@ const Interview = () => {
 
                         <div className="space-y-10">
                             <h3 className="text-3xl font-black text-slate-900 mb-12 flex items-center gap-6">
-                                <Layout className="text-indigo-600" /> Operational Breakdown
+                                <Layout className="text-orange-600" /> Operational Breakdown
                             </h3>
                             {selectedCompany.rounds.map((round, idx) => (
                                 <details key={idx} className="group bg-slate-50 border border-slate-100 rounded-[40px] overflow-hidden transition-all shadow-sm open:shadow-2xl open:bg-white">
@@ -463,11 +463,11 @@ const Interview = () => {
                                         <ChevronRight size={28} className="text-slate-300 group-open:rotate-90 transition-transform" />
                                     </summary>
                                     <div className="p-12 border-t border-slate-100 bg-white">
-                                        <h5 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-8">Target Competencies:</h5>
+                                        <h5 className="text-[10px] font-black text-orange-600 uppercase tracking-[0.4em] mb-8">Target Competencies:</h5>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                             {round.topics.map(topic => (
                                                 <div key={topic} className="flex items-center gap-4 bg-slate-50 p-5 rounded-[24px] border border-slate-100">
-                                                    <div className="w-3 h-3 rounded-full bg-indigo-600 shadow-lg shadow-indigo-500/50"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-orange-600 shadow-lg shadow-orange-500/50"></div>
                                                     <span className="text-sm font-black text-slate-700 uppercase tracking-widest">{topic}</span>
                                                 </div>
                                             ))}
@@ -477,8 +477,8 @@ const Interview = () => {
                             ))}
                         </div>
 
-                        <div className="mt-24 p-16 bg-slate-900 rounded-[56px] text-white shadow-2xl relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-[100px]"></div>
+                        <div className="mt-24 p-16 bg-slate-900 rounded-[56px] text-slate-900 shadow-2xl relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/20 rounded-full blur-[100px]"></div>
                             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                                 <div className="max-w-xl text-center md:text-left">
                                     <h3 className="text-4xl font-black mb-4 tracking-tighter leading-none">Simulate Reality?</h3>

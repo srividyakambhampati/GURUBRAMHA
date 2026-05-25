@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuruBramha Database Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9fafb;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .main-title {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+        .section-title {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .sub-section-title {
+            color: #1f2937;
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .item-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .item-label {
+            font-weight: 700;
+            width: 250px;
+            flex-shrink: 0;
+            color: #4b5563;
+        }
+        .item-value {
+            color: #1f2937;
+        }
+        .table-container {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .field-row {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .field-row::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #94a3b8;
+        }
+        .field-name {
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .field-type {
+            color: #64748b;
+            font-style: italic;
+        }
+        .field-desc {
+            color: #334155;
+        }
+        .badge-primary {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-secondary {
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .paragraph {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="main-title">GuruBramha Platform</div>
+    <div class="subtitle">Comprehensive Database Schema & Architecture Documentation</div>
+
+    <div class="section-title">1. Database Overview</div>
+    <div class="item-row">
+        <div class="item-label">Database Name:</div>
+        <div class="item-value">GuruBramha DB</div>
+    </div>
+    <div class="item-row">
+        <div class="item-label">Purpose:</div>
+        <div class="item-value">To securely manage and persist all platform data including user identities, elite course content, practice arena challenges, interview preparation roadmaps, transaction histories, and verified documents.</div>
+    </div>
+    <div class="item-row">
+        <div class="item-label">Technologies Used:</div>
+        <div class="item-value">MongoDB (NoSQL Database), Mongoose (Node.js ODM)</div>
+    </div>
+    <div class="item-row">
+        <div class="item-label">Connection Structure:</div>
+        <div class="item-value">The application connects to a MongoDB cluster using a secure connection string defined in the environment variables. The connection is established globally via the Mongoose driver.</div>
+    </div>
+
+    <div class="section-title">2. Complete Collections Structure</div>
+
+    <div class="sub-section-title">2.1 Users Collection</div>
+    <div class="paragraph">Stores user identities, academic profiles, external portfolio links, and subscription details.</div>
+    <div class="table-container">
+        <div class="field-row"><span class="field-name">_id</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Primary Key</span></div>
+        <div class="field-row"><span class="field-name">firebaseUid</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required, Unique</span> — Used for authentication sync.</div>
+        <div class="field-row"><span class="field-name">displayName</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span> — Full name of the user.</div>
+        <div class="field-row"><span class="field-name">email</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required, Unique</span></div>
+        <div class="field-row"><span class="field-name">phone, gender, college, branch, district, state</span> <span class="field-type">(String)</span> — <span class="badge-secondary">Optional</span> — Demographic and academic details.</div>
+        <div class="field-row"><span class="field-name">age</span> <span class="field-type">(Number)</span> — <span class="badge-secondary">Optional</span></div>
+        <div class="field-row"><span class="field-name">githubUrl, leetcodeUrl, codechefUrl</span> <span class="field-type">(String)</span> — <span class="badge-secondary">Optional</span> — Professional links.</div>
+        <div class="field-row"><span class="field-name">isSubscribed</span> <span class="field-type">(Boolean)</span> — Default: false — Premium access flag.</div>
+        <div class="field-row"><span class="field-name">scholarPoints, currentStreak</span> <span class="field-type">(Number)</span> — Default: 0 — Practice arena statistics.</div>
+        <div class="field-row"><span class="field-name">solvedProblems</span> <span class="field-type">(Array of ObjectIds)</span> — References the Problems Collection.</div>
+        <div class="field-row"><span class="field-name">bookmarkedCompanies</span> <span class="field-type">(Array of ObjectIds)</span> — References the Companies Collection.</div>
+    </div>
+
+    <div class="sub-section-title">2.2 Courses Collection</div>
+    <div class="paragraph">Stores details for the elite course library and curriculum.</div>
+    <div class="table-container">
+        <div class="field-row"><span class="field-name">_id</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Primary Key</span></div>
+        <div class="field-row"><span class="field-name">title, instructor, category</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span></div>
+        <div class="field-row"><span class="field-name">level</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span> — Enum: Beginner, Intermediate, Advanced.</div>
+        <div class="field-row"><span class="field-name">price</span> <span class="field-type">(Number)</span> — <span class="badge-primary">Required</span></div>
+        <div class="field-row"><span class="field-name">rating, reviewsCount, studentsEnrolled</span> <span class="field-type">(Number)</span> — Default: 0</div>
+        <div class="field-row"><span class="field-name">lessons</span> <span class="field-type">(Array of Objects)</span> — Contains title, duration, videoUrl, and isFreePreview flag.</div>
+    </div>
+
+    <div class="sub-section-title">2.3 Problems Collection</div>
+    <div class="paragraph">Stores coding challenges for the Elite Practice Arena.</div>
+    <div class="table-container">
+        <div class="field-row"><span class="field-name">_id</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Primary Key</span></div>
+        <div class="field-row"><span class="field-name">title, category, description</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span></div>
+        <div class="field-row"><span class="field-name">difficulty</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span> — Enum: Easy, Medium, Hard.</div>
+        <div class="field-row"><span class="field-name">accuracy</span> <span class="field-type">(Number)</span> — Default: 0</div>
+        <div class="field-row"><span class="field-name">points</span> <span class="field-type">(Number)</span> — Default: 100</div>
+        <div class="field-row"><span class="field-name">validationCases</span> <span class="field-type">(Array of Objects)</span> — Contains input, output, and isHidden flag.</div>
+    </div>
+
+    <div class="sub-section-title">2.4 Companies Collection</div>
+    <div class="paragraph">Stores interview preparation roadmaps and placement protocols.</div>
+    <div class="table-container">
+        <div class="field-row"><span class="field-name">_id</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Primary Key</span></div>
+        <div class="field-row"><span class="field-name">name</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span></div>
+        <div class="field-row"><span class="field-name">type</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span> — Enum: Product Based, Service Based, Startup.</div>
+        <div class="field-row"><span class="field-name">skills, process</span> <span class="field-type">(Array of Strings)</span></div>
+        <div class="field-row"><span class="field-name">rounds</span> <span class="field-type">(Array of Objects)</span> — Details the technical and HR rounds.</div>
+        <div class="field-row"><span class="field-name">roadmap30Days</span> <span class="field-type">(Array of Objects)</span> — Details week-by-week focus points.</div>
+    </div>
+
+    <div class="sub-section-title">2.5 Transactions Collection</div>
+    <div class="paragraph">Stores Razorpay payment and subscription details.</div>
+    <div class="table-container">
+        <div class="field-row"><span class="field-name">_id</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Primary Key</span></div>
+        <div class="field-row"><span class="field-name">user</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Required, Foreign Key</span> — Links to the Users collection.</div>
+        <div class="field-row"><span class="field-name">amount</span> <span class="field-type">(Number)</span> — <span class="badge-primary">Required</span></div>
+        <div class="field-row"><span class="field-name">razorpayOrderId</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required, Indexed</span></div>
+        <div class="field-row"><span class="field-name">status</span> <span class="field-type">(String)</span> — Enum: created, successful, failed (Default: created).</div>
+    </div>
+
+    <div class="sub-section-title">2.6 Documents Collection</div>
+    <div class="paragraph">Stores metadata for certificates fetched via DigiLocker.</div>
+    <div class="table-container">
+        <div class="field-row"><span class="field-name">_id</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Primary Key</span></div>
+        <div class="field-row"><span class="field-name">user</span> <span class="field-type">(ObjectId)</span> — <span class="badge-primary">Required, Foreign Key</span> — Links to the Users collection.</div>
+        <div class="field-row"><span class="field-name">digilockerId, name, uri</span> <span class="field-type">(String)</span> — <span class="badge-primary">Required</span></div>
+    </div>
+
+    <div class="section-title">3. User Side Database Structure</div>
+    <div class="paragraph">From the user's perspective, the database structure facilitates the following interactions:</div>
+    <div class="paragraph"><b>Authentication/Login:</b> Managed via Firebase on the frontend, which syncs with the users collection using the unique firebaseUid.</div>
+    <div class="paragraph"><b>Profile Data:</b> Users can update their academic history, age, gender, and social links (GitHub, LeetCode) directly into the users table.</div>
+    <div class="paragraph"><b>Courses & Subscriptions:</b> Users browse the courses collection. Initiating a purchase creates a transaction document. Upon success via Razorpay, the user's isSubscribed flag is set to true granting access to premium content.</div>
+    <div class="paragraph"><b>Practice/Coding:</b> Users query the problems collection. Successful submissions append the Problem ID to the user's solvedProblems array and increase their scholarPoints.</div>
+
+    <div class="section-title">4. Admin Side Database Structure</div>
+    <div class="paragraph">The admin perspective provides full control over the platform's content and tracking:</div>
+    <div class="paragraph"><b>User Management:</b> Admins can query the users collection to monitor scholar points, view academic demographics, or manually revoke/grant subscriptions.</div>
+    <div class="paragraph"><b>Content Management:</b> Admins have complete access to courses, problems, and companies. They can add new coding challenges, update curriculum videos, and add new interview roadmaps.</div>
+    <div class="paragraph"><b>Analytics:</b> Aggregating user solved problems, course enrollments, and problem accuracy helps admins track platform engagement and revenue.</div>
+
+    <div class="section-title">5. API & Backend Mapping</div>
+    <div class="item-row">
+        <div class="item-label">Profile Endpoints:</div>
+        <div class="item-value">/api/users/profile maps to User collection lookups and updates.</div>
+    </div>
+    <div class="item-row">
+        <div class="item-label">Course Endpoints:</div>
+        <div class="item-value">/api/courses maps to Course collection. Protected endpoints verify the User's subscription status.</div>
+    </div>
+    <div class="item-row">
+        <div class="item-label">Payment Endpoints:</div>
+        <div class="item-value">/api/payment/order and /api/payment/verify interact securely with Razorpay and the Transactions collection.</div>
+    </div>
+    <div class="item-row">
+        <div class="item-label">DigiLocker Endpoints:</div>
+        <div class="item-value">/api/digilocker handles OAuth flows and stores successful document links into the Documents collection.</div>
+    </div>
+
+    <div class="section-title">6. Deployment Readiness</div>
+    <div class="paragraph"><b>Environment Configuration:</b> The server requires specific environment variables including MONGODB_URI, RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, and DigiLocker credentials.</div>
+    <div class="paragraph"><b>Security Measures:</b> Mongoose enforces strict schema validation (Required fields, Enums, Number formats) preventing malformed data entry. Implicit indexes ensure rapid querying across massive datasets. Network access to the MongoDB cluster should be strictly IP-restricted for production environments.</div>
+
+</div>
+
+</body>
+</html>

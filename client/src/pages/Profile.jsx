@@ -45,7 +45,7 @@ const Profile = () => {
   ];
 
   return (
-    <div className="bg-[#0F172A] min-h-screen selection:bg-[#FFB800]/30 pb-20">
+    <div className="bg-slate-50 min-h-screen selection:bg-orange-500/30 pb-20">
       <div className="max-w-[1600px] mx-auto px-8 md:px-12 pt-10">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Sidebar Menu */}
@@ -53,25 +53,25 @@ const Profile = () => {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-[48px] p-12 text-center shadow-2xl relative overflow-hidden"
+              className="bg-white rounded-[48px] p-12 text-center shadow-sm border border-slate-100 relative overflow-hidden"
             >
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-[#FFB800] to-indigo-600"></div>
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 to-amber-500"></div>
                 <div className="relative inline-block mb-10 group">
                     {user?.photoURL ? (
-                        <img src={user.photoURL} alt="Profile" className="w-44 h-44 rounded-[40px] object-cover border-8 border-slate-50 shadow-2xl transition-transform group-hover:scale-105 duration-500" />
+                        <img src={user.photoURL} alt="Profile" className="w-44 h-44 rounded-[40px] object-cover border-8 border-white shadow-lg transition-transform group-hover:scale-105 duration-500" />
                     ) : (
-                        <div className="w-44 h-44 rounded-[40px] bg-gradient-to-br from-indigo-600 to-blue-600 flex items-center justify-center text-white text-6xl font-black shadow-2xl transition-transform group-hover:scale-105 duration-500">
+                        <div className="w-44 h-44 rounded-[40px] bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-white text-6xl font-black shadow-lg transition-transform group-hover:scale-105 duration-500">
                             {user?.displayName ? user.displayName[0] : 'U'}
                         </div>
                     )}
-                    <button className="absolute bottom-2 right-2 w-14 h-14 bg-white rounded-2xl shadow-2xl flex items-center justify-center text-indigo-600 hover:scale-110 hover:text-[#FFB800] transition-all border border-slate-100">
+                    <button className="absolute bottom-2 right-2 w-14 h-14 bg-white rounded-2xl shadow-lg flex items-center justify-center text-slate-600 hover:scale-110 hover:text-orange-500 transition-all border border-slate-100">
                         <Camera size={24} />
                     </button>
                 </div>
                 <h2 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">{user?.displayName || 'Guru Scholar'}</h2>
-                <p className="text-[#FFB800] text-[10px] font-black uppercase tracking-[0.3em] mb-10">Academy Scholar Level 1</p>
+                <p className="text-orange-500 text-[10px] font-black uppercase tracking-[0.3em] mb-10">Academy Scholar Level 1</p>
                 
-                <div className="p-5 bg-slate-900 rounded-[24px] text-[#FFB800] text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4 shadow-xl">
+                <div className="p-5 bg-orange-50 rounded-[24px] text-orange-600 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4 shadow-sm">
                     <Award size={18} /> Verified Professional
                 </div>
             </motion.div>
@@ -80,7 +80,7 @@ const Profile = () => {
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.1 }}
-               className="bg-white rounded-[48px] p-6 space-y-3 shadow-2xl"
+               className="bg-white rounded-[48px] p-6 space-y-3 shadow-sm border border-slate-100"
             >
                 {menuItems.map((item) => (
                     <button
@@ -88,12 +88,12 @@ const Profile = () => {
                         onClick={() => setActiveTab(item.id)}
                         className={`w-full flex items-center justify-between px-8 py-5 rounded-[24px] transition-all group ${
                             activeTab === item.id 
-                                ? 'bg-slate-900 text-[#FFB800] shadow-2xl' 
+                                ? 'bg-orange-50 text-orange-600 shadow-sm border border-orange-100' 
                                 : 'text-slate-500 hover:bg-slate-50'
                         }`}
                     >
                         <div className="flex items-center gap-5">
-                            <span className={activeTab === item.id ? 'text-[#FFB800]' : 'text-slate-400 group-hover:text-indigo-600'}>{item.icon}</span>
+                            <span className={activeTab === item.id ? 'text-orange-600' : 'text-slate-400 group-hover:text-orange-500'}>{item.icon}</span>
                             <span className="font-black text-xs uppercase tracking-widest">{item.label}</span>
                         </div>
                         <ChevronRight size={18} className={activeTab === item.id ? 'opacity-100' : 'opacity-20'} />
@@ -115,20 +115,20 @@ const Profile = () => {
             <motion.div 
                initial={{ opacity: 0, x: 20 }}
                animate={{ opacity: 1, x: 0 }}
-               className="bg-white rounded-[56px] p-12 md:p-16 min-h-[850px] shadow-2xl relative overflow-hidden"
+               className="bg-white rounded-[56px] p-12 md:p-16 min-h-[850px] shadow-sm border border-slate-100 relative overflow-hidden"
             >
-                <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-indigo-50 rounded-full blur-[100px] opacity-50"></div>
-                <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-blue-50 rounded-full blur-[100px] opacity-50"></div>
+                <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-orange-50 rounded-full blur-[100px] opacity-50"></div>
+                <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-amber-50 rounded-full blur-[100px] opacity-50"></div>
 
                 {activeTab === 'profile' && (
                     <div className="relative z-10 space-y-20">
                         <div>
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
                                 <div>
-                                    <h3 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Identity <span className="text-indigo-600">Blueprint</span></h3>
-                                    <p className="text-slate-400 font-bold text-sm">Manage your professional academic credentials.</p>
+                                    <h3 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Identity <span className="text-orange-500">Blueprint</span></h3>
+                                    <p className="text-slate-500 font-bold text-sm">Manage your professional academic credentials.</p>
                                 </div>
-                                <button className="px-8 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-indigo-600 transition-all shadow-2xl">Edit Profile</button>
+                                <button className="px-8 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-600 transition-all shadow-md">Edit Profile</button>
                             </div>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
@@ -149,13 +149,13 @@ const Profile = () => {
                                     <div key={i} className="space-y-3">
                                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">{field.label}</label>
                                         <div className="relative group">
-                                            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-hover:text-indigo-600 transition-colors">
+                                            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-hover:text-orange-500 transition-colors">
                                                 {field.icon}
                                             </div>
                                             <input 
                                                 type="text" 
                                                 placeholder={field.p}
-                                                className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-slate-800 shadow-sm text-sm focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600/20 outline-none transition-all placeholder:text-slate-300"
+                                                className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-slate-800 shadow-sm text-sm focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500/30 outline-none transition-all placeholder:text-slate-400"
                                             />
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@ const Profile = () => {
 
                         <div>
                             <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-5">
-                                <Code size={28} className="text-indigo-600" /> Professional Vaults
+                                <Code size={28} className="text-orange-500" /> Professional Vaults
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                                 {[
@@ -176,13 +176,13 @@ const Profile = () => {
                                     <div key={i} className="space-y-3">
                                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">{link.label}</label>
                                         <div className="relative group">
-                                            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-hover:text-indigo-600 transition-colors">
+                                            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-hover:text-orange-500 transition-colors">
                                                 {link.icon}
                                             </div>
                                             <input 
                                                 type="text" 
                                                 placeholder={`URL to ${link.label}`}
-                                                className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-slate-800 shadow-sm text-xs focus:ring-4 focus:ring-indigo-500/10 outline-none"
+                                                className="w-full pl-14 pr-6 py-5 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-slate-800 shadow-sm text-xs focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500/30 outline-none placeholder:text-slate-400"
                                             />
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@ const Profile = () => {
 
                         <div className="flex items-center justify-end gap-8 pt-10 border-t border-slate-50">
                             <button className="px-10 py-5 text-xs font-black uppercase tracking-[0.2em] text-slate-400 hover:text-slate-900 transition-all">Discard Changes</button>
-                            <button className="px-12 py-5 bg-indigo-600 text-white font-black rounded-2xl text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-indigo-200 hover:scale-[1.05] active:scale-[0.95] transition-all">Save Blueprint</button>
+                            <button className="px-12 py-5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black rounded-2xl text-[10px] uppercase tracking-[0.3em] shadow-lg shadow-orange-500/20 hover:scale-[1.05] active:scale-[0.95] transition-all">Save Blueprint</button>
                         </div>
                     </div>
                 )}
@@ -201,8 +201,8 @@ const Profile = () => {
                     <div className="relative z-10 space-y-16">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4">
                             <div>
-                                <h3 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Security <span className="text-indigo-600">Vault</span></h3>
-                                <p className="text-slate-400 font-bold text-sm">Manage your academy authentication protocols.</p>
+                                <h3 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Security <span className="text-orange-500">Vault</span></h3>
+                                <p className="text-slate-500 font-bold text-sm">Manage your academy authentication protocols.</p>
                             </div>
                             <div className="px-6 py-3 bg-green-50 rounded-full text-green-600 text-[10px] font-black uppercase tracking-[0.2em] border border-green-100 flex items-center gap-3">
                                 <CheckCircle2 size={16} /> All Systems Secure

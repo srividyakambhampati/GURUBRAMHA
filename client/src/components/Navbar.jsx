@@ -60,11 +60,11 @@ const Navbar = () => {
           {/* Logo - Left */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/20 group-hover:rotate-6 transition-transform">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-500/20 group-hover:rotate-6 transition-transform">
                 G
               </div>
               <span className={`text-2xl font-black tracking-tight ${scrolled ? 'text-slate-900' : location.pathname === '/' ? 'text-white' : 'text-slate-900'}`}>
-                Guru<span className="text-indigo-600">Bramha</span>
+                Guru<span className="text-orange-600">Bramha</span>
               </span>
             </Link>
           </div>
@@ -78,8 +78,8 @@ const Navbar = () => {
                   to={link.path}
                   className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${
                     location.pathname === link.path 
-                      ? 'bg-white text-indigo-600 shadow-sm' 
-                      : (scrolled || location.pathname !== '/' ? 'text-slate-500 hover:text-indigo-600' : 'text-slate-400 hover:text-white')
+                      ? 'bg-white text-orange-600 shadow-sm' 
+                      : (scrolled || location.pathname !== '/' ? 'text-slate-500 hover:text-orange-600' : 'text-slate-400 hover:text-white')
                   }`}
                 >
                   {link.icon}
@@ -91,13 +91,13 @@ const Navbar = () => {
 
           {/* Actions - Right */}
           <div className="hidden lg:flex items-center space-x-5 flex-shrink-0">
-            <button className={`p-2.5 rounded-xl transition-all ${scrolled || location.pathname !== '/' ? 'text-slate-400 hover:text-indigo-600 hover:bg-indigo-50' : 'text-white/70 hover:text-white hover:bg-white/10'}`}>
+            <button className={`p-2.5 rounded-xl transition-all ${scrolled || location.pathname !== '/' ? 'text-slate-400 hover:text-orange-600 hover:bg-orange-50' : 'text-white/70 hover:text-white hover:bg-white/10'}`}>
               <Search size={20} />
             </button>
             
             {user ? (
               <div className="flex items-center space-x-4">
-                <button className={`p-2.5 rounded-xl relative transition-all ${scrolled || location.pathname !== '/' ? 'text-slate-400 hover:text-indigo-600 hover:bg-indigo-50' : 'text-white/70 hover:text-white hover:bg-white/10'}`}>
+                <button className={`p-2.5 rounded-xl relative transition-all ${scrolled || location.pathname !== '/' ? 'text-slate-400 hover:text-orange-600 hover:bg-orange-50' : 'text-white/70 hover:text-white hover:bg-white/10'}`}>
                   <Bell size={20} />
                   <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
                 </button>
@@ -111,7 +111,7 @@ const Navbar = () => {
                     }}
                     className="flex items-center space-x-2 p-1 bg-white border border-slate-100 rounded-full shadow-sm hover:shadow-md transition-all group"
                   >
-                    <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-9 h-9 rounded-full bg-orange-600 flex items-center justify-center text-white font-bold text-sm">
                       {user.displayName?.[0] || 'U'}
                     </div>
                     <ChevronDown size={14} className={`text-slate-400 mr-2 transition-transform ${showProfileMenu ? 'rotate-180' : ''}`} />
@@ -127,7 +127,7 @@ const Navbar = () => {
                       >
                         <div className="p-6 bg-slate-50 border-b border-slate-100">
                           <p className="text-sm font-black text-slate-900 line-clamp-1">{user.displayName || 'Scholar'}</p>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Premium Learner</p>
+                          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Premium Learner</p>
                         </div>
                         <div className="p-3">
                           {profileLinks.map((link) => (
@@ -135,7 +135,7 @@ const Navbar = () => {
                               key={link.name}
                               to={link.path}
                               onClick={() => setShowProfileMenu(false)}
-                              className="flex items-center gap-3 p-3 rounded-2xl text-sm font-bold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
+                              className="flex items-center gap-3 p-3 rounded-2xl text-sm font-bold text-slate-600 hover:text-orange-600 hover:bg-orange-50 transition-all"
                             >
                               {link.icon}
                               {link.name}
@@ -160,7 +160,7 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link to="/login" className={`text-sm font-bold px-4 ${scrolled || location.pathname !== '/' ? 'text-slate-600 hover:text-indigo-600' : 'text-white hover:text-white/80'}`}>Log in</Link>
+                <Link to="/login" className={`text-sm font-bold px-4 ${scrolled || location.pathname !== '/' ? 'text-slate-600 hover:text-orange-600' : 'text-white hover:text-white/80'}`}>Log in</Link>
                 <Link to="/signup" className="btn-primary !px-6 !py-2.5 !text-sm !shadow-none hover:scale-105 active:scale-95 transition-all">Join for Free</Link>
               </div>
             )}
@@ -187,13 +187,13 @@ const Navbar = () => {
           >
             <div className="px-6 py-8 space-y-6">
               {user && (
-                <div className="flex items-center gap-4 p-4 bg-indigo-50 rounded-3xl mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-bold text-xl">
+                <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-3xl mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-orange-600 flex items-center justify-center text-white font-bold text-xl">
                     {user.displayName?.[0] || 'U'}
                   </div>
                   <div>
                     <p className="font-black text-slate-900">{user.displayName || 'Scholar'}</p>
-                    <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest">Premium Account</p>
+                    <p className="text-xs font-bold text-orange-600 uppercase tracking-widest">Premium Account</p>
                   </div>
                 </div>
               )}
@@ -202,9 +202,9 @@ const Navbar = () => {
                   key={link.name}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-4 text-lg font-bold text-slate-700 hover:text-indigo-600 p-2"
+                  className="flex items-center gap-4 text-lg font-bold text-slate-700 hover:text-orange-600 p-2"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-indigo-600">
+                  <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-orange-600">
                     {link.icon}
                   </div>
                   {link.name}

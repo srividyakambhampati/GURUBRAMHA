@@ -163,13 +163,13 @@ const Home = () => {
                         transition={{ delay: i * 0.05 }}
                         whileHover={!feature.isComingSoon ? { y: -8, scale: 1.02 } : {}}
                         onClick={() => {
-                            if (feature.path && !feature.isComingSoon) {
+                            if (feature.path) {
                                 navigate(feature.path);
+                            } else if (feature.isComingSoon) {
+                                navigate('/coming-soon');
                             }
                         }}
-                        className={`glass-card !p-6 !bg-white border-slate-100 shadow-xl transition-all relative overflow-hidden group h-full ${
-                            feature.isComingSoon ? 'opacity-60 grayscale-[0.5] cursor-not-allowed' : 'hover:shadow-2xl cursor-pointer'
-                        }`}
+                        className={`glass-card !p-6 !bg-white border-slate-100 shadow-xl transition-all relative overflow-hidden group h-full hover:shadow-2xl cursor-pointer`}
                     >
                         {feature.isComingSoon && (
                             <div className="absolute top-3 right-3 px-3 py-1 bg-slate-100 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full border border-slate-200">

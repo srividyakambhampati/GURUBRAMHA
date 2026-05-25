@@ -78,7 +78,7 @@ const Courses = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => setSelectedCourse(null)}
-            className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 mb-10 font-black uppercase tracking-widest text-xs transition-all group"
+            className="flex items-center gap-2 text-slate-500 hover:text-orange-600 mb-10 font-black uppercase tracking-widest text-xs transition-all group"
           >
             <ChevronRight size={18} className="rotate-180 group-hover:-translate-x-1 transition-transform" /> Back to Catalog
           </motion.button>
@@ -99,7 +99,7 @@ const Courses = () => {
                   <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 to-transparent">
                     <div className="h-1.5 w-full bg-white/20 rounded-full mb-6 overflow-hidden">
                         <div 
-                            className="h-full bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.8)] transition-all duration-1000" 
+                            className="h-full bg-orange-500 shadow-[0_0_15px_rgba(99,102,241,0.8)] transition-all duration-1000" 
                             style={{ width: `${(currentTime / (parseInt(selectedCourse.duration.split(':')[0]) * 60)) * 100}%` }}
                         ></div>
                     </div>
@@ -124,15 +124,15 @@ const Courses = () => {
                 <h1 className="text-3xl font-black text-slate-900 mb-6">{selectedCourse.title}</h1>
                 <div className="flex flex-wrap items-center gap-8 mb-10 text-sm font-bold text-slate-500">
                     <div className="flex items-center gap-2">
-                        <Users size={18} className="text-indigo-500" /> {selectedCourse.students} Scholars
+                        <Users size={18} className="text-orange-500" /> {selectedCourse.students} Scholars
                     </div>
                     <div className="flex items-center gap-2">
-                        <Clock size={18} className="text-indigo-500" /> {selectedCourse.duration} content
+                        <Clock size={18} className="text-orange-500" /> {selectedCourse.duration} content
                     </div>
                     <div className="flex items-center gap-2">
                         <Star size={18} className="text-amber-500" fill="currentColor" /> {selectedCourse.rating} ({selectedCourse.reviews})
                     </div>
-                    <div className="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest">
+                    <div className="px-4 py-1.5 bg-orange-50 text-orange-600 rounded-xl text-[10px] font-black uppercase tracking-widest">
                         {selectedCourse.category}
                     </div>
                 </div>
@@ -145,9 +145,9 @@ const Courses = () => {
 
             {/* Curriculum Sidebar */}
             <div className="w-full lg:w-[400px] space-y-8">
-              <div className="glass-card !p-8 !bg-white shadow-2xl shadow-indigo-100 border-indigo-100">
+              <div className="glass-card !p-8 !bg-white shadow-2xl shadow-orange-100 border-orange-100">
                 <h3 className="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3">
-                    <Book size={24} className="text-indigo-600" /> Full Curriculum
+                    <Book size={24} className="text-orange-600" /> Full Curriculum
                 </h3>
                 <div className="space-y-4">
                     {[
@@ -157,11 +157,11 @@ const Courses = () => {
                         { title: 'Project Implementation', time: '40:00', active: false }
                     ].map((lesson, i) => (
                         <div key={i} className={`p-5 rounded-2xl border transition-all flex items-center justify-between group cursor-pointer ${
-                            lesson.active ? 'bg-indigo-50 border-indigo-200 shadow-lg' : 'bg-slate-50 border-slate-50 hover:border-indigo-100'
+                            lesson.active ? 'bg-orange-50 border-orange-200 shadow-lg' : 'bg-slate-50 border-slate-50 hover:border-orange-100'
                         }`}>
                             <div className="flex items-center gap-4">
                                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs ${
-                                    lesson.active ? 'bg-indigo-600 text-white' : 'bg-white text-slate-400'
+                                    lesson.active ? 'bg-orange-600 text-white' : 'bg-white text-slate-400'
                                 }`}>
                                     {i + 1}
                                 </div>
@@ -170,7 +170,7 @@ const Courses = () => {
                                     <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{lesson.time}</p>
                                 </div>
                             </div>
-                            {!lesson.active && <Lock size={14} className="text-slate-200 group-hover:text-indigo-300" />}
+                            {!lesson.active && <Lock size={14} className="text-slate-200 group-hover:text-orange-300" />}
                         </div>
                     ))}
                 </div>
@@ -185,19 +185,19 @@ const Courses = () => {
                             if (user?.isSubscribed) alert('🚀 Accessing Full Course Content...');
                             else setShowSubscription(true);
                         }}
-                        className="w-full py-5 bg-indigo-600 text-white font-black rounded-2xl shadow-xl shadow-indigo-100 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
+                        className="w-full py-5 bg-orange-600 text-white font-black rounded-2xl shadow-xl shadow-orange-100 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
                     >
                         {user?.isSubscribed ? 'Continue Full Course' : 'Buy This Course'} <ArrowRight size={18} />
                     </button>
                 </div>
               </div>
 
-              <div className="glass-card !p-8 !bg-indigo-50 !border-none text-center">
+              <div className="glass-card !p-8 !bg-orange-50 !border-none text-center">
                 <h4 className="font-black text-indigo-900 text-lg mb-4">Unlimited Access Plan</h4>
                 <p className="text-xs font-medium text-indigo-700/70 mb-8 leading-relaxed">Join our Monthly or Yearly subscription to unlock all 10+ courses instantly.</p>
                 <button 
                     onClick={() => setShowSubscription(true)}
-                    className="w-full py-4 bg-white border-2 border-indigo-200 text-indigo-600 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all"
+                    className="w-full py-4 bg-white border-2 border-orange-200 text-orange-600 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-600 hover:text-slate-900 transition-all"
                 >
                     View All Plans
                 </button>
@@ -218,7 +218,7 @@ const Courses = () => {
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white shadow-lg shadow-indigo-100/50 border border-slate-100 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] mb-10"
+                  className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white shadow-lg shadow-orange-100/50 border border-slate-100 text-orange-600 text-[10px] font-black uppercase tracking-[0.2em] mb-10"
                 >
                     <Book size={14} /> Global Academy Catalog
                 </motion.div>
@@ -230,7 +230,7 @@ const Courses = () => {
                     Elite Course <br /> <span className="text-gradient">Library</span>
                 </motion.h1>
                 <p className="text-slate-500 font-medium text-xl leading-relaxed">
-                    Master industry-standard skills for just <span className="text-indigo-600 font-black">₹299</span>. High-fidelity technical education designed by FAANG experts.
+                    Master industry-standard skills for just <span className="text-orange-600 font-black">₹299</span>. High-fidelity technical education designed by FAANG experts.
                 </p>
             </div>
             <div className="flex items-center gap-4 w-full lg:w-auto">
@@ -239,7 +239,7 @@ const Courses = () => {
                     <input 
                       type="text" 
                       placeholder="Search for subjects, mentors..."
-                      className="w-full pl-16 pr-6 py-5 bg-white border border-slate-100 rounded-[24px] focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none shadow-xl shadow-slate-100 font-medium"
+                      className="w-full pl-16 pr-6 py-5 bg-white border border-slate-100 rounded-[24px] focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none shadow-xl shadow-slate-100 font-medium"
                     />
                 </div>
             </div>
@@ -253,8 +253,8 @@ const Courses = () => {
                     onClick={() => setActiveFilter(cat)}
                     className={`px-8 py-3.5 rounded-[18px] text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                         activeFilter === cat 
-                        ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-200' 
-                        : 'bg-white text-slate-500 border border-slate-100 hover:border-indigo-200'
+                        ? 'bg-orange-600 text-white shadow-xl shadow-orange-200' 
+                        : 'bg-white text-slate-500 border border-slate-100 hover:border-orange-200'
                     }`}
                 >
                     {cat}
@@ -271,16 +271,16 @@ const Courses = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
                     whileHover={{ y: -12 }}
-                    className="glass-card !p-0 overflow-hidden group cursor-pointer border-slate-100 hover:shadow-2xl hover:shadow-indigo-100/50 transition-all duration-500 !bg-white"
+                    className="glass-card !p-0 overflow-hidden group cursor-pointer border-slate-100 hover:shadow-2xl hover:shadow-orange-100/50 transition-all duration-500 !bg-white"
                 >
                     <div className="h-56 relative overflow-hidden" onClick={() => setSelectedCourse(course)}>
                         <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute top-6 left-6 flex flex-col gap-2">
-                            <span className="bg-white/90 backdrop-blur-md text-indigo-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl shadow-lg border border-white/50">{course.category}</span>
+                            <span className="bg-white/90 backdrop-blur-md text-orange-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl shadow-lg border border-white/50">{course.category}</span>
                             <span className="bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl shadow-lg border border-white/10">{course.level}</span>
                         </div>
-                        <div className="absolute inset-0 bg-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-2xl scale-0 group-hover:scale-100 transition-transform">
+                        <div className="absolute inset-0 bg-orange-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-orange-600 shadow-2xl scale-0 group-hover:scale-100 transition-transform">
                                 <Play fill="currentColor" size={24} className="ml-1" />
                             </div>
                         </div>
@@ -289,14 +289,14 @@ const Courses = () => {
                         <div className="flex items-center gap-2 mb-4 text-amber-500 font-black text-sm">
                             <Star size={18} fill="currentColor" /> {course.rating} <span className="text-slate-300 font-bold">({course.reviews})</span>
                         </div>
-                        <h3 className="text-xl font-black text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2" onClick={() => setSelectedCourse(course)}>{course.title}</h3>
+                        <h3 className="text-xl font-black text-slate-900 mb-4 group-hover:text-orange-600 transition-colors leading-snug line-clamp-2" onClick={() => setSelectedCourse(course)}>{course.title}</h3>
                         <p className="text-slate-500 text-sm font-medium mb-8 flex items-center gap-2">
                             <Users size={16} className="text-slate-400" /> {course.students} joined
                         </p>
                         
                         <div className="flex items-center justify-between pt-8 border-t border-slate-50">
                             <div className="flex flex-col">
-                                <span className="text-2xl font-black text-indigo-600">{course.price}</span>
+                                <span className="text-2xl font-black text-orange-600">{course.price}</span>
                                 <span className="text-[10px] font-black text-slate-300 line-through uppercase tracking-widest">{course.originalPrice}</span>
                             </div>
                             <button 
@@ -304,7 +304,7 @@ const Courses = () => {
                                     if (user?.isSubscribed) setSelectedCourse(course);
                                     else setShowSubscription(true);
                                 }}
-                                className="px-6 py-2.5 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-xl transition-all shadow-inner text-[10px] font-black uppercase tracking-widest"
+                                className="px-6 py-2.5 bg-orange-50 group-hover:bg-orange-600 group-hover:text-white text-orange-600 rounded-xl transition-all shadow-inner text-[10px] font-black uppercase tracking-widest"
                             >
                                 {user?.isSubscribed ? 'Enter Course' : 'Enroll Now'}
                             </button>

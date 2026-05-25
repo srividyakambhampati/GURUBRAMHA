@@ -104,7 +104,7 @@ const Practice = () => {
   const languages = [
     { id: 'javascript', name: 'JavaScript', icon: <Globe size={14} className="text-yellow-400" /> },
     { id: 'python', name: 'Python', icon: <Globe size={14} className="text-blue-400" /> },
-    { id: 'cpp', name: 'C++', icon: <Globe size={14} className="text-indigo-400" /> },
+    { id: 'cpp', name: 'C++', icon: <Globe size={14} className="text-orange-400" /> },
     { id: 'java', name: 'Java', icon: <Globe size={14} className="text-red-400" /> }
   ];
 
@@ -159,7 +159,7 @@ const Practice = () => {
                 className="flex flex-col md:flex-row md:items-center justify-between gap-12 mb-16"
               >
                 <div>
-                    <h1 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">
+                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tight">
                         Elite <span className="text-[#FFB800]">Arena</span>
                     </h1>
                     <p className="text-slate-500 font-bold text-lg tracking-wide">Establish your technical supremacy with 500+ master challenges.</p>
@@ -193,14 +193,14 @@ const Practice = () => {
                       placeholder="Identify specific challenges by name or tags..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-16 pr-8 py-5 bg-slate-50 border border-slate-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all shadow-inner font-bold text-slate-800 placeholder:text-slate-300"
+                      className="w-full pl-16 pr-8 py-5 bg-slate-50 border border-slate-100 rounded-[24px] focus:ring-4 focus:ring-orange-500/10 outline-none transition-all shadow-inner font-bold text-slate-800 placeholder:text-slate-300"
                     />
                   </div>
                   <div className="flex items-center gap-4 w-full md:w-auto">
                     <select 
                         value={activeDifficulty}
                         onChange={(e) => setActiveDifficulty(e.target.value)}
-                        className="px-8 py-5 bg-slate-900 border-none rounded-[24px] text-xs font-black text-[#FFB800] uppercase tracking-widest outline-none cursor-pointer hover:bg-indigo-600 transition-colors shadow-2xl appearance-none pr-12 relative"
+                        className="px-8 py-5 bg-slate-900 border-none rounded-[24px] text-xs font-black text-[#FFB800] uppercase tracking-widest outline-none cursor-pointer hover:bg-orange-600 transition-colors shadow-2xl appearance-none pr-12 relative"
                     >
                         {difficulties.map(d => <option key={d} value={d}>{d} Difficulty</option>)}
                     </select>
@@ -214,8 +214,8 @@ const Practice = () => {
                       onClick={() => setActiveFilter(topic)}
                       className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap transition-all ${
                         activeFilter === topic 
-                        ? 'bg-indigo-600 text-white shadow-2xl shadow-indigo-200 scale-105' 
-                        : 'bg-slate-50 text-slate-400 border border-slate-100 hover:border-indigo-200'
+                        ? 'bg-orange-600 text-white shadow-2xl shadow-orange-200 scale-105' 
+                        : 'bg-slate-50 text-slate-400 border border-slate-100 hover:border-orange-200'
                       }`}
                     >
                       {topic}
@@ -235,10 +235,10 @@ const Practice = () => {
                   <thead>
                     <tr className="bg-slate-900 border-b border-slate-800">
                       <th className="px-10 py-8 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] w-24">Status</th>
-                      <th className="px-10 py-8 text-[10px] font-black text-white uppercase tracking-[0.3em]">Challenge Manifest</th>
-                      <th className="px-10 py-8 text-[10px] font-black text-white uppercase tracking-[0.3em]">Complexity</th>
-                      <th className="px-10 py-8 text-[10px] font-black text-white uppercase tracking-[0.3em]">Acceptance</th>
-                      <th className="px-10 py-8 text-[10px] font-black text-white uppercase tracking-[0.3em] text-right">Action</th>
+                      <th className="px-10 py-8 text-[10px] font-black text-slate-900 uppercase tracking-[0.3em]">Challenge Manifest</th>
+                      <th className="px-10 py-8 text-[10px] font-black text-slate-900 uppercase tracking-[0.3em]">Complexity</th>
+                      <th className="px-10 py-8 text-[10px] font-black text-slate-900 uppercase tracking-[0.3em]">Acceptance</th>
+                      <th className="px-10 py-8 text-[10px] font-black text-slate-900 uppercase tracking-[0.3em] text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -257,7 +257,7 @@ const Practice = () => {
                         </td>
                         <td className="px-10 py-8">
                           <div>
-                            <p className="font-black text-slate-900 group-hover:text-indigo-600 transition-colors mb-3 text-lg tracking-tight">{prob.title}</p>
+                            <p className="font-black text-slate-900 group-hover:text-orange-600 transition-colors mb-3 text-lg tracking-tight">{prob.title}</p>
                             <div className="flex gap-3">
                                 {prob.tags.map(tag => (
                                     <span key={tag} className="px-3 py-1 bg-white border border-slate-100 text-slate-400 rounded-lg text-[9px] font-black uppercase tracking-widest">{tag}</span>
@@ -276,7 +276,7 @@ const Practice = () => {
                         <td className="px-10 py-8 text-right">
                           <button 
                             onClick={() => setSelectedProblem(prob)}
-                            className="px-8 py-3 bg-slate-900 text-[#FFB800] rounded-[18px] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-indigo-600 hover:text-white transition-all shadow-xl hover:scale-105 active:scale-95"
+                            className="px-8 py-3 bg-slate-900 text-[#FFB800] rounded-[18px] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-600 hover:text-slate-900 transition-all shadow-xl hover:scale-105 active:scale-95"
                           >
                             Establish
                           </button>
@@ -305,7 +305,7 @@ const Practice = () => {
                     </div>
                     <h4 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Trapping Rain Water</h4>
                     <p className="text-slate-400 text-sm mb-10 font-bold leading-relaxed">Establish dominance over the two-pointer protocol and earn 2x bonus credentials.</p>
-                    <button className="w-full py-5 bg-slate-900 text-white font-black rounded-[24px] text-xs uppercase tracking-widest shadow-2xl hover:bg-indigo-600 transition-all flex items-center justify-center gap-4">
+                    <button className="w-full py-5 bg-slate-900 text-[#FFB800] font-black rounded-[24px] text-xs uppercase tracking-widest shadow-2xl hover:bg-orange-600 hover:text-white transition-all flex items-center justify-center gap-4">
                         Initialize Session <ArrowRight size={18} />
                     </button>
                 </motion.div>
@@ -317,7 +317,7 @@ const Practice = () => {
                     className="bg-white rounded-[48px] p-12 shadow-2xl border border-white/20"
                 >
                     <h3 className="text-xl font-black text-slate-900 mb-12 flex items-center gap-5">
-                        <Activity size={24} className="text-indigo-600" /> Scholar Rank
+                        <Activity size={24} className="text-orange-600" /> Scholar Rank
                     </h3>
                     <div className="space-y-12">
                         <div>
@@ -326,7 +326,7 @@ const Practice = () => {
                                 <p className="text-2xl font-black text-slate-900 tracking-tight">128/500</p>
                             </div>
                             <div className="h-4 w-full bg-slate-50 rounded-full overflow-hidden border border-slate-100 p-1">
-                                <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full shadow-2xl shadow-blue-500/20" style={{ width: '25.6%' }}></div>
+                                <div className="h-full bg-gradient-to-r from-blue-500 to-orange-600 rounded-full shadow-2xl shadow-blue-500/20" style={{ width: '25.6%' }}></div>
                             </div>
                         </div>
                         
@@ -335,9 +335,9 @@ const Practice = () => {
                                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-3">Global Tier</p>
                                 <p className="text-4xl font-black text-[#FFB800] tracking-tighter">#1,245</p>
                             </div>
-                            <div className="p-8 bg-indigo-50 rounded-[32px] text-center">
-                                <p className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.3em] mb-3">Scholar Points</p>
-                                <p className="text-4xl font-black text-indigo-600 tracking-tighter">12,450</p>
+                            <div className="p-8 bg-orange-50 rounded-[32px] text-center">
+                                <p className="text-[10px] font-black text-orange-400 uppercase tracking-[0.3em] mb-3">Scholar Points</p>
+                                <p className="text-4xl font-black text-orange-600 tracking-tighter">12,450</p>
                             </div>
                         </div>
                     </div>
@@ -363,7 +363,7 @@ const Practice = () => {
                 </button>
                 <div className="h-10 w-px bg-slate-100"></div>
                 <div className="flex items-center gap-6">
-                    <div className="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center font-black text-lg shadow-2xl">G</div>
+                    <div className="w-10 h-10 bg-slate-900 text-[#FFB800] rounded-xl flex items-center justify-center font-black text-lg shadow-2xl">G</div>
                     <h2 className="text-2xl font-black text-slate-900 tracking-tight">{selectedProblem.title}</h2>
                     <span className={`px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${
                         selectedProblem.difficulty === 'Easy' ? 'bg-green-50 text-green-600' :
@@ -380,10 +380,10 @@ const Practice = () => {
                 <button className="p-4 bg-slate-50 hover:bg-slate-900 hover:text-[#FFB800] rounded-2xl text-slate-400 transition-all shadow-sm"><MessageSquare size={22} /></button>
                 <div className="h-10 w-px bg-slate-100"></div>
                 <div className="bg-slate-900 py-3 px-6 rounded-2xl flex items-center gap-4 shadow-2xl">
-                    <div className="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center font-black text-xs">
+                    <div className="w-8 h-8 bg-orange-600 text-white rounded-lg flex items-center justify-center font-black text-xs">
                         {user?.displayName?.[0] || 'S'}
                     </div>
-                    <span className="text-xs font-black text-white uppercase tracking-widest">{user?.displayName || 'Scholar'}</span>
+                    <span className="text-xs font-black text-[#FFB800] uppercase tracking-widest">{user?.displayName || 'Scholar'}</span>
                 </div>
             </div>
           </div>
@@ -398,11 +398,11 @@ const Practice = () => {
                             key={tab}
                             onClick={() => setActiveTab(tab)}
                             className={`flex-grow py-6 text-[10px] font-black uppercase tracking-[0.3em] transition-all relative ${
-                                activeTab === tab ? 'text-indigo-600' : 'text-slate-400 hover:text-slate-900'
+                                activeTab === tab ? 'text-orange-600' : 'text-slate-400 hover:text-slate-900'
                             }`}
                         >
                             {tab}
-                            {activeTab === tab && <motion.div layoutId="activeTabIDE" className="absolute bottom-0 left-10 right-10 h-1.5 bg-indigo-600 rounded-t-full shadow-2xl shadow-indigo-500" />}
+                            {activeTab === tab && <motion.div layoutId="activeTabIDE" className="absolute bottom-0 left-10 right-10 h-1.5 bg-orange-600 rounded-t-full shadow-2xl shadow-orange-500" />}
                         </button>
                     ))}
                 </div>
@@ -412,11 +412,11 @@ const Practice = () => {
                         <div className="inline-flex items-center gap-3 px-6 py-2 bg-slate-900 text-[#FFB800] rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-12 shadow-2xl">
                             <Cpu size={14} /> Neural Briefing Active
                         </div>
-                        <h3 className="text-4xl font-black text-slate-900 mb-10 tracking-tighter">Objective <span className="text-indigo-600">Overview</span></h3>
+                        <h3 className="text-4xl font-black text-slate-900 mb-10 tracking-tighter">Objective <span className="text-orange-600">Overview</span></h3>
                         
                         <div className="bg-slate-50 border border-slate-100 p-10 rounded-[40px] mb-12 shadow-inner">
                             <p className="text-slate-700 font-bold text-xl leading-relaxed">
-                                Given an array of integers <code className="bg-slate-900 text-white px-3 py-1 rounded-lg text-sm mx-1">nums</code> and an integer <code className="bg-slate-900 text-white px-3 py-1 rounded-lg text-sm mx-1">target</code>, return indices of the two numbers such that they add up to target.
+                                Given an array of integers <code className="bg-slate-900 text-slate-900 px-3 py-1 rounded-lg text-sm mx-1">nums</code> and an integer <code className="bg-slate-900 text-slate-900 px-3 py-1 rounded-lg text-sm mx-1">target</code>, return indices of the two numbers such that they add up to target.
                             </p>
                         </div>
 
@@ -425,7 +425,7 @@ const Practice = () => {
                                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-8 flex items-center gap-4">
                                     <Target size={18} className="text-[#FFB800]" /> Validation Case Alpha
                                 </h4>
-                                <div className="bg-slate-900 text-indigo-100 border border-slate-800 rounded-[32px] p-10 font-mono text-sm space-y-4 shadow-2xl">
+                                <div className="bg-slate-900 text-orange-100 border border-slate-800 rounded-[32px] p-10 font-mono text-sm space-y-4 shadow-2xl">
                                     <p><span className="text-slate-500 font-black uppercase text-[10px] tracking-widest mr-4">Input:</span> nums = [2,7,11,15], target = 9</p>
                                     <p><span className="text-slate-500 font-black uppercase text-[10px] tracking-widest mr-4">Output:</span> [0,1]</p>
                                     <div className="pt-4 border-t border-white/5 mt-4">
@@ -450,11 +450,11 @@ const Practice = () => {
                             </button>
                         </div>
                         <div className="h-8 w-px bg-white/5"></div>
-                        <button className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-500 hover:text-white transition-all shadow-inner"><Settings size={20} /></button>
-                        <button className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-500 hover:text-white transition-all shadow-inner"><History size={20} /></button>
+                        <button className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-500 hover:text-slate-900 transition-all shadow-inner"><Settings size={20} /></button>
+                        <button className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-500 hover:text-slate-900 transition-all shadow-inner"><History size={20} /></button>
                     </div>
                     <div className="flex items-center gap-6">
-                        <button className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-500 hover:text-white transition-all"><Maximize2 size={20} /></button>
+                        <button className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-500 hover:text-slate-900 transition-all"><Maximize2 size={20} /></button>
                     </div>
                 </div>
 
@@ -495,9 +495,9 @@ const Practice = () => {
                             >
                                 <div className="flex items-center justify-between mb-10">
                                     <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">Execution Output Terminal</h4>
-                                    <button onClick={() => setOutput('')} className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-white transition-all"><X size={20} /></button>
+                                    <button onClick={() => setOutput('')} className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 transition-all"><X size={20} /></button>
                                 </div>
-                                <pre className="font-mono text-base text-indigo-200 leading-relaxed overflow-x-auto whitespace-pre-wrap selection:bg-indigo-500/30">
+                                <pre className="font-mono text-base text-orange-200 leading-relaxed overflow-x-auto whitespace-pre-wrap selection:bg-orange-500/30">
                                     {output}
                                 </pre>
                             </motion.div>
@@ -505,7 +505,7 @@ const Practice = () => {
                     </AnimatePresence>
 
                     <div className="h-28 bg-[#0F172A] border-t border-white/10 flex items-center justify-between px-12">
-                        <button className="flex items-center gap-4 px-10 py-5 bg-white/5 text-slate-500 rounded-[24px] text-[10px] font-black uppercase tracking-[0.3em] hover:bg-white/10 hover:text-white transition-all active:scale-95">
+                        <button className="flex items-center gap-4 px-10 py-5 bg-white/5 text-slate-500 rounded-[24px] text-[10px] font-black uppercase tracking-[0.3em] hover:bg-white/10 hover:text-slate-900 transition-all active:scale-95">
                             <Terminal size={18} /> Master Console
                         </button>
                         <div className="flex items-center gap-8">
@@ -519,7 +519,7 @@ const Practice = () => {
                             <button 
                                 onClick={handleSubmit}
                                 disabled={isSubmitting}
-                                className="flex items-center gap-4 px-16 py-5 bg-indigo-600 text-white rounded-[24px] text-[10px] font-black uppercase tracking-[0.3em] hover:bg-indigo-500 shadow-[0_20px_50px_rgba(79,70,229,0.3)] transition-all active:scale-95 disabled:opacity-50"
+                                className="flex items-center gap-4 px-16 py-5 bg-orange-600 text-white rounded-[24px] text-[10px] font-black uppercase tracking-[0.3em] hover:bg-orange-500 shadow-[0_20px_50px_rgba(79,70,229,0.3)] transition-all active:scale-95 disabled:opacity-50"
                             >
                                 {isSubmitting ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> : <Send size={18} />} Deploy Solution
                             </button>

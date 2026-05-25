@@ -88,7 +88,7 @@ const Dashboard = () => {
   }, [selectedDemo, showSubscription]);
 
   return (
-    <div className="bg-[#0F172A] min-h-screen selection:bg-[#FFB800]/30">
+    <div className="bg-slate-50 min-h-screen selection:bg-orange-500/30">
       <div className="max-w-[1600px] mx-auto px-8 md:px-12 pt-10 pb-20">
         {/* Welcome Section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-12 mb-16">
@@ -96,18 +96,18 @@ const Dashboard = () => {
                 <motion.h1 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="text-4xl md:text-5xl font-black mb-4 text-white tracking-tight"
+                  className="text-4xl md:text-5xl font-black mb-4 text-slate-900 tracking-tight"
                 >
-                    Scholar <span className="text-[#FFB800]">Control Center</span>
+                    Scholar <span className="text-orange-500">Control Center</span>
                 </motion.h1>
                 <p className="text-slate-500 font-bold text-lg tracking-wide">Manage your academic journey and explore elite content.</p>
             </div>
             <div className="flex items-center gap-6">
-                <div className="bg-white/5 backdrop-blur-xl py-4 px-10 border border-white/10 rounded-[24px] flex items-center gap-5 shadow-2xl">
-                    <Calendar size={22} className="text-[#FFB800]" />
+                <div className="bg-white py-4 px-10 border border-slate-200 rounded-[24px] flex items-center gap-5 shadow-sm">
+                    <Calendar size={22} className="text-orange-500" />
                     <div className="text-left">
                         <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Academic Cycle</p>
-                        <p className="text-sm font-black text-white">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                        <p className="text-sm font-black text-slate-900">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                     </div>
                 </div>
             </div>
@@ -127,12 +127,12 @@ const Dashboard = () => {
                             navigate(feature.path);
                         }
                     }}
-                    className={`bg-white rounded-[40px] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all relative overflow-hidden group h-full ${
-                        feature.isComingSoon ? 'opacity-60 cursor-not-allowed grayscale-[0.3]' : 'hover:shadow-[0_30px_70px_rgba(0,0,0,0.2)] cursor-pointer'
+                    className={`bg-white rounded-[40px] p-10 shadow-sm border border-slate-100 transition-all relative overflow-hidden group h-full ${
+                        feature.isComingSoon ? 'opacity-60 cursor-not-allowed grayscale-[0.3]' : 'hover:shadow-md hover:border-slate-200 cursor-pointer'
                     }`}
                 >
                     {feature.isComingSoon && (
-                        <div className="absolute top-6 right-6 px-4 py-1.5 bg-slate-900 text-[#FFB800] text-[8px] font-black uppercase tracking-[0.2em] rounded-full">
+                        <div className="absolute top-6 right-6 px-4 py-1.5 bg-slate-100 text-slate-500 text-[8px] font-black uppercase tracking-[0.2em] rounded-full">
                             Developing
                         </div>
                     )}
@@ -151,11 +151,11 @@ const Dashboard = () => {
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-white/5 border border-white/10 text-[#FFB800] text-[10px] font-black uppercase tracking-[0.3em] mb-8"
+                    className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-[0.3em] mb-8"
                 >
                     <BookOpen size={16} /> Restricted Academic Catalog
                 </motion.div>
-                <h2 className="text-5xl font-black text-white mb-6 tracking-tight">Open <span className="text-[#FFB800]">Sessions</span></h2>
+                <h2 className="text-5xl font-black text-slate-900 mb-6 tracking-tight">Open <span className="text-orange-500">Sessions</span></h2>
                 <p className="text-slate-500 font-bold text-xl max-w-2xl mx-auto">Establish your technical foundation with our high-fidelity free sessions.</p>
             </div>
 
@@ -168,12 +168,12 @@ const Dashboard = () => {
                       transition={{ delay: i * 0.05 }}
                       whileHover={{ y: -15 }}
                       onClick={() => setSelectedDemo(course)}
-                      className="bg-white/5 backdrop-blur-xl border border-white/5 p-0 overflow-hidden group cursor-pointer hover:border-[#FFB800]/20 hover:bg-white/10 transition-all duration-500 rounded-[32px] shadow-2xl"
+                      className="bg-white border border-slate-100 p-0 overflow-hidden group cursor-pointer hover:border-orange-200 hover:shadow-lg transition-all duration-500 rounded-[32px]"
                     >
                         <div className="h-48 relative overflow-hidden">
-                            <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80" />
-                            <div className="absolute inset-0 bg-[#0F172A]/40 group-hover:bg-[#0F172A]/20 transition-all"></div>
-                            <div className="absolute top-5 left-5 bg-[#FFB800] text-[#0F172A] text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl shadow-2xl">
+                            <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90" />
+                            <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/5 transition-all"></div>
+                            <div className="absolute top-5 left-5 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl shadow-sm">
                                 Free
                             </div>
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -183,15 +183,15 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className="p-8">
-                            <div className="flex items-center gap-2 mb-4 text-[#FFB800] font-black text-xs">
+                            <div className="flex items-center gap-2 mb-4 text-orange-500 font-black text-xs">
                                 <Star size={16} fill="currentColor" /> {course.rating}
                             </div>
-                            <h3 className="font-black text-white mb-2 text-base group-hover:text-[#FFB800] transition-colors line-clamp-1 tracking-tight">{course.title}</h3>
+                            <h3 className="font-black text-slate-900 mb-2 text-base group-hover:text-orange-500 transition-colors line-clamp-1 tracking-tight">{course.title}</h3>
                             <p className="text-slate-500 text-[10px] font-black mb-8 italic uppercase tracking-widest">Expert: {course.mentor}</p>
                             
-                            <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                                <span className="text-[#FFB800] font-black text-lg tracking-tighter">₹299</span>
-                                <button className="flex items-center gap-3 px-5 py-2.5 bg-white/5 text-white border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#FFB800] hover:text-[#0F172A] hover:border-transparent transition-all">
+                            <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+                                <span className="text-slate-900 font-black text-lg tracking-tighter">₹299</span>
+                                <button className="flex items-center gap-3 px-5 py-2.5 bg-slate-50 text-slate-700 border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 hover:text-white hover:border-transparent transition-all">
                                     Watch Now <ArrowRight size={14} />
                                 </button>
                             </div>
@@ -262,7 +262,7 @@ const Dashboard = () => {
                                 animate={{ opacity: 1, y: 0 }}
                             >
                                 <h2 className="text-4xl font-black text-white mb-4 tracking-tight">{selectedDemo.title}</h2>
-                                <p className="text-[#FFB800] font-black text-sm uppercase tracking-[0.3em] mb-10">By {selectedDemo.mentor} • Master Academy Mentor</p>
+                                <p className="text-orange-500 font-black text-sm uppercase tracking-[0.3em] mb-10">By {selectedDemo.mentor} • Master Academy Mentor</p>
                                 <div className="prose prose-invert prose-slate max-w-none text-slate-400 font-bold text-lg leading-relaxed">
                                     <p>Experience industry-standard pedagogical excellence. This high-fidelity session establishes the conceptual architecture required for professional mastery.</p>
                                 </div>
@@ -302,10 +302,10 @@ const Dashboard = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="p-10 border-t border-white/5 bg-white/5">
+                        <div className="p-10 border-t border-slate-800 bg-slate-900">
                             <button 
                                 onClick={() => handlePayment({ amount: 299, description: `Demo: ${selectedDemo.title}`, user })}
-                                className="w-full py-6 bg-[#FFB800] text-[#0F172A] font-black rounded-[24px] shadow-[0_20px_40px_rgba(255,184,0,0.2)] hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest"
+                                className="w-full py-6 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black rounded-[24px] shadow-lg shadow-orange-500/20 hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest"
                             >
                                 Unlock Academy Vault <Lock size={20} />
                             </button>

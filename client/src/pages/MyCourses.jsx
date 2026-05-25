@@ -34,13 +34,13 @@ const MyCourses = () => {
             </div>
             
             <div className="relative group w-full md:w-auto">
-                <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-600 transition-colors">
                     <Search size={18} />
                 </div>
                 <input 
                     type="text" 
                     placeholder="Search your courses..." 
-                    className="w-full md:w-80 pl-14 pr-6 py-4 bg-white border border-slate-100 rounded-2xl font-bold text-slate-700 shadow-sm focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
+                    className="w-full md:w-80 pl-14 pr-6 py-4 bg-white border border-slate-100 rounded-2xl font-bold text-slate-700 shadow-sm focus:ring-4 focus:ring-orange-500/10 outline-none transition-all"
                 />
             </div>
         </div>
@@ -52,7 +52,7 @@ const MyCourses = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="py-24 px-8 bg-white rounded-[40px] border border-slate-100 shadow-2xl shadow-slate-200/50 text-center max-w-3xl mx-auto"
             >
-                <div className="w-24 h-24 bg-indigo-50 rounded-[35px] flex items-center justify-center text-indigo-600 mx-auto mb-8 shadow-xl shadow-indigo-100">
+                <div className="w-24 h-24 bg-orange-50 rounded-[35px] flex items-center justify-center text-orange-600 mx-auto mb-8 shadow-xl shadow-orange-100">
                     <Rocket size={40} />
                 </div>
                 <h2 className="text-3xl font-black text-slate-900 mb-4">Start Your Career Journey</h2>
@@ -62,7 +62,7 @@ const MyCourses = () => {
                 </p>
                 <Link 
                     to="/courses" 
-                    className="inline-flex items-center gap-3 px-10 py-5 bg-indigo-600 text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-2xl shadow-indigo-200 hover:scale-105 active:scale-95 transition-all"
+                    className="inline-flex items-center gap-3 px-10 py-5 bg-orange-600 text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-2xl shadow-orange-200 hover:scale-105 active:scale-95 transition-all"
                 >
                     Browse Courses <ChevronRight size={18} />
                 </Link>
@@ -87,7 +87,7 @@ const MyCourses = () => {
                             </div>
                         </div>
                         <div className="p-6">
-                            <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">{course.title}</h3>
+                            <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-orange-600 transition-colors line-clamp-2">{course.title}</h3>
                             <div className="flex items-center gap-4 text-slate-400 mb-6">
                                 <div className="flex items-center gap-1 text-xs font-bold">
                                     <Clock size={14} /> {course.duration}
@@ -101,13 +101,13 @@ const MyCourses = () => {
                             <div className="mb-6">
                                 <div className="h-1.5 w-full bg-slate-50 rounded-full overflow-hidden">
                                     <div 
-                                        className="h-full bg-indigo-600 rounded-full" 
+                                        className="h-full bg-orange-600 rounded-full" 
                                         style={{ width: `${course.progress}%` }}
                                     ></div>
                                 </div>
                             </div>
 
-                            <button className="w-full flex items-center justify-center gap-3 py-4 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200">
+                            <button className="w-full flex items-center justify-center gap-3 py-4 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-all shadow-lg shadow-slate-200">
                                 <Play size={14} fill="currentColor" /> Continue Learning
                             </button>
                         </div>

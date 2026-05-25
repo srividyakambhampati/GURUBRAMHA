@@ -32,28 +32,42 @@ import Footer from '../components/Footer';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
 
+const DOCUMENT_BUNDLES = ['Resume', 'Photos', 'PAN', 'Aadhaar', 'Personal Documents'];
+
 const Documents = () => {
   const [isDragging, setIsDragging] = useState(false);
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [isLinked, setIsLinked] = useState(false);
   const [viewingDoc, setViewingDoc] = useState(null);
   const [documents, setDocuments] = useState([]);
+  
+  const [uploadPendingFile, setUploadPendingFile] = useState(null);
+  const [uploadFileName, setUploadFileName] = useState('');
+  const [uploadBundle, setUploadBundle] = useState('Personal Documents');
 
-  const handleUpload = (file) => {
+  const handleFileSelect = (file) => {
     if (!file) return;
+    setUploadPendingFile(file);
+    setUploadFileName(file.name.split('.')[0] || file.name);
+    setUploadBundle('Personal Documents');
+  };
+
+  const confirmUpload = () => {
+    if (!uploadPendingFile) return;
     
-    const previewUrl = URL.createObjectURL(file);
+    const previewUrl = URL.createObjectURL(uploadPendingFile);
     
     const newDoc = {
         id: Date.now(),
-        name: file.name,
-        type: file.name.split('.').pop().toUpperCase(),
-        size: (file.size / 1024 / 1024).toFixed(1) + ' MB',
+        name: uploadFileName || uploadPendingFile.name,
+        bundle: uploadBundle,
+        type: uploadPendingFile.name.split('.').pop().toUpperCase(),
+        size: (uploadPendingFile.size / 1024 / 1024).toFixed(1) + ' MB',
         date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         status: 'Uploaded',
         previewUrl: previewUrl
     };
     setDocuments(prev => [newDoc, ...prev]);
+    setUploadPendingFile(null);
+    setUploadFileName('');
   };
 
   const handleDragOver = useCallback((e) => {
@@ -70,7 +84,7 @@ const Documents = () => {
     setIsDragging(false);
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-        handleUpload(files[0]);
+        handleFileSelect(files[0]);
     }
   }, []);
 
@@ -128,21 +142,7 @@ const Documents = () => {
     }
   };
 
-  const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    if (params.get('status') === 'linked') {
-        setIsLinked(true);
-        alert('✅ DigiLocker linked successfully!');
-    } else if (params.get('status') === 'error') {
-        alert('❌ Failed to link DigiLocker. Please try again.');
-    }
-  }, [location]);
-
-  const handleLinkDigiLocker = () => {
-    window.location.href = `${API_BASE_URL}/api/digilocker/authorize`;
-  };
+  // Removed DigiLocker integration
 
   return (
     <div className="bg-[#0F172A] min-h-screen selection:bg-[#FFB800]/30 pb-20">
@@ -170,7 +170,10 @@ const Documents = () => {
                     type="file" 
                     id="fileInput" 
                     className="hidden" 
-                    onChange={(e) => handleUpload(e.target.files[0])} 
+                    onChange={(e) => {
+                        handleFileSelect(e.target.files[0]);
+                        e.target.value = null;
+                    }} 
                 />
             </div>
         </div>
@@ -179,35 +182,8 @@ const Documents = () => {
             {/* Left Column: Stats & DigiLocker */}
             <div className="lg:col-span-4 space-y-10">
                 <motion.div 
-                   initial={{ opacity: 0, y: 20 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   className="bg-white rounded-[48px] p-12 text-center shadow-2xl relative overflow-hidden"
-                >
-                    <div className="absolute top-0 left-0 w-full h-2 bg-[#FFB800]"></div>
-                    <div className="flex flex-col items-center mb-10">
-                        <div className="w-24 h-24 bg-slate-900 rounded-[32px] flex items-center justify-center mb-8 shadow-2xl">
-                            <ShieldCheck size={44} className="text-[#FFB800]" />
-                        </div>
-                        <h3 className="text-2xl font-black text-slate-900 mb-2">DigiLocker Integration</h3>
-                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">Verified Government Gateway</p>
-                    </div>
-                    <p className="text-slate-500 text-sm mb-10 leading-relaxed font-bold">Synchronize your official state-issued academic credentials directly with GuruBramha.</p>
-                    <button 
-                        onClick={handleLinkDigiLocker}
-                        disabled={isConnecting || isLinked}
-                        className={`w-full py-6 font-black rounded-[24px] text-xs shadow-2xl transition-all flex items-center justify-center gap-4 uppercase tracking-widest ${
-                            isLinked ? 'bg-green-500 text-white cursor-default' : 'bg-slate-900 text-white hover:bg-indigo-600'
-                        }`}
-                    >
-                        {isConnecting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white animate-spin rounded-full"></div> : isLinked ? <CheckCircle2 size={18} /> : <Lock size={18} />}
-                        {isConnecting ? 'Establishing...' : isLinked ? 'Vault Linked' : 'Authenticate Vault'}
-                    </button>
-                </motion.div>
-
-                <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
                     className="bg-white rounded-[48px] p-12 shadow-2xl"
                 >
                     <h3 className="text-xl font-black text-slate-900 mb-10 flex items-center gap-5">
@@ -303,7 +279,9 @@ const Documents = () => {
                                         </div>
                                         <div className="mb-10">
                                             <h4 className="font-black text-slate-900 mb-2 text-lg tracking-tight line-clamp-1 group-hover:text-indigo-600 transition-colors">{doc.name}</h4>
-                                            <div className="flex items-center gap-4">
+                                            <div className="flex items-center gap-4 flex-wrap mt-2">
+                                                <span className="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-black uppercase tracking-widest">{doc.bundle}</span>
+                                                <div className="w-1.5 h-1.5 rounded-full bg-slate-200"></div>
                                                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{doc.size}</span>
                                                 <div className="w-1.5 h-1.5 rounded-full bg-slate-200"></div>
                                                 <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{doc.status}</span>
@@ -330,6 +308,65 @@ const Documents = () => {
             </div>
         </div>
       </div>
+
+      {/* Upload Details Modal */}
+      <AnimatePresence>
+        {uploadPendingFile && (
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[1000] flex items-center justify-center p-6 bg-[#0F172A]/90 backdrop-blur-3xl"
+            >
+                <motion.div 
+                    initial={{ scale: 0.95, y: 30 }}
+                    animate={{ scale: 1, y: 0 }}
+                    className="relative w-full max-w-lg bg-white rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] p-10"
+                >
+                    <button onClick={() => setUploadPendingFile(null)} className="absolute top-6 right-6 p-3 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-2xl transition-all"><X size={24} /></button>
+                    
+                    <h2 className="text-3xl font-black text-slate-900 mb-8">File Details</h2>
+                    
+                    <div className="space-y-6">
+                        <div>
+                            <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">File Name</label>
+                            <input 
+                                type="text"
+                                value={uploadFileName}
+                                onChange={(e) => setUploadFileName(e.target.value)}
+                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-slate-900 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 transition-all"
+                                placeholder="Enter file name"
+                            />
+                        </div>
+                        
+                        <div>
+                            <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Bundle Category</label>
+                            <div className="flex flex-wrap gap-3">
+                                {DOCUMENT_BUNDLES.map(bundle => (
+                                    <button
+                                        key={bundle}
+                                        onClick={() => setUploadBundle(bundle)}
+                                        className={`px-4 py-2 rounded-xl text-xs font-black transition-all ${
+                                            uploadBundle === bundle 
+                                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' 
+                                                : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+                                        }`}
+                                    >
+                                        {bundle}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-4 mt-10">
+                        <button onClick={() => setUploadPendingFile(null)} className="flex-1 py-4 text-slate-400 font-black uppercase text-[10px] tracking-widest hover:text-slate-900 transition-all">Cancel</button>
+                        <button onClick={confirmUpload} className="flex-1 py-4 bg-indigo-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-indigo-200 hover:scale-[1.02] transition-all">Upload File</button>
+                    </div>
+                </motion.div>
+            </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Fullscreen Preview Modal */}
       <AnimatePresence>
