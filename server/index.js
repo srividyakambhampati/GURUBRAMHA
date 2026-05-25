@@ -122,9 +122,16 @@ if (process.env.MONGODB_URI) {
 
 const paymentRoutes = require('./routes/payment');
 const digilockerRoutes = require('./routes/digilocker');
+const documentRoutes = require('./routes/documents');
+const authRoutes = require('./routes/auth');
+const courseRoutes = require('./routes/courses');
 
 app.use('/api/payment', paymentRoutes);
 app.use('/api/digilocker', digilockerRoutes);
+app.use('/api/documents', documentRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/courses', courseRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 /* ======================================================
    DEBUG ENDPOINT

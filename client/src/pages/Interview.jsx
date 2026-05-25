@@ -252,246 +252,260 @@ const Interview = () => {
   };
 
   return (
-    <div className="bg-[#0F172A] min-h-screen selection:bg-[#FFB800]/30 pb-20">
-      <div className="max-w-[1600px] mx-auto px-8 md:px-12 pt-10">
-        {/* Elite Header */}
-        <div className="flex flex-col items-center text-center mb-24">
-            <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="inline-flex items-center gap-4 px-8 py-3 rounded-full bg-white/5 border border-white/10 text-[#FFB800] text-[10px] font-black uppercase tracking-[0.3em] mb-10 shadow-2xl"
-            >
-                <Gem size={16} /> Advanced Placement Protocols
-            </motion.div>
-            <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-5xl md:text-8xl font-black text-slate-900 mb-10 tracking-tight"
-            >
-                Elite <span className="text-[#FFB800]">Roadmaps</span>
-            </motion.h1>
-            <p className="text-slate-400 text-xl font-bold max-w-3xl leading-relaxed tracking-wide">
-                Establish technical dominance with proprietary preparation guides for global MNCs, high-growth startups, and product giants.
-            </p>
+    <div className="bg-[#0B0F19] min-h-screen selection:bg-blue-600/30 pb-20 relative overflow-hidden">
+      {/* Ambient background glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-900/10 blur-[150px] pointer-events-none" />
+
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 relative z-10">
+        {/* Premium Header */}
+        <div className="flex flex-col items-center text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6 shadow-lg backdrop-blur-md"
+          >
+            <Gem size={14} className="text-blue-400 animate-pulse" /> Advanced Placement Protocols
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight"
+          >
+            Elite <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Interview Roadmaps</span>
+          </motion.h1>
+          <p className="text-slate-400 text-lg md:text-xl font-normal max-w-3xl leading-relaxed">
+            Establish technical dominance with proprietary preparation guides for global tech giants, high-growth startups, and product leaders.
+          </p>
         </div>
 
         {/* Search & Filter Bento */}
         <motion.div 
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           className="bg-white rounded-[48px] p-12 shadow-2xl mb-20 border border-white/20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-6 md:p-8 shadow-2xl mb-12 border border-slate-800/80"
         >
-            <div className="flex flex-col lg:flex-row items-center gap-10">
-                <div className="relative flex-grow w-full group">
-                    <div className="absolute left-8 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-orange-600 transition-colors">
-                        <Search size={24} />
-                    </div>
-                    <input 
-                        type="text" 
-                        placeholder="Identify specific company roadmaps (e.g. Google, Amazon...)"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-20 pr-10 py-6 bg-slate-50 border border-slate-100 rounded-[30px] font-black text-slate-900 shadow-inner outline-none focus:ring-4 focus:ring-orange-500/10 transition-all placeholder:text-slate-300"
-                    />
-                </div>
-                <div className="flex items-center gap-4 overflow-x-auto pb-4 lg:pb-0 w-full lg:w-auto">
-                    {filters.map(filter => (
-                        <button
-                            key={filter}
-                            onClick={() => setActiveFilter(filter)}
-                            className={`px-10 py-5 rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap shadow-2xl ${
-                                activeFilter === filter 
-                                    ? 'bg-slate-900 text-[#FFB800] scale-105 shadow-slate-900/40' 
-                                    : 'bg-slate-50 text-slate-400 border border-slate-100 hover:border-orange-200'
-                            }`}
-                        >
-                            {filter}
-                        </button>
-                    ))}
-                </div>
+          <div className="flex flex-col lg:flex-row items-center gap-6">
+            <div className="relative flex-grow w-full group">
+              <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-400 transition-colors">
+                <Search size={20} />
+              </div>
+              <input 
+                type="text" 
+                placeholder="Identify specific company roadmaps (e.g. Google, Amazon, Zoho...)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-14 pr-6 py-4.5 bg-slate-950/50 border border-slate-800 rounded-2xl font-medium text-white shadow-inner outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-500 text-base"
+              />
             </div>
+            <div className="flex items-center gap-3 overflow-x-auto pb-2 lg:pb-0 w-full lg:w-auto scrollbar-none">
+              {filters.map(filter => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-6 py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all whitespace-nowrap ${
+                    activeFilter === filter 
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20 scale-105' 
+                      : 'bg-slate-950/40 text-slate-400 border border-slate-850 hover:bg-slate-800/50 hover:text-slate-350'
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
         {/* Company Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-            {filteredCompanies.map((company, i) => (
-                <motion.div
-                    key={company.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="bg-white rounded-[48px] p-0 shadow-2xl hover:shadow-orange-500/20 transition-all group overflow-hidden flex flex-col border border-white/20"
-                >
-                    <div className="p-10 flex-grow">
-                        <div className="flex items-start justify-between mb-10">
-                            <div className="w-20 h-20 rounded-[30px] bg-slate-900 flex items-center justify-center p-4 shadow-2xl group-hover:scale-110 transition-transform">
-                                <img src={company.logo} alt={company.name} className="w-full h-full object-contain brightness-0 invert" />
-                            </div>
-                            <button 
-                                onClick={(e) => { e.stopPropagation(); toggleBookmark(company.id); }}
-                                className={`p-4 rounded-2xl transition-all shadow-sm ${bookmarked.includes(company.id) ? 'bg-[#FFB800] text-slate-900' : 'bg-slate-50 text-slate-300 hover:text-orange-600'}`}
-                            >
-                                <Bookmark size={22} fill={bookmarked.includes(company.id) ? 'currentColor' : 'none'} />
-                            </button>
-                        </div>
-                        <div className="mb-10">
-                            <h3 className="text-3xl font-black text-slate-900 mb-3 group-hover:text-orange-600 transition-colors tracking-tight">{company.name}</h3>
-                            <div className="flex flex-wrap gap-3">
-                                <span className="px-4 py-1.5 bg-slate-900 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
-                                    {company.type}
-                                </span>
-                                <span className={`px-4 py-1.5 text-[9px] font-black uppercase tracking-widest rounded-full ${
-                                    company.difficulty === 'Expert' ? 'bg-red-600 text-slate-900' : 
-                                    company.difficulty === 'Hard' ? 'bg-orange-500 text-slate-900' : 'bg-green-500 text-slate-900'
-                                } shadow-lg shadow-black/10`}>
-                                    {company.difficulty}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="space-y-6">
-                            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-widest">
-                                <span className="text-slate-400">Yield</span>
-                                <span className="text-slate-900">{company.package}</span>
-                            </div>
-                            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-widest">
-                                <span className="text-slate-400">Complexity</span>
-                                <span className="text-slate-900">{company.rounds.length} Operations</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button 
-                        onClick={() => handleAction(company)}
-                        className="w-full py-7 bg-slate-900 text-white font-black uppercase text-[10px] tracking-[0.3em] group-hover:bg-orange-600 group-hover:text-[#FFB800] transition-all flex items-center justify-center gap-4"
-                    >
-                        Access Roadmap <ChevronRight size={18} />
-                    </button>
-                </motion.div>
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {filteredCompanies.map((company, i) => (
+            <motion.div
+              key={company.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="bg-slate-900/40 backdrop-blur-md rounded-2xl p-0 shadow-xl hover:shadow-2xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300 group overflow-hidden flex flex-col border border-slate-800/80 hover:border-blue-500/30"
+            >
+              <div className="p-6 md:p-8 flex-grow">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="w-16 h-16 rounded-2xl bg-slate-950/80 border border-slate-850 flex items-center justify-center p-3.5 shadow-md group-hover:scale-105 transition-transform duration-300">
+                    <img src={company.logo} alt={company.name} className="w-full h-full object-contain" />
+                  </div>
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); toggleBookmark(company.id); }}
+                    className={`p-3 rounded-xl transition-all shadow-sm ${bookmarked.includes(company.id) ? 'bg-blue-600 text-white' : 'bg-slate-950/60 text-slate-450 hover:text-blue-400 hover:bg-slate-800/50'}`}
+                  >
+                    <Bookmark size={18} fill={bookmarked.includes(company.id) ? 'currentColor' : 'none'} />
+                  </button>
+                </div>
+                
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2.5 group-hover:text-blue-400 transition-colors tracking-tight">{company.name}</h3>
+                  <div className="flex flex-wrap gap-2">
+                    <span className={`px-3 py-1 text-[9px] font-semibold uppercase tracking-wider rounded-full ${
+                      company.type === 'Product Based' ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' :
+                      company.type === 'Startup' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                      'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+                    }`}>
+                      {company.type}
+                    </span>
+                    <span className={`px-3 py-1 text-[9px] font-semibold uppercase tracking-wider rounded-full ${
+                      company.difficulty === 'Expert' ? 'bg-rose-500/10 text-rose-450 border border-rose-500/20' : 
+                      company.difficulty === 'Hard' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 
+                      'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                    }`}>
+                      {company.difficulty}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-4 pt-4 border-t border-slate-850">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-450">CTC Package</span>
+                    <span className="text-slate-200 font-semibold">{company.package}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-450">Assessment</span>
+                    <span className="text-slate-200 font-semibold">{company.rounds.length} Interview Rounds</span>
+                  </div>
+                </div>
+              </div>
+              
+              <button 
+                onClick={() => handleAction(company)}
+                className="w-full py-4.5 bg-slate-950/80 text-slate-300 font-bold uppercase text-[10px] tracking-widest group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2 border-t border-slate-850/50 group-hover:border-transparent"
+              >
+                Access Roadmap <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </motion.div>
+          ))}
         </div>
 
         {/* Empty State */}
         {filteredCompanies.length === 0 && (
-            <div className="py-40 text-center">
-                <div className="w-24 h-24 bg-white/5 rounded-[40px] flex items-center justify-center text-slate-800 mx-auto mb-8 border border-white/5 shadow-2xl">
-                    <Shield size={44} />
-                </div>
-                <h3 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">No protocols identified</h3>
-                <p className="text-slate-500 font-bold text-lg">Try adjusting your filtration parameters.</p>
+          <div className="py-24 text-center">
+            <div className="w-16 h-16 bg-slate-900/60 rounded-2xl flex items-center justify-center text-slate-450 mx-auto mb-6 border border-slate-800 shadow-xl">
+              <Shield size={28} />
             </div>
+            <h3 className="text-xl font-bold text-white mb-2 tracking-tight">No protocols identified</h3>
+            <p className="text-slate-555 font-medium text-sm">Try adjusting your filtration parameters or search query.</p>
+          </div>
         )}
       </div>
 
       {/* Detailed Prep Modal */}
       <AnimatePresence>
         {selectedCompany && (
-            <div className="fixed inset-0 z-[1000] bg-[#0F172A]/90 backdrop-blur-3xl flex items-center justify-center p-6 md:p-12 overflow-y-auto">
-                <motion.div 
-                    initial={{ scale: 0.95, opacity: 0, y: 30 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    exit={{ scale: 0.95, opacity: 0, y: 30 }}
-                    className="w-full max-w-7xl bg-white rounded-[64px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] relative border border-white/20 overflow-hidden flex flex-col lg:flex-row max-h-[90vh]"
-                >
-                    <button onClick={() => setSelectedCompany(null)} className="absolute top-10 right-10 p-5 text-slate-400 hover:text-orange-600 bg-slate-50 rounded-[24px] transition-all z-[1010] shadow-xl"><X size={32} /></button>
-                    
-                    {/* Left Info Panel */}
-                    <div className="lg:w-[450px] bg-slate-900 p-16 overflow-y-auto flex-shrink-0 flex flex-col">
-                        <div className="w-32 h-32 bg-white rounded-[40px] flex items-center justify-center p-6 shadow-2xl mb-16 self-center lg:self-start">
-                            <img src={selectedCompany.logo} alt={selectedCompany.name} className="w-full h-full object-contain" />
-                        </div>
-                        <h2 className="text-5xl font-black text-slate-900 mb-6 tracking-tighter leading-none">{selectedCompany.name}</h2>
-                        <div className="inline-block self-start px-6 py-2 bg-[#FFB800] text-slate-900 text-[10px] font-black uppercase tracking-[0.3em] rounded-full mb-16 shadow-2xl">
-                            {selectedCompany.type}
-                        </div>
-                        
-                        <div className="space-y-16 flex-grow">
-                            <div>
-                                <h4 className="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] mb-6">Eligibility Protocol</h4>
-                                <p className="text-slate-300 font-bold leading-relaxed text-lg tracking-wide">{selectedCompany.eligibility}</p>
-                            </div>
-                            <div>
-                                <h4 className="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] mb-6">Core Competencies</h4>
-                                <div className="flex flex-wrap gap-3">
-                                    {selectedCompany.skills.map(skill => (
-                                        <span key={skill} className="px-5 py-2.5 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black text-[#FFB800] uppercase tracking-widest shadow-xl">{skill}</span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div className="mt-16 pt-10 border-t border-white/5 text-center lg:text-left">
-                            <p className="text-slate-600 text-[10px] font-black uppercase tracking-[0.4em]">Proprietary Training Active</p>
-                        </div>
+          <div className="fixed inset-0 z-[1000] bg-slate-955/80 backdrop-blur-xl flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="w-full max-w-6xl bg-slate-950/95 rounded-2xl shadow-2xl relative border border-slate-800/80 overflow-hidden flex flex-col lg:flex-row max-h-[90vh]"
+            >
+              <button 
+                onClick={() => setSelectedCompany(null)} 
+                className="absolute top-6 right-6 p-2.5 text-slate-400 hover:text-white hover:bg-slate-900 rounded-xl transition-all z-[1010]"
+              >
+                <X size={20} />
+              </button>
+              
+              {/* Left Info Panel */}
+              <div className="lg:w-[380px] bg-slate-900/60 p-8 border-b lg:border-b-0 lg:border-r border-slate-800/80 overflow-y-auto flex-shrink-0 flex flex-col">
+                <div className="w-24 h-24 bg-slate-950 rounded-2xl flex items-center justify-center p-5 shadow-lg mb-8 self-center lg:self-start border border-slate-850">
+                  <img src={selectedCompany.logo} alt={selectedCompany.name} className="w-full h-full object-contain" />
+                </div>
+                <h2 className="text-3xl font-extrabold text-white mb-3 tracking-tight leading-tight text-center lg:text-left">{selectedCompany.name}</h2>
+                <div className="inline-block self-center lg:self-start px-3.5 py-1.5 bg-blue-600/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider rounded-full mb-8 shadow-sm">
+                  {selectedCompany.type}
+                </div>
+                
+                <div className="space-y-8 flex-grow">
+                  <div>
+                    <h4 className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-2">Eligibility Protocol</h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">{selectedCompany.eligibility}</p>
+                  </div>
+                  <div>
+                    <h4 className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-3">Core Competencies</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCompany.skills.map(skill => (
+                        <span key={skill} className="px-3 py-1.5 bg-slate-950/60 border border-slate-850 rounded-lg text-[10px] font-semibold text-slate-300 uppercase tracking-wide">{skill}</span>
+                      ))}
                     </div>
+                  </div>
+                </div>
+              </div>
 
-                    {/* Right Roadmap Panel */}
-                    <div className="flex-grow p-12 md:p-20 overflow-y-auto custom-scrollbar bg-white">
-                        <div className="flex items-center gap-8 mb-20">
-                            <div className="w-20 h-20 bg-slate-900 rounded-[32px] flex items-center justify-center text-[#FFB800] shadow-2xl">
-                                <Activity size={36} />
-                            </div>
-                            <div>
-                                <h3 className="text-4xl font-black text-slate-900 tracking-tighter">Strategic Roadmap</h3>
-                                <p className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px] mt-2">Establishment Plan for {selectedCompany.name}</p>
-                            </div>
-                        </div>
+              {/* Right Roadmap Panel */}
+              <div className="flex-grow p-6 md:p-10 overflow-y-auto bg-slate-950">
+                <div className="flex items-center gap-5 mb-8">
+                  <div className="w-12 h-12 bg-blue-500/10 rounded-xl border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-md">
+                    <Activity size={22} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white tracking-tight">Strategic Prep Roadmap</h3>
+                    <p className="text-slate-500 uppercase tracking-widest text-[9px] mt-1">30-Day execution cycle for {selectedCompany.name}</p>
+                  </div>
+                </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
-                            {selectedCompany.roadmap30Days.map((step, idx) => (
-                                <div key={idx} className="bg-slate-50 rounded-[48px] p-12 border border-slate-100 shadow-sm relative group hover:bg-white hover:shadow-2xl transition-all">
-                                    <div className="absolute -top-6 -left-6 w-16 h-16 bg-slate-900 text-[#FFB800] rounded-[24px] flex items-center justify-center font-black text-xl group-hover:scale-110 transition-transform shadow-2xl">
-                                        W{step.week}
-                                    </div>
-                                    <h4 className="text-2xl font-black text-slate-900 mb-4 mt-6 tracking-tight">Phase {step.week} Cycle</h4>
-                                    <p className="text-slate-500 font-bold leading-relaxed text-lg">{step.focus}</p>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="space-y-10">
-                            <h3 className="text-3xl font-black text-slate-900 mb-12 flex items-center gap-6">
-                                <Layout className="text-orange-600" /> Operational Breakdown
-                            </h3>
-                            {selectedCompany.rounds.map((round, idx) => (
-                                <details key={idx} className="group bg-slate-50 border border-slate-100 rounded-[40px] overflow-hidden transition-all shadow-sm open:shadow-2xl open:bg-white">
-                                    <summary className="p-10 flex items-center justify-between cursor-pointer list-none transition-colors">
-                                        <div className="flex items-center gap-8">
-                                            <div className="w-14 h-14 rounded-[20px] bg-slate-900 text-[#FFB800] flex items-center justify-center font-black text-lg shadow-2xl">
-                                                0{idx + 1}
-                                            </div>
-                                            <h4 className="text-2xl font-black text-slate-900 tracking-tight">{round.title}</h4>
-                                        </div>
-                                        <ChevronRight size={28} className="text-slate-300 group-open:rotate-90 transition-transform" />
-                                    </summary>
-                                    <div className="p-12 border-t border-slate-100 bg-white">
-                                        <h5 className="text-[10px] font-black text-orange-600 uppercase tracking-[0.4em] mb-8">Target Competencies:</h5>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                            {round.topics.map(topic => (
-                                                <div key={topic} className="flex items-center gap-4 bg-slate-50 p-5 rounded-[24px] border border-slate-100">
-                                                    <div className="w-3 h-3 rounded-full bg-orange-600 shadow-lg shadow-orange-500/50"></div>
-                                                    <span className="text-sm font-black text-slate-700 uppercase tracking-widest">{topic}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </details>
-                            ))}
-                        </div>
-
-                        <div className="mt-24 p-16 bg-slate-900 rounded-[56px] text-slate-900 shadow-2xl relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/20 rounded-full blur-[100px]"></div>
-                            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-                                <div className="max-w-xl text-center md:text-left">
-                                    <h3 className="text-4xl font-black mb-4 tracking-tighter leading-none">Simulate Reality?</h3>
-                                    <p className="text-slate-400 text-lg font-bold">Practice with senior architects from {selectedCompany.name} and receive instant protocol feedback.</p>
-                                </div>
-                                <button className="px-12 py-6 bg-[#FFB800] text-slate-900 rounded-[24px] font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl hover:scale-[1.05] active:scale-95 transition-all">
-                                    Initialize Mock Session
-                                </button>
-                            </div>
-                        </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {selectedCompany.roadmap30Days.map((step, idx) => (
+                    <div key={idx} className="bg-slate-900/40 rounded-xl p-5 border border-slate-850 shadow-sm relative group hover:bg-slate-900/70 hover:border-slate-800 transition-all duration-300">
+                      <div className="absolute top-4 right-4 w-9 h-9 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center font-bold text-sm">
+                        W{step.week}
+                      </div>
+                      <h4 className="text-base font-bold text-white mb-2 tracking-tight">Phase {step.week} Cycle</h4>
+                      <p className="text-slate-400 text-sm leading-relaxed">{step.focus}</p>
                     </div>
-                </motion.div>
-            </div>
+                  ))}
+                </div>
+
+                <div className="space-y-6">
+                  <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
+                    <Layout size={18} className="text-blue-400" /> Interview Process breakdown
+                  </h3>
+                  {selectedCompany.rounds.map((round, idx) => (
+                    <details key={idx} className="group bg-slate-900/40 border border-slate-850 rounded-xl overflow-hidden transition-all duration-300 open:bg-slate-900/60 open:border-slate-800">
+                      <summary className="p-5 flex items-center justify-between cursor-pointer list-none select-none">
+                        <div className="flex items-center gap-4">
+                          <div className="w-8 h-8 rounded-lg bg-slate-950 text-blue-400 flex items-center justify-center font-bold text-xs border border-slate-850">
+                            0{idx + 1}
+                          </div>
+                          <h4 className="text-sm font-bold text-white tracking-tight">{round.title}</h4>
+                        </div>
+                        <ChevronRight size={18} className="text-slate-400 group-open:rotate-90 transition-transform" />
+                      </summary>
+                      <div className="px-5 pb-5 pt-3 border-t border-slate-850/60 bg-slate-950/40">
+                        <h5 className="text-[9px] font-bold text-blue-400 uppercase tracking-widest mb-3">Target Competencies:</h5>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {round.topics.map(topic => (
+                            <div key={topic} className="flex items-center gap-2.5 bg-slate-950/65 px-4 py-2.5 rounded-lg border border-slate-850">
+                              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-md"></div>
+                              <span className="text-xs font-semibold text-slate-350">{topic}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </details>
+                  ))}
+                </div>
+
+                <div className="mt-10 p-6 bg-gradient-to-r from-blue-900/20 to-indigo-900/20 border border-blue-500/20 rounded-xl text-white shadow-xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-[80px]"></div>
+                  <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="max-w-xl text-center md:text-left">
+                      <h3 className="text-xl font-bold mb-2 tracking-tight">Simulate Realistic Interviews</h3>
+                      <p className="text-slate-400 text-sm">Practice live mock sessions with senior engineers and architects from {selectedCompany.name} and get instant detailed feedback.</p>
+                    </div>
+                    <button className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold uppercase text-[10px] tracking-widest shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-98 transition-all whitespace-nowrap">
+                      Initialize Mock Session
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 

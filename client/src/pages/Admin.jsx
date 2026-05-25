@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import CourseBuilder from '../components/admin/CourseBuilder';
 import { 
   Users, 
   BookOpen, 
@@ -63,13 +66,20 @@ const Admin = () => {
     { id: 5, name: 'Rohan Mehta', email: 'rohan@mehta.org', phone: '+91 54321 09876', joinedDate: '2026-04-05', subStatus: 'Active', plan: 'Yearly', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80', activeDuration: '104 hrs', activity: '65 problems' },
   ]);
 
-  const [courses, setCourses] = useState([
-    { id: 1, name: 'Python for Beginners', instructor: 'Dr. Smith', category: 'Programming', price: 2999, isPremium: true, status: 'Published', students: 1240, watchTime: '1,450 hrs', demoUrl: 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4', notesName: 'python_essentials_vol1.pdf' },
-    { id: 2, name: 'Full Stack JavaScript', instructor: 'Dev Karan', category: 'Web Development', price: 4999, isPremium: true, status: 'Published', students: 850, watchTime: '980 hrs', demoUrl: 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4', notesName: 'js_advanced_guide.pdf' },
-    { id: 3, name: 'Advanced Java Mastery', instructor: 'Sarah Johnson', category: 'Programming', price: 3999, isPremium: true, status: 'Draft', students: 0, watchTime: '0 hrs', demoUrl: '', notesName: '' },
-    { id: 4, name: 'React Native Blueprint', instructor: 'Alex Lee', category: 'Mobile Dev', price: 3499, isPremium: false, status: 'Published', students: 420, watchTime: '510 hrs', demoUrl: '', notesName: 'mobile_basics.pdf' },
-    { id: 5, name: 'Machine Learning A-Z', instructor: 'Dr. Elena', category: 'Data Science', price: 6999, isPremium: true, status: 'Scheduled', students: 0, watchTime: '0 hrs', demoUrl: '', notesName: '' },
-  ]);
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/api/courses`);
+      setCourses(res.data);
+    } catch (err) {
+      console.error('Failed to fetch courses:', err);
+    }
+  };
 
   const [subscriptions, setSubscriptions] = useState([
     { id: 1, name: 'Alex Mercer', email: 'alex@gurubramha.edu', phone: '+91 98765 43210', plan: 'Yearly', date: '2026-01-15', time: '14:32', paymentId: 'pay_P9aXwkHr5Jyn1a', txId: 'GB2026SUB0001', amount: 9999, status: 'Successful', startDate: '2026-01-15', endDate: '2027-01-15' },
@@ -167,19 +177,19 @@ const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex selection:bg-orange-500/10 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#0B1120] text-slate-200 flex selection:bg-[#2DD4BF]/20 relative overflow-hidden font-sans">
       
       {/* 1. Left Sleek Bento Sidebar Navigation */}
-      <aside className="w-80 bg-white/70 backdrop-blur-xl border-r border-slate-200/40 p-8 flex flex-col justify-between hidden lg:flex h-screen sticky top-0 z-40">
-        <div className="space-y-12">
+      <aside className="w-72 bg-[#0F172A] border-r border-slate-800/60 p-6 flex flex-col justify-between hidden lg:flex h-screen sticky top-0 z-40">
+        <div className="space-y-10">
           {/* Logo Brand area */}
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gradient-to-tr from-[#F97316] to-[#F59E0B] rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-md shadow-[#F97316]/15">
-              G
+          <div className="flex items-center gap-3 pl-2">
+            <div className="w-10 h-10 bg-rose-400 rounded-xl flex items-center justify-center text-white shadow-lg shadow-rose-500/20">
+              <Shield size={20} fill="currentColor" className="opacity-90" />
             </div>
             <div>
-              <h2 className="font-extrabold text-lg leading-tight tracking-tight text-slate-900">GuruBramha</h2>
-              <span className="text-[10px] font-bold text-[#F59E0B] uppercase tracking-widest bg-[#F5F3FF] border border-[#F59E0B]/10 px-2.5 py-0.5 rounded-full">LMS Console</span>
+              <h2 className="font-bold text-base leading-tight tracking-tight text-white">Admin Panel</h2>
+              <span className="text-[10px] font-medium text-slate-500">GuruBramha LMS</span>
             </div>
           </div>
 
@@ -198,29 +208,27 @@ const Admin = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-4 px-5 py-3.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 relative ${
+                className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[13px] font-medium tracking-wide transition-all duration-200 ${
                   activeTab === tab.id 
-                    ? 'bg-[#FFF7ED] text-[#F97316] shadow-sm shadow-[#F97316]/5 border border-[#F97316]/10' 
-                    : 'text-[#64748B] hover:bg-[#FFF7ED]/30 hover:text-[#F97316] hover:translate-x-1'
+                    ? 'bg-slate-800/80 text-white shadow-sm' 
+                    : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-200'
                 }`}
               >
-                <span className={`${activeTab === tab.id ? 'text-[#F97316]' : 'text-slate-400'}`}>{tab.icon}</span>
+                <span className={`${activeTab === tab.id ? 'text-blue-400' : 'text-slate-500'}`}>{tab.icon}</span>
                 <span className="flex-grow text-left">{tab.name}</span>
-                {activeTab === tab.id && <ChevronRight size={14} className="text-[#F97316]" />}
               </button>
             ))}
           </nav>
         </div>
 
         {/* User administrative profile footer */}
-        <div className="bg-[#F8FAFC]/55 rounded-2xl p-4.5 flex items-center gap-4 border border-slate-100">
-          <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center font-bold text-white shadow-md">
-            AG
-          </div>
-          <div>
-            <p className="text-xs font-black uppercase text-slate-800 tracking-wider">Admin Guru</p>
-            <p className="text-[10px] font-bold text-slate-400">Super Administrator</p>
-          </div>
+        <div className="mt-8 pt-6 border-t border-slate-800">
+          <button className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors text-sm font-medium px-4">
+            <Globe size={16} /> View Site
+          </button>
+          <button className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors text-sm font-medium px-4 mt-6">
+            <LogOut size={16} /> Logout
+          </button>
         </div>
       </aside>
 
@@ -254,138 +262,127 @@ const Admin = () => {
           
           {/* TAB 1: OVERVIEW DASHBOARD */}
           {activeTab === 'dashboard' && (
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="space-y-12">
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
               {/* Header Title */}
               <div>
-                <span className="text-xs font-black uppercase text-[#F59E0B] tracking-[0.15em] bg-[#F5F3FF] border border-[#F59E0B]/10 px-3.5 py-1.5 rounded-full">Overview Analytics</span>
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 mt-4">LMS Management Dashboard</h1>
-                <p className="text-slate-500 font-bold text-sm tracking-wide mt-1">Real-time metrics, payment tracking, and analytics index.</p>
+                <h1 className="text-3xl font-bold tracking-tight text-white">Admin Dashboard</h1>
+                <p className="text-slate-400 text-sm mt-1">GuruBramha LMS — Operations Overview</p>
               </div>
 
               {/* Stats bento deck */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {statsOverview.map((item, i) => (
-                  <div key={i} className="bg-white border border-slate-200/50 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative group cursor-default overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#F97316] to-[#F59E0B] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-full"></div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-black uppercase text-slate-400 tracking-[0.15em]">{item.label}</span>
-                      <div className={`p-3 ${item.bgClass} ${item.iconClass} rounded-xl transition-all duration-300`}>{item.icon}</div>
+                {[
+                  { label: 'Total Scholars', value: users.length, icon: <Users size={20} />, bgClass: 'bg-[#8B5CF6]', textClass: 'text-white' },
+                  { label: 'Net Revenue', value: `₹${subscriptions.filter(s => s.status === 'Successful').reduce((acc, curr) => acc + curr.amount, 0)}`, icon: '₹', bgClass: 'bg-[#2DD4BF]', textClass: 'text-slate-900 text-lg font-bold' },
+                  { label: 'Submissions', value: '18,534', icon: <FileText size={20} />, bgClass: 'bg-[#FB923C]', textClass: 'text-white' },
+                  { label: 'Active Teams', value: '240', icon: <Activity size={20} />, bgClass: 'bg-[#A855F7]', textClass: 'text-white' },
+                ].map((item, i) => (
+                  <div key={i} className="bg-[#131B2C] border border-slate-800/80 rounded-[20px] p-6 hover:border-slate-700 transition-all duration-300">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${item.bgClass} ${item.textClass} shadow-lg`}>
+                      {item.icon}
                     </div>
-                    <h3 className="text-3xl font-black text-slate-900 tracking-tight">{item.value}</h3>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1.5">{item.sub}</p>
+                    <h3 className="text-3xl font-bold text-white tracking-tight">{item.value}</h3>
+                    <p className="text-sm font-medium text-slate-400 mt-2">{item.label}</p>
                   </div>
                 ))}
               </div>
 
-              {/* Graphic Chart Bento Zone (Requirement 1 & 14) */}
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                {/* SVG Revenue Line Chart */}
-                <div className="bg-white border border-slate-200/50 rounded-3xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-[450px]">
-                  <div>
-                    <div className="flex items-center justify-between mb-8">
-                      <div>
-                        <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest">LMS Sales Growth Metrics</h4>
-                        <h3 className="text-2xl font-black text-slate-900 tracking-tight mt-1">Monthly Subscriptions Graph</h3>
-                      </div>
-                      <span className="px-4 py-1.5 bg-[#E6F8F0] text-[#10B981] text-[10px] font-black uppercase tracking-widest rounded-full flex items-center gap-1.5 border border-[#10B981]/10">
-                        <TrendingUp size={12} /> +18.4% YoY
-                      </span>
-                    </div>
+              {/* Bento Widgets Zone */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Recent Registrations Table (Left 2 cols) */}
+                <div className="lg:col-span-2 bg-[#131B2C] border border-slate-800/80 rounded-[20px] p-6 hover:border-slate-700 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-bold text-white">Recent Registrations</h3>
+                    <button className="text-blue-500 text-sm font-medium hover:text-blue-400">View All →</button>
                   </div>
-                  {/* Styled Animated SVG Chart */}
-                  <div className="flex-grow flex items-end justify-center relative text-[#F97316]">
-                    <svg viewBox="0 0 500 180" className="w-full h-full pr-4">
-                      <defs>
-                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="rgb(79, 140, 255)" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="rgb(124, 108, 255)" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
-                      <path
-                        d="M0,150 Q50,90 100,120 T200,60 T300,90 T400,30 T500,10"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3.5"
-                        strokeLinecap="round"
-                        className="animate-pulse"
-                      />
-                      <path
-                        d="M0,150 Q50,90 100,120 T200,60 T300,90 T400,30 T500,10 L500,180 L0,180 Z"
-                        fill="url(#chartGrad)"
-                      />
-                      {/* Grid Lines */}
-                      <line x1="0" y1="30" x2="500" y2="30" stroke="rgba(0,0,0,0.02)" strokeDasharray="5 5" />
-                      <line x1="0" y1="90" x2="500" y2="90" stroke="rgba(0,0,0,0.02)" strokeDasharray="5 5" />
-                      <line x1="0" y1="150" x2="500" y2="150" stroke="rgba(0,0,0,0.02)" strokeDasharray="5 5" />
-                    </svg>
-                  </div>
-                  <div className="flex justify-between text-[10px] font-black text-slate-400 uppercase tracking-widest pt-6 border-t border-slate-100 mt-4">
-                    <span>Jan</span>
-                    <span>Feb</span>
-                    <span>Mar</span>
-                    <span>Apr</span>
-                    <span>May (Current)</span>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm">
+                      <thead>
+                        <tr className="text-slate-500 border-b border-slate-800/80">
+                          <th className="pb-3 font-medium">Name</th>
+                          <th className="pb-3 font-medium text-center">Team</th>
+                          <th className="pb-3 font-medium text-center">Track</th>
+                          <th className="pb-3 font-medium text-center">Status</th>
+                          <th className="pb-3 font-medium text-right">Date</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-800/50">
+                        {users.slice(0, 5).map((user, i) => (
+                          <tr key={i} className="text-slate-300">
+                            <td className="py-4">
+                              <p className="font-medium text-white">{user.name}</p>
+                              <p className="text-xs text-slate-500">{user.email}</p>
+                            </td>
+                            <td className="py-4 text-center text-slate-500">—</td>
+                            <td className="py-4 text-center text-slate-500">—</td>
+                            <td className="py-4 text-center">
+                              <span className="px-3 py-1 bg-yellow-900/30 text-yellow-500 border border-yellow-700/50 rounded-full text-xs font-medium">
+                                pending
+                              </span>
+                            </td>
+                            <td className="py-4 text-right text-slate-400">May 24, 2026</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
 
-                {/* SVG Active Students Bar Chart */}
-                <div className="bg-white border border-slate-200/50 rounded-3xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-[450px]">
-                  <div>
-                    <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest">Scholar Engagement index</h4>
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tight mt-1">Coding Practice Arena Activity</h3>
-                  </div>
-                  <div className="flex-grow flex items-end justify-between gap-4 px-4 h-48 mt-10">
-                    {[
-                      { label: 'Week 1', height: '35%', count: 420 },
-                      { label: 'Week 2', height: '65%', count: 850 },
-                      { label: 'Week 3', height: '50%', count: 680 },
-                      { label: 'Week 4', height: '85%', count: 1240 },
-                      { label: 'Week 5', height: '95%', count: 1450 },
-                    ].map((bar, index) => (
-                      <div key={index} className="flex-grow flex flex-col items-center group cursor-pointer">
-                        <span className="text-[10px] font-black text-slate-500 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white px-2.5 py-1 rounded-md">
-                          {bar.count}
-                        </span>
-                        <div className="w-full bg-slate-50 rounded-t-xl overflow-hidden h-36 flex items-end relative shadow-inner">
-                          <div 
-                            className="w-full bg-gradient-to-t from-[#F97316] to-[#F59E0B] rounded-t-xl group-hover:brightness-105 transition-all duration-500" 
-                            style={{ height: bar.height }}
-                          ></div>
+                {/* Right Column: Payment Summary & Funnel */}
+                <div className="space-y-6">
+                  {/* Payment Summary */}
+                  <div className="bg-[#131B2C] border border-slate-800/80 rounded-[20px] p-6 hover:border-slate-700 transition-all duration-300">
+                    <h3 className="text-lg font-bold text-white mb-6">Payment Summary</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-slate-900/50 border border-slate-800/80 rounded-xl">
+                        <div className="flex items-center gap-3">
+                          <CheckCircle size={16} className="text-emerald-500" />
+                          <span className="text-slate-300 text-sm font-medium">Successful</span>
                         </div>
-                        <span className="text-[10px] font-bold text-slate-400 mt-3 uppercase tracking-wider">{bar.label}</span>
+                        <span className="text-white font-bold">1</span>
                       </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-between items-center text-[10px] font-black text-slate-400 uppercase tracking-widest pt-6 border-t border-slate-100 mt-4">
-                    <span>LMS Arena Activity log index (Updates Realtime)</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Recent Activity Log Deck */}
-              <div className="bg-white border border-slate-200/50 rounded-3xl p-8 shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-3">
-                  <Activity size={18} className="text-[#F59E0B]" /> Recent Administrative Activity Logs
-                </h3>
-                <div className="space-y-4">
-                  {[
-                    { log: 'Alex Mercer initialized dry run on "Two Sum"', time: '12 mins ago', type: 'practice' },
-                    { log: 'New subscription processed: Priya Sharma (Plan: Monthly, Transaction: GB2026SUB0002)', time: '2 hrs ago', type: 'payment' },
-                    { log: 'Platform administrator uploaded "python_essentials_vol1.pdf" resource doc', time: '1 day ago', type: 'system' },
-                    { log: 'Broadcast: Promotional Announcement "Summer Internship Drive 2026" triggered', time: '2 days ago', type: 'broadcast' },
-                  ].map((act, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 bg-[#F8FAFC]/55 hover:bg-[#FFF7ED]/10 rounded-2xl border border-slate-100/40 transition-all duration-200">
-                      <div className="flex items-center gap-4">
-                        <div className={`w-2.5 h-2.5 rounded-full ${
-                          act.type === 'practice' ? 'bg-[#F59E0B]' :
-                          act.type === 'payment' ? 'bg-[#10B981]' :
-                          act.type === 'system' ? 'bg-[#F97316]' : 'bg-[#F59E0B]'
-                        }`}></div>
-                        <span className="text-sm font-bold text-slate-700">{act.log}</span>
+                      <div className="flex items-center justify-between p-3 bg-slate-900/50 border border-slate-800/80 rounded-xl">
+                        <div className="flex items-center gap-3">
+                          <Clock size={16} className="text-yellow-500" />
+                          <span className="text-slate-300 text-sm font-medium">Pending</span>
+                        </div>
+                        <span className="text-white font-bold">7</span>
                       </div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{act.time}</span>
+                      <div className="flex items-center justify-between p-3 bg-slate-900/50 border border-slate-800/80 rounded-xl">
+                        <div className="flex items-center gap-3">
+                          <XCircle size={16} className="text-rose-500" />
+                          <span className="text-slate-300 text-sm font-medium">Failed</span>
+                        </div>
+                        <span className="text-white font-bold">0</span>
+                      </div>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Signup Funnel */}
+                  <div className="bg-[#131B2C] border border-slate-800/80 rounded-[20px] p-6 hover:border-slate-700 transition-all duration-300">
+                    <h3 className="text-lg font-bold text-white mb-6">Signup Funnel</h3>
+                    <div className="space-y-4">
+                      {[
+                        { label: 'Page Visits', val: '-', percent: '100%', color: 'bg-blue-500' },
+                        { label: 'Registration Started', val: '-', percent: '80%', color: 'bg-blue-400' },
+                        { label: 'Payment Attempted', val: '8', percent: '50%', color: 'bg-blue-600' },
+                        { label: 'Payment Successful', val: '1', percent: '20%', color: 'bg-blue-500' },
+                      ].map((item, i) => (
+                        <div key={i}>
+                          <div className="flex items-center justify-between text-xs mb-2">
+                            <div className="flex items-center gap-3">
+                              <span className="text-slate-600 font-mono">{i + 1}</span>
+                              <span className="text-slate-300 font-medium">{item.label}</span>
+                            </div>
+                            <span className="text-white font-bold">{item.val}</span>
+                          </div>
+                          <div className="w-full bg-slate-800/80 h-1.5 rounded-full overflow-hidden">
+                            <div className={`h-full ${item.color} rounded-full`} style={{ width: item.percent }}></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -396,9 +393,9 @@ const Admin = () => {
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 font-sans">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
-                  <span className="text-xs font-black uppercase text-[#F59E0B] tracking-[0.15em] bg-[#F5F3FF] border border-[#F59E0B]/10 px-3.5 py-1.5 rounded-full">User Accounts Directory</span>
-                  <h1 className="text-4xl font-black text-slate-900 mt-4">LMS Scholar Management</h1>
-                  <p className="text-slate-500 font-bold text-sm tracking-wide mt-1">Suspend, delete, review courses log, and manage roles.</p>
+                  <span className="text-xs font-bold uppercase text-blue-400 tracking-[0.15em] bg-blue-500/10 border border-blue-500/20 px-3.5 py-1.5 rounded-full">User Accounts Directory</span>
+                  <h1 className="text-3xl font-bold text-white mt-4">LMS Scholar Management</h1>
+                  <p className="text-slate-400 font-medium text-sm tracking-wide mt-1">Suspend, delete, review courses log, and manage roles.</p>
                 </div>
                 <button 
                   onClick={() => setIsAddUserOpen(true)}
@@ -409,7 +406,7 @@ const Admin = () => {
               </div>
 
               {/* Filtering Search Bar */}
-              <div className="bg-white border border-slate-200/50 rounded-2xl !p-5 flex flex-col md:flex-row items-center gap-6 shadow-sm shadow-slate-100/30">
+              <div className="bg-[#131B2C] border border-slate-800/80 rounded-2xl !p-5 flex flex-col md:flex-row items-center gap-6 shadow-sm">
                 <div className="relative flex-grow w-full">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
@@ -417,17 +414,17 @@ const Admin = () => {
                     value={userSearch}
                     onChange={(e) => setUserSearch(e.target.value)}
                     placeholder="Search scholars by name, email coordinates, or phone number..."
-                    className="w-full pl-12 pr-4 py-3 bg-slate-50/50 border border-slate-200/50 rounded-xl focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 placeholder:text-slate-300 transition-all text-xs"
+                    className="w-full pl-12 pr-4 py-3 bg-slate-900/50 border border-slate-800/80 rounded-xl focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10 outline-none font-bold text-white placeholder:text-slate-500 transition-all text-xs"
                   />
                 </div>
               </div>
 
               {/* Users Table */}
-              <div className="bg-white border border-slate-200/50 rounded-3xl overflow-hidden shadow-sm shadow-slate-100/50">
+              <div className="bg-[#131B2C] border border-slate-800/80 rounded-[20px] overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
                     <thead>
-                      <tr className="text-left text-xs font-black text-slate-400 uppercase tracking-widest bg-slate-50/50 border-b border-slate-200/40 sticky top-0 z-10">
+                      <tr className="text-left text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-900/30 border-b border-slate-800/80 sticky top-0 z-10">
                         <th className="px-8 py-5 w-16 text-center">SI.No</th>
                         <th className="px-8 py-5">Scholar details</th>
                         <th className="px-8 py-5">Phone Number</th>
@@ -441,27 +438,27 @@ const Admin = () => {
                       {users
                         .filter(u => u.name.toLowerCase().includes(userSearch.toLowerCase()) || u.email.toLowerCase().includes(userSearch.toLowerCase()))
                         .map((user, i) => (
-                          <tr key={user.id} className="hover:bg-[#FFF7ED]/10 even:bg-slate-50/30 transition-all duration-200 text-xs font-semibold text-[#0F172A]">
+                          <tr key={user.id} className="hover:bg-slate-800/30 even:bg-slate-900/20 transition-all duration-200 text-xs font-semibold text-slate-300 border-b border-slate-800/40 last:border-0">
                             <td className="px-8 py-4.5 text-center font-bold text-slate-400">{i + 1}</td>
                             <td className="px-8 py-4.5">
                               <div className="flex items-center gap-4">
                                 <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full object-cover border border-slate-100 shadow-sm" />
                                 <div>
-                                  <p className="font-black text-slate-900 leading-none">{user.name}</p>
+                                  <p className="font-bold text-white leading-none">{user.name}</p>
                                   <span className="text-[11px] text-slate-400 font-semibold mt-1 inline-block">{user.email}</span>
                                 </div>
                               </div>
                             </td>
-                            <td className="px-8 py-4.5 font-bold text-slate-500">{user.phone}</td>
+                            <td className="px-8 py-4.5 font-bold text-slate-400">{user.phone}</td>
                             <td className="px-8 py-4.5 font-bold text-slate-400">{user.joinedDate}</td>
                             <td className="px-8 py-4.5">
-                              <span className="px-3 py-1 bg-slate-50 border border-slate-200/30 rounded-lg text-[10px] font-black text-slate-500 uppercase tracking-wider">{user.activeDuration}</span>
+                              <span className="px-3 py-1 bg-slate-800/50 border border-slate-700/50 rounded-lg text-[10px] font-bold text-slate-300 uppercase tracking-wider">{user.activeDuration}</span>
                             </td>
                             <td className="px-8 py-4.5 text-center">
                               <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                                user.subStatus === 'Active' ? 'bg-[#DEF7EC] text-[#03543F]' :
-                                user.subStatus === 'Free' ? 'bg-[#FFF7ED] text-[#F97316]' :
-                                'bg-[#FDF2F2] text-[#EF4444]'
+                                user.subStatus === 'Active' ? 'bg-emerald-900/30 text-emerald-400 border border-emerald-800/50' :
+                                user.subStatus === 'Free' ? 'bg-yellow-900/30 text-yellow-500 border border-yellow-700/50' :
+                                'bg-rose-900/30 text-rose-400 border border-rose-800/50'
                               }`}>
                                 {user.subStatus} {user.plan !== 'None' ? `(${user.plan})` : ''}
                               </span>
@@ -481,7 +478,7 @@ const Admin = () => {
                                       setUsers(users.map(u => u.id === user.id ? { ...u, subStatus: 'Suspended' } : u));
                                     }
                                   }}
-                                  className="p-2.5 bg-amber-50 border border-transparent hover:border-amber-200/40 rounded-xl text-amber-600 hover:bg-amber-100 hover:scale-105 active:scale-95 transition-all"
+                                  className="p-2.5 bg-slate-800/50 border border-transparent hover:border-amber-500/30 rounded-xl text-amber-500 hover:bg-slate-800 hover:scale-105 active:scale-95 transition-all"
                                   title="Suspend session"
                                 >
                                   <Lock size={14} />
@@ -513,9 +510,9 @@ const Admin = () => {
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 font-sans">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
-                  <span className="text-xs font-black uppercase text-[#F59E0B] tracking-[0.15em] bg-[#F5F3FF] border border-[#F59E0B]/10 px-3.5 py-1.5 rounded-full">LMS COURSE CMS</span>
-                  <h1 className="text-4xl font-black text-slate-900 mt-4">LMS Course Management</h1>
-                  <p className="text-slate-500 font-bold text-sm tracking-wide mt-1">Upload videos, attach notes/PDFs, set pricing, and manage status.</p>
+                  <span className="text-xs font-bold uppercase text-purple-400 tracking-[0.15em] bg-purple-500/10 border border-purple-500/20 px-3.5 py-1.5 rounded-full">LMS COURSE CMS</span>
+                  <h1 className="text-3xl font-bold text-white mt-4">LMS Course Management</h1>
+                  <p className="text-slate-400 font-medium text-sm tracking-wide mt-1">Upload videos, attach notes/PDFs, set pricing, and manage status.</p>
                 </div>
                 <button 
                   onClick={() => setIsAddCourseOpen(true)}
@@ -526,7 +523,7 @@ const Admin = () => {
               </div>
 
               {/* Filtering Search Bar */}
-              <div className="bg-white border border-slate-200/50 rounded-2xl !p-5 flex flex-col md:flex-row items-center gap-6 shadow-sm shadow-slate-100/30">
+              <div className="bg-[#131B2C] border border-slate-800/80 rounded-2xl !p-5 flex flex-col md:flex-row items-center gap-6 shadow-sm">
                 <div className="relative flex-grow w-full">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
@@ -534,7 +531,7 @@ const Admin = () => {
                     value={courseSearch}
                     onChange={(e) => setCourseSearch(e.target.value)}
                     placeholder="Search courses catalog by name, instructor, or structural topic..."
-                    className="w-full pl-12 pr-4 py-3 bg-slate-50/50 border border-slate-200/50 rounded-xl focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 placeholder:text-slate-300 transition-all text-xs"
+                    className="w-full pl-12 pr-4 py-3 bg-slate-900/50 border border-slate-800/80 rounded-xl focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10 outline-none font-bold text-white placeholder:text-slate-500 transition-all text-xs"
                   />
                 </div>
               </div>
@@ -544,51 +541,51 @@ const Admin = () => {
                 {courses
                   .filter(c => c.name.toLowerCase().includes(courseSearch.toLowerCase()) || c.instructor.toLowerCase().includes(courseSearch.toLowerCase()))
                   .map((course) => (
-                    <div key={course.id} className="bg-white border border-slate-200/50 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative group overflow-hidden">
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#F97316] to-[#F59E0B] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-full"></div>
+                    <div key={course.id} className="bg-[#131B2C] border border-slate-800/80 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between relative group overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity rounded-t-full"></div>
                       
                       <div className="space-y-6">
                         <div className="flex items-center justify-between">
-                          <span className="px-3.5 py-1 bg-[#FFF7ED] text-[#F97316] text-[10px] font-black uppercase tracking-wider rounded-md border border-[#F97316]/10">
+                          <span className="px-3.5 py-1 bg-purple-900/20 text-purple-400 text-[10px] font-bold uppercase tracking-wider rounded-md border border-purple-500/20">
                             {course.category}
                           </span>
-                          <span className={`px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded-md ${
-                            course.status === 'Published' ? 'bg-[#DEF7EC] text-[#03543F]' :
-                            course.status === 'Scheduled' ? 'bg-[#FFF7ED] text-[#F97316]' :
-                            'bg-[#F3F4F6] text-[#4B5563]'
+                          <span className={`px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md border ${
+                            course.status === 'Published' ? 'bg-emerald-900/20 text-emerald-400 border-emerald-500/20' :
+                            course.status === 'Scheduled' ? 'bg-yellow-900/20 text-yellow-400 border-yellow-500/20' :
+                            'bg-slate-800/50 text-slate-400 border-slate-700/50'
                           }`}>
                             {course.status}
                           </span>
                         </div>
  
                         <div>
-                          <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-tight">{course.name}</h3>
-                          <p className="text-xs font-bold text-slate-400 mt-1">Instructor: <span className="text-slate-700 font-semibold">{course.instructor}</span></p>
+                          <h3 className="text-2xl font-bold text-white tracking-tight leading-tight">{course.name}</h3>
+                          <p className="text-xs font-bold text-slate-400 mt-1">Instructor: <span className="text-slate-300 font-semibold">{course.instructor}</span></p>
                         </div>
  
-                        <div className="space-y-3 bg-[#F8FAFC]/55 border border-slate-100/40 rounded-2xl p-4.5 text-xs font-semibold text-slate-500">
+                        <div className="space-y-3 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-4.5 text-xs font-semibold text-slate-400">
                           <div className="flex items-center justify-between">
                             <span className="flex items-center gap-2 text-slate-400"><Video size={14} /> Video Resource:</span>
-                            <span className="font-bold text-slate-700">{course.demoUrl ? `${course.demoUrl} ✅` : 'No Media Uploaded'}</span>
+                            <span className="font-bold text-slate-200">{course.demoUrl ? `${course.demoUrl} ✅` : 'No Media Uploaded'}</span>
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="flex items-center gap-2 text-slate-400"><FileText size={14} /> Syllabus PDF:</span>
-                            <span className="font-bold text-slate-700 truncate max-w-[150px]">{course.notesName || 'No Notes Attached'}</span>
+                            <span className="font-bold text-slate-200 truncate max-w-[150px]">{course.notesName || 'No Notes Attached'}</span>
                           </div>
-                          <div className="flex items-center justify-between border-t border-slate-100/50 pt-2 mt-2">
-                            <span className="text-slate-400">Watch time logged:</span>
-                            <span className="font-bold text-slate-700">{course.watchTime || '0'} hrs</span>
+                          <div className="flex items-center justify-between border-t border-slate-800/80 pt-2 mt-2">
+                            <span className="text-slate-500">Watch time logged:</span>
+                            <span className="font-bold text-slate-300">{course.watchTime || '0'} hrs</span>
                           </div>
                         </div>
                       </div>
  
-                      <div className="mt-8 pt-6 border-t border-slate-100/60">
+                      <div className="mt-8 pt-6 border-t border-slate-800/80">
                         <div className="flex items-center justify-between mb-5">
                           <div>
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Course Pricing</p>
-                            <p className="text-2xl font-black text-slate-900 tracking-tight mt-0.5">₹{course.price.toLocaleString()}</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Course Pricing</p>
+                            <p className="text-2xl font-bold text-white tracking-tight mt-0.5">₹{course.price.toLocaleString()}</p>
                           </div>
-                          <span className="px-3.5 py-1.5 bg-[#FFFBEB] text-[#D97706] text-[9px] font-black uppercase tracking-widest rounded-md border border-[#D97706]/10 flex items-center gap-1">
+                          <span className="px-3.5 py-1.5 bg-indigo-900/20 text-indigo-400 text-[9px] font-bold uppercase tracking-widest rounded-md border border-indigo-500/20 flex items-center gap-1">
                             ★ Premium Access
                           </span>
                         </div>
@@ -596,17 +593,22 @@ const Admin = () => {
                         <div className="flex items-center gap-3">
                           <button 
                             onClick={() => setEditingCourse(course)}
-                            className="flex-grow py-3.5 bg-slate-900 hover:bg-slate-800 active:scale-[0.98] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm"
+                            className="flex-grow py-3.5 bg-slate-800/50 hover:bg-slate-700 active:scale-[0.98] text-slate-200 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-700/50 shadow-sm"
                           >
                             <Edit size={14} /> Edit Course CMS
                           </button>
                           <button 
-                            onClick={() => {
+                            onClick={async () => {
                               if(confirm(`Erase ${course.name} from platform catalog permanently?`)) {
-                                setCourses(courses.filter(c => c.id !== course.id));
+                                try {
+                                  await axios.delete(`${API_BASE_URL}/api/courses/${course._id}`);
+                                  fetchCourses();
+                                } catch (err) {
+                                  console.error(err);
+                                }
                               }
                             }}
-                            className="p-3.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl hover:scale-105 active:scale-95 transition-all duration-150"
+                            className="p-3.5 bg-rose-900/20 hover:bg-rose-900/40 text-rose-500 rounded-xl hover:scale-105 active:scale-95 transition-all duration-150 border border-transparent hover:border-rose-500/30"
                             title="Erase course catalog details"
                           >
                             <Trash2 size={16} />
@@ -625,9 +627,9 @@ const Admin = () => {
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
-                  <span className="text-xs font-black uppercase text-orange-600 tracking-[0.2em] bg-orange-50 px-3 py-1 rounded-full">Coding Challenges Sandbox CMS</span>
-                  <h1 className="text-4xl font-black text-slate-900 mt-3">Elite Arena Management</h1>
-                  <p className="text-slate-500 font-bold text-sm tracking-wide mt-1">Configure dry-run constraints, add test cases, and review student stats.</p>
+                  <span className="text-xs font-bold uppercase text-emerald-400 tracking-[0.2em] bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">Coding Challenges Sandbox CMS</span>
+                  <h1 className="text-3xl font-bold text-white mt-3">Elite Arena Management</h1>
+                  <p className="text-slate-400 font-medium text-sm tracking-wide mt-1">Configure dry-run constraints, add test cases, and review student stats.</p>
                 </div>
                 <button 
                   onClick={() => setIsAddProblemOpen(true)}
@@ -638,7 +640,7 @@ const Admin = () => {
               </div>
 
               {/* Filtering Search Bar */}
-              <div className="glass-card !p-6 flex flex-col md:flex-row items-center gap-6">
+              <div className="bg-[#131B2C] border border-slate-800/80 rounded-[20px] !p-6 flex flex-col md:flex-row items-center gap-6 shadow-sm">
                 <div className="relative flex-grow w-full">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
@@ -646,17 +648,17 @@ const Admin = () => {
                     value={problemSearch}
                     onChange={(e) => setProblemSearch(e.target.value)}
                     placeholder="Search challenges database by challenge title, index or structural category..."
-                    className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-orange-500/10 outline-none font-bold text-slate-700 placeholder:text-slate-300"
+                    className="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800/80 rounded-2xl focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 outline-none font-bold text-white placeholder:text-slate-500 transition-all text-xs"
                   />
                 </div>
               </div>
 
               {/* Problems Grid Table */}
-              <div className="glass rounded-[2.5rem] overflow-hidden shadow-2xl bg-white border border-slate-200/50">
+              <div className="bg-[#131B2C] border border-slate-800/80 rounded-[2.5rem] overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="text-left text-xs font-black text-slate-400 uppercase tracking-widest bg-slate-50/50 border-b border-slate-100">
+                      <tr className="text-left text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-900/30 border-b border-slate-800/80">
                         <th className="px-8 py-5 w-16 text-center">SI.No</th>
                         <th className="px-8 py-5">Challenge Title</th>
                         <th className="px-8 py-5">Category</th>
@@ -667,23 +669,23 @@ const Admin = () => {
                         <th className="px-8 py-5 text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100/70">
+                    <tbody className="divide-y divide-slate-800/50">
                       {problems
                         .filter(p => p.title.toLowerCase().includes(problemSearch.toLowerCase()) || p.category.toLowerCase().includes(problemSearch.toLowerCase()))
                         .map((prob, i) => (
-                          <tr key={prob.id} className="hover:bg-[#FFF7ED]/10 even:bg-slate-50/30 transition-all duration-200 text-xs font-semibold text-[#0F172A]">
+                          <tr key={prob.id} className="hover:bg-slate-800/30 even:bg-slate-900/20 transition-all duration-200 text-xs font-semibold text-slate-300 border-b border-slate-800/40 last:border-0">
                             <td className="px-8 py-4.5 text-center font-bold text-slate-400">{i + 1}</td>
-                            <td className="px-8 py-4.5 font-black text-slate-900">{prob.title}</td>
+                            <td className="px-8 py-4.5 font-bold text-white">{prob.title}</td>
                             <td className="px-8 py-4.5">
-                              <span className="px-3 py-1 bg-[#FFF7ED] text-[#F97316] rounded-lg text-[10px] font-black uppercase tracking-wider border border-[#F97316]/10">{prob.category}</span>
+                              <span className="px-3 py-1 bg-cyan-900/20 text-cyan-400 rounded-lg text-[10px] font-bold uppercase tracking-wider border border-cyan-500/20">{prob.category}</span>
                             </td>
                             <td className="px-8 py-4.5 text-center font-bold text-slate-500">{prob.testCases}</td>
-                            <td className="px-8 py-4.5 text-center font-bold text-rose-600 bg-rose-50/40 rounded-lg">{prob.hiddenCases}</td>
-                            <td className="px-8 py-4.5 text-center font-black text-slate-900">+{prob.points} XP</td>
+                            <td className="px-8 py-4.5 text-center font-bold text-rose-400 bg-rose-900/10 rounded-lg">{prob.hiddenCases}</td>
+                            <td className="px-8 py-4.5 text-center font-bold text-emerald-400">+{prob.points} XP</td>
                             <td className="px-8 py-4.5 text-center">
-                              <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                                prob.difficulty === 'Easy' ? 'bg-[#DEF7EC] text-[#03543F]' :
-                                prob.difficulty === 'Medium' ? 'bg-[#FFF7ED] text-[#F97316]' : 'bg-[#FDF2F2] text-[#EF4444]'
+                              <span className={`px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest border ${
+                                prob.difficulty === 'Easy' ? 'bg-emerald-900/20 text-emerald-400 border-emerald-500/20' :
+                                prob.difficulty === 'Medium' ? 'bg-yellow-900/20 text-yellow-400 border-yellow-500/20' : 'bg-rose-900/20 text-rose-400 border-rose-500/20'
                               }`}>{prob.difficulty}</span>
                             </td>
                             <td className="px-8 py-4.5 text-right">
@@ -1227,106 +1229,11 @@ const Admin = () => {
 
         {/* MODAL: ADD / EDIT COURSE */}
         {(isAddCourseOpen || editingCourse) && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            exit={{ opacity: 0 }} 
-            className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"
-          >
-            <motion.div 
-              initial={{ scale: 0.95 }} 
-              animate={{ scale: 1 }} 
-              exit={{ scale: 0.95 }} 
-              className="bg-white rounded-3xl w-full max-w-lg p-8 shadow-xl relative border border-slate-200/50 font-sans"
-            >
-              <button 
-                onClick={() => { setIsAddCourseOpen(false); setEditingCourse(null); }} 
-                className="absolute top-6 right-6 w-9 h-9 bg-slate-50 border border-slate-200/55 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-800 hover:scale-105 transition-all"
-              >
-                ✕
-              </button>
-
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-6 mt-2">
-                {editingCourse ? 'Edit Course Details' : 'Add New LMS Course'}
-              </h2>
-
-              <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const data = new FormData(e.target);
-                  const newC = {
-                    id: editingCourse ? editingCourse.id : courses.length + 1,
-                    name: data.get('name'),
-                    instructor: data.get('instructor'),
-                    category: data.get('category'),
-                    price: Number(data.get('price')),
-                    isPremium: data.get('isPremium') === 'on',
-                    status: data.get('status'),
-                    students: editingCourse ? editingCourse.students : 0,
-                    watchTime: editingCourse ? editingCourse.watchTime : '0 hrs',
-                    demoUrl: data.get('demoUrl'),
-                    notesName: data.get('notesName')
-                  };
-                  if(editingCourse) {
-                    setCourses(courses.map(c => c.id === editingCourse.id ? newC : c));
-                  } else {
-                    setCourses([...courses, newC]);
-                  }
-                  setIsAddCourseOpen(false);
-                  setEditingCourse(null);
-                }}
-                className="space-y-5 text-xs font-bold text-slate-500"
-              >
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-wider text-slate-400">Course Title</label>
-                  <input type="text" name="name" required defaultValue={editingCourse?.name} className="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-200/50 rounded-xl focus:bg-white focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 placeholder:text-slate-350 transition-all text-xs" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-wider text-slate-400">Instructor</label>
-                    <input type="text" name="instructor" required defaultValue={editingCourse?.instructor} className="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-200/50 rounded-xl focus:bg-white focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 placeholder:text-slate-355 transition-all text-xs" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-wider text-slate-400">Category</label>
-                    <input type="text" name="category" required defaultValue={editingCourse?.category || 'Programming'} className="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-200/50 rounded-xl focus:bg-white focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 placeholder:text-slate-355 transition-all text-xs" />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-wider text-slate-400">Pricing (₹)</label>
-                    <input type="number" name="price" required defaultValue={editingCourse?.price || 2999} className="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-200/50 rounded-xl focus:bg-white focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 placeholder:text-slate-355 transition-all text-xs" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-wider text-slate-400">LMS Status</label>
-                    <select name="status" defaultValue={editingCourse?.status || 'Published'} className="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-200/50 rounded-xl focus:bg-white focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 transition-all text-xs">
-                      <option value="Published">Published</option>
-                      <option value="Draft">Draft</option>
-                      <option value="Scheduled">Scheduled</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Media assets */}
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-wider text-slate-400">Mock Video Resource link</label>
-                  <input type="text" name="demoUrl" defaultValue={editingCourse?.demoUrl} placeholder="https://..." className="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-200/50 rounded-xl focus:bg-white focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-mono font-bold text-slate-700 placeholder:text-slate-355 transition-all text-xs" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-wider text-slate-400">Attached Syllabus Document (Notes PDF)</label>
-                  <input type="text" name="notesName" defaultValue={editingCourse?.notesName} placeholder="python_syllabus.pdf" className="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-200/50 rounded-xl focus:bg-white focus:border-[#F97316] focus:ring-4 focus:ring-[#F97316]/5 outline-none font-bold text-slate-700 placeholder:text-slate-355 transition-all text-xs" />
-                </div>
-
-                <div className="flex items-center justify-between p-4 bg-[#F8FAFC]/65 rounded-xl border border-slate-200/40">
-                  <span className="font-bold text-slate-650 text-xs">Lock course under Premium Tier?</span>
-                  <input type="checkbox" name="isPremium" defaultChecked={editingCourse?.isPremium} className="w-5 h-5 accent-[#F97316] rounded cursor-pointer" />
-                </div>
-
-                <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#F97316] to-[#F59E0B] hover:brightness-105 active:scale-[0.98] text-white font-bold rounded-xl shadow-sm shadow-[#F97316]/15 transition-all text-xs uppercase tracking-wider mt-4">
-                  {editingCourse ? 'Save Changes' : 'Publish Course'}
-                </button>
-              </form>
-            </motion.div>
-          </motion.div>
+          <CourseBuilder 
+            course={editingCourse} 
+            onClose={() => { setIsAddCourseOpen(false); setEditingCourse(null); }}
+            onSave={() => { setIsAddCourseOpen(false); setEditingCourse(null); fetchCourses(); }}
+          />
         )}
 
         {/* MODAL: ADD / EDIT SCHOLAR USER */}

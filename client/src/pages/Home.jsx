@@ -169,7 +169,7 @@ const Home = () => {
                                 navigate('/coming-soon');
                             }
                         }}
-                        className={`glass-card !p-6 !bg-white border-slate-100 shadow-xl transition-all relative overflow-hidden group h-full hover:shadow-2xl cursor-pointer`}
+                        className={`glass-card !p-6 !bg-slate-800/50 border-slate-700 shadow-xl transition-all relative overflow-hidden group h-full hover:shadow-2xl hover:bg-slate-800 cursor-pointer`}
                     >
                         {feature.isComingSoon && (
                             <div className="absolute top-3 right-3 px-3 py-1 bg-slate-100 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full border border-slate-200">
@@ -179,8 +179,8 @@ const Home = () => {
                         <div className={`w-14 h-14 ${feature.color} rounded-[20px] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                             {feature.icon}
                         </div>
-                        <h4 className="font-black text-slate-900 mb-2 text-lg">{feature.title}</h4>
-                        <p className="text-xs font-bold text-slate-500">{feature.desc}</p>
+                        <h4 className="font-black text-white mb-2 text-lg">{feature.title}</h4>
+                        <p className="text-xs font-bold text-slate-400">{feature.desc}</p>
                     </motion.div>
                 ))}
             </div>
@@ -207,7 +207,7 @@ const Home = () => {
                       transition={{ delay: i * 0.05 }}
                       whileHover={{ y: -12 }}
                       onClick={() => setSelectedDemo(course)}
-                      className="glass-card !p-0 overflow-hidden group cursor-pointer border-slate-100 hover:shadow-2xl hover:shadow-indigo-100/50 transition-all duration-500 !bg-white"
+                      className="glass-card !p-0 overflow-hidden group cursor-pointer border-slate-700 hover:shadow-2xl hover:shadow-indigo-900/50 transition-all duration-500 !bg-slate-800/50 hover:!bg-slate-800"
                     >
                         <div className="h-44 relative overflow-hidden">
                             <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -224,12 +224,12 @@ const Home = () => {
                             <div className="flex items-center gap-1 mb-2 text-amber-500 font-black text-xs">
                                 <Star size={14} fill="currentColor" /> {course.rating}
                             </div>
-                            <h3 className="font-black text-slate-900 mb-1 text-sm group-hover:text-indigo-600 transition-colors line-clamp-1">{course.title}</h3>
+                            <h3 className="font-black text-white mb-1 text-sm group-hover:text-[#FFB800] transition-colors line-clamp-1">{course.title}</h3>
                             <p className="text-slate-400 text-[10px] font-bold mb-4">Mentor: {course.mentor}</p>
                             
-                            <div className="flex items-center justify-between pt-4 border-t border-slate-50">
-                                <span className="text-indigo-600 font-black text-base">₹299</span>
-                                <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all">
+                            <div className="flex items-center justify-between pt-4 border-t border-slate-700">
+                                <span className="text-[#FFB800] font-black text-base">₹349</span>
+                                <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-slate-300 border border-slate-700 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#FFB800] hover:text-slate-900 hover:border-[#FFB800] transition-all">
                                     Watch <ArrowRight size={12} />
                                 </button>
                             </div>
@@ -252,16 +252,16 @@ const Home = () => {
                 <motion.div 
                     initial={{ scale: 0.9, y: 20 }}
                     animate={{ scale: 1, y: 0 }}
-                    className="relative w-full max-w-6xl bg-white rounded-[40px] shadow-2xl overflow-hidden border border-slate-100 flex flex-col lg:flex-row h-[85vh]"
+                    className="relative w-full max-w-6xl bg-slate-900 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden border border-slate-700 flex flex-col lg:flex-row h-[85vh]"
                 >
                     <button 
                         onClick={() => setSelectedDemo(null)}
-                        className="absolute top-6 right-6 p-3 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-2xl transition-all z-20"
+                        className="absolute top-6 right-6 p-3 text-slate-400 hover:text-[#FFB800] hover:bg-slate-800 rounded-2xl transition-all z-20"
                     >
                         <X size={24} />
                     </button>
 
-                    <div className="flex-grow flex flex-col bg-slate-50 h-full overflow-hidden">
+                    <div className="flex-grow flex flex-col bg-slate-800 h-full overflow-hidden">
                         <div className="aspect-video bg-black relative flex-shrink-0">
                             <img src={selectedDemo.thumbnail} alt={selectedDemo.title} className="w-full h-full object-cover opacity-50" />
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -271,7 +271,7 @@ const Home = () => {
                             </div>
                             <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <div className="h-1.5 w-full bg-white/20 rounded-full mb-6 overflow-hidden">
-                                    <div className="h-full bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.8)]" style={{ width: `${(currentTime / (parseInt(selectedDemo.duration.split(':')[0]) * 60)) * 100}%` }}></div>
+                                    <div className="h-full bg-[#FFB800] shadow-[0_0_15px_rgba(255,184,0,0.8)]" style={{ width: `${(currentTime / (parseInt(selectedDemo.duration.split(':')[0]) * 60)) * 100}%` }}></div>
                                 </div>
                                 <div className="flex items-center justify-between text-white font-bold text-sm">
                                     <div className="flex items-center gap-6">
@@ -284,15 +284,15 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="p-10 overflow-y-auto">
-                            <h2 className="text-3xl font-black text-slate-900 mb-2">{selectedDemo.title}</h2>
-                            <p className="text-slate-500 font-medium mb-8">By {selectedDemo.mentor} • Senior Academy Mentor</p>
+                            <h2 className="text-3xl font-black text-white mb-2">{selectedDemo.title}</h2>
+                            <p className="text-slate-400 font-medium mb-8">By {selectedDemo.mentor} • Senior Academy Mentor</p>
                         </div>
                     </div>
 
-                    <div className="w-full lg:w-[400px] bg-white border-l border-slate-100 flex flex-col h-full overflow-hidden">
-                        <div className="p-8 border-b border-slate-50 bg-slate-50/50 text-center">
-                            <h3 className="text-xl font-black text-slate-900 flex items-center justify-center gap-3">
-                                <BookOpen className="text-indigo-600" /> Lesson Playlist
+                    <div className="w-full lg:w-[400px] bg-slate-900 border-l border-slate-700 flex flex-col h-full overflow-hidden">
+                        <div className="p-8 border-b border-slate-800 bg-slate-800/50 text-center">
+                            <h3 className="text-xl font-black text-white flex items-center justify-center gap-3">
+                                <BookOpen className="text-[#FFB800]" /> Lesson Playlist
                             </h3>
                         </div>
                         <div className="flex-grow overflow-y-auto p-6 space-y-4">
@@ -302,28 +302,28 @@ const Home = () => {
                                 { t: 'Advanced Logic & Flow', d: '25:40', active: false }
                             ].map((item, i) => (
                                 <div key={i} className={`p-5 rounded-3xl border transition-all flex items-center justify-between group cursor-pointer ${
-                                    item.active ? 'bg-indigo-50 border-indigo-200 shadow-lg' : 'bg-white border-slate-100 hover:border-indigo-200'
+                                    item.active ? 'bg-slate-800 border-slate-600 shadow-lg' : 'bg-slate-900 border-slate-800 hover:border-slate-700'
                                 }`}>
                                     <div className="flex items-center gap-4">
-                                        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs ${item.active ? 'bg-indigo-600 text-white' : 'bg-slate-50 text-slate-400'}`}>
+                                        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs ${item.active ? 'bg-[#FFB800] text-slate-900' : 'bg-slate-800 text-slate-400'}`}>
                                             {item.active ? <Play size={14} fill="currentColor" /> : i + 1}
                                         </div>
                                         <div>
-                                            <p className={`text-sm font-black ${item.active ? 'text-indigo-900' : 'text-slate-700'}`}>{item.t}</p>
-                                            <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest mt-1">{item.d}</p>
+                                            <p className={`text-sm font-black ${item.active ? 'text-white' : 'text-slate-400'}`}>{item.t}</p>
+                                            <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest mt-1">{item.d}</p>
                                         </div>
                                     </div>
-                                    {!item.active && <Lock size={14} className="text-slate-200" />}
+                                    {!item.active && <Lock size={14} className="text-slate-600" />}
                                 </div>
                             ))}
                         </div>
-                        <div className="p-8 border-t border-slate-50 bg-slate-50/50">
+                        <div className="p-8 border-t border-slate-800 bg-slate-800/50">
                             <button 
                                 onClick={() => {
                                     if (user?.isSubscribed) alert('🚀 You already have Full Access!');
                                     else setShowSubscription(true);
                                 }} 
-                                className="w-full py-5 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-black rounded-3xl shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3"
+                                className="w-full py-5 bg-gradient-to-r from-orange-500 to-[#FFB800] text-slate-900 font-black rounded-3xl shadow-2xl shadow-orange-900/50 flex items-center justify-center gap-3 hover:scale-105 transition-all"
                             >
                                 {user?.isSubscribed ? 'Premium Access Active' : 'Unlock All Content'} {user?.isSubscribed ? <CheckCircle2 size={18} /> : <Lock size={18} />}
                             </button>

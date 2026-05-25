@@ -9,8 +9,8 @@ const SubscriptionPopup = ({ onClose, type }) => {
   const [selectedPlan, setSelectedPlan] = useState(1); // Default to Annual
 
   const plans = [
-    { id: 0, name: 'Monthly Plan', price: 299, displayPrice: '₹299', period: 'month', icon: <Zap className="text-blue-500" />, desc: 'Best for short-term mastery' },
-    { id: 1, name: 'Annual Savings', price: 2999, displayPrice: '₹2999', period: 'year', icon: <Crown className="text-amber-500" />, desc: 'Elite access with 2 months free', recommended: true }
+    { id: 0, name: 'Monthly Plan', price: 349, displayPrice: '₹349', period: 'month', icon: <Zap className="text-blue-500" />, desc: 'Best for short-term mastery' },
+    { id: 1, name: 'Annual Savings', price: 2499, displayPrice: '₹2499', period: 'year', icon: <Crown className="text-amber-500" />, desc: 'Elite access with 2 months free', recommended: true }
   ];
 
   const benefits = [
@@ -49,7 +49,7 @@ const SubscriptionPopup = ({ onClose, type }) => {
       >
         <button 
           onClick={onClose}
-          className="absolute top-8 right-8 p-3 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-2xl transition-all z-10"
+          className="absolute top-8 right-8 p-3 text-slate-400 hover:text-orange-600 hover:bg-slate-50 rounded-2xl transition-all z-10"
         >
           <X size={24} />
         </button>
@@ -58,7 +58,7 @@ const SubscriptionPopup = ({ onClose, type }) => {
           {/* Left Side: Branding & Info */}
           <div className="lg:w-[45%] p-12 md:p-16 bg-slate-50/50 flex flex-col justify-between">
             <div className="space-y-8">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-blue-500/20">
+              <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-orange-500/20">
                 G
               </div>
               <div>
@@ -100,12 +100,12 @@ const SubscriptionPopup = ({ onClose, type }) => {
                         onClick={() => setSelectedPlan(plan.id)}
                         className={`p-8 rounded-[32px] border-2 transition-all cursor-pointer relative ${
                             selectedPlan === plan.id 
-                                ? 'border-indigo-600 bg-indigo-50/30' 
-                                : 'border-slate-100 hover:border-indigo-200'
+                                ? 'border-orange-600 bg-orange-50/30' 
+                                : 'border-slate-100 hover:border-orange-200'
                         }`}
                     >
                         {plan.recommended && (
-                            <div className="absolute -top-4 right-8 px-4 py-1.5 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Most Popular</div>
+                            <div className="absolute -top-4 right-8 px-4 py-1.5 bg-orange-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Most Popular</div>
                         )}
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-5">
@@ -118,7 +118,7 @@ const SubscriptionPopup = ({ onClose, type }) => {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="text-2xl font-black text-indigo-600">{plan.displayPrice}</p>
+                                <p className="text-2xl font-black text-orange-600">{plan.displayPrice}</p>
                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">/{plan.period}</p>
                             </div>
                         </div>
@@ -131,23 +131,23 @@ const SubscriptionPopup = ({ onClose, type }) => {
               <select 
                 value={selectedPlan}
                 onChange={(e) => setSelectedPlan(Number(e.target.value))}
-                className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-indigo-500 outline-none font-bold text-slate-700 transition-all text-sm cursor-pointer"
+                className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:border-orange-500 outline-none font-bold text-slate-700 transition-all text-sm cursor-pointer"
               >
-                <option value={0}>Monthly Plan — ₹299 / month</option>
-                <option value={1}>Annual Savings — ₹2,999 / year (Recommended)</option>
+                <option value={0}>Monthly Plan — ₹349 / month</option>
+                <option value={1}>Annual Savings — ₹2,499 / year (Recommended)</option>
               </select>
             </div>
 
             <div className="flex flex-col gap-4">
                 <button 
                     onClick={handleSubscribe}
-                    className="btn-primary w-full py-5 text-lg shadow-2xl shadow-indigo-100 flex items-center justify-center gap-3"
+                    className="btn-primary w-full py-5 text-lg shadow-2xl shadow-orange-100 flex items-center justify-center gap-3 bg-orange-600 text-white border-0 hover:bg-orange-500"
                 >
                     Subscribe Now <ArrowRight size={20} />
                 </button>
                 <button 
                   onClick={onClose}
-                  className="w-full py-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-orange-600 transition-colors flex items-center justify-center gap-2"
                 >
                     <Play size={14} className="fill-current" /> Continue Free Demo
                 </button>

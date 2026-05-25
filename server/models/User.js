@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  firebaseUid: { type: String, required: true, unique: true },
+  firebaseUid: { type: String, unique: true, sparse: true },
+  password: { type: String }, // For standard email/pass auth
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
   displayName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   photoURL: { type: String },
   phone: { type: String },
+  address: { type: String },
   
   // Academic & Location Details
   age: { type: Number },

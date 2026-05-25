@@ -190,7 +190,7 @@ const Dashboard = () => {
                             <p className="text-slate-500 text-[10px] font-black mb-8 italic uppercase tracking-widest">Expert: {course.mentor}</p>
                             
                             <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-                                <span className="text-slate-900 font-black text-lg tracking-tighter">₹299</span>
+                                <span className="text-slate-900 font-black text-lg tracking-tighter">₹349</span>
                                 <button className="flex items-center gap-3 px-5 py-2.5 bg-slate-50 text-slate-700 border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 hover:text-white hover:border-transparent transition-all">
                                     Watch Now <ArrowRight size={14} />
                                 </button>
@@ -304,7 +304,7 @@ const Dashboard = () => {
                         </div>
                         <div className="p-10 border-t border-slate-800 bg-slate-900">
                             <button 
-                                onClick={() => handlePayment({ amount: 299, description: `Demo: ${selectedDemo.title}`, user })}
+                                onClick={() => handlePayment({ amount: 349, description: `Demo: ${selectedDemo.title}`, user })}
                                 className="w-full py-6 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black rounded-[24px] shadow-lg shadow-orange-500/20 hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest"
                             >
                                 Unlock Academy Vault <Lock size={20} />
