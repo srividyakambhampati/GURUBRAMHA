@@ -73,7 +73,11 @@ const Login = () => {
 
       if (response.data.user) {
         login(response.data.user);
-        navigate('/dashboard'); 
+        if (response.data.user.email === 'adminguru@gmail.com') {
+          navigate('/admin');
+        } else {
+          navigate('/dashboard'); 
+        }
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Invalid email or password.');
