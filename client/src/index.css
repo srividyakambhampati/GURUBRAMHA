@@ -51,15 +51,15 @@ body {
   }
 
   .premium-glow-card {
-    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.04) 0%, transparent 60%), #0B0F19;
+    background: radial-gradient(circle at top left, rgba(139, 92, 246, 0.05) 0%, transparent 60%), #0B0F19;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
     @apply rounded-[24px] transition-all duration-300;
   }
 
   .premium-glow-card:hover {
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border-color: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.6), 0 0 30px rgba(236, 72, 153, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .btn-primary {
@@ -71,7 +71,7 @@ body {
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-500 to-indigo-500;
   }
 
   .text-glow {
