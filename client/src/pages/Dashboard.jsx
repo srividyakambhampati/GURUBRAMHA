@@ -47,14 +47,14 @@ const Dashboard = () => {
   const [showStore, setShowStore] = useState(false);
 
   const features = [
-    { title: 'Candidate Profile', desc: 'View & edit your info', icon: <User className="text-white" />, color: 'bg-white/5 text-white border border-white/10', path: '/profile' },
-    { title: 'My Documents', desc: 'Certificates & uploads', icon: <Folder className="text-white" />, color: 'bg-white/5 text-white border border-white/10', path: '/documents' },
-    { title: 'Finance', desc: 'Payments & history', icon: <DollarSign className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
-    { title: 'Internships', desc: 'Find opportunities', icon: <Layout className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
-    { title: 'Jobs', desc: 'Browse job listings', icon: <Briefcase className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
-    { title: 'Hackathons', desc: 'Compete & win', icon: <Trophy className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
-    { title: 'Podcasts', desc: 'Learn on the go', icon: <Mic className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
-    { title: 'Guru Store', desc: 'Premium Scholar Gear', icon: <ShoppingBag className="text-white" />, color: 'bg-white/5 text-white border border-white/10', path: '#scholar-store' },
+    { title: 'Candidate Profile', desc: 'View & edit your info', icon: <User size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]', colorTheme: 'indigo-500', rgbGlow: '99,102,241', path: '/profile' },
+    { title: 'My Documents', desc: 'Certificates & uploads', icon: <Folder size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#06B6D4] to-[#10B981] text-white shadow-[0_0_20px_rgba(6,182,212,0.4)]', colorTheme: 'teal-500', rgbGlow: '6,182,212', path: '/documents' },
+    { title: 'Finance', desc: 'Payments & history', icon: <DollarSign size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#F43F5E] to-[#EC4899] text-white shadow-[0_0_20px_rgba(244,63,94,0.4)]', colorTheme: 'rose-500', rgbGlow: '244,63,94', isComingSoon: true },
+    { title: 'Internships', desc: 'Find opportunities', icon: <Layout size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#F59E0B] to-[#D97706] text-white shadow-[0_0_20px_rgba(245,158,11,0.4)]', colorTheme: 'amber-500', rgbGlow: '245,158,11', isComingSoon: true },
+    { title: 'Jobs', desc: 'Browse job listings', icon: <Briefcase size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#A855F7] to-[#EC4899] text-white shadow-[0_0_20px_rgba(168,85,247,0.4)]', colorTheme: 'purple-500', rgbGlow: '168,85,247', isComingSoon: true },
+    { title: 'Hackathons', desc: 'Compete & win', icon: <Trophy size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#10B981] to-[#06B6D4] text-white shadow-[0_0_20px_rgba(16,185,129,0.4)]', colorTheme: 'emerald-500', rgbGlow: '16,185,129', isComingSoon: true },
+    { title: 'Podcasts', desc: 'Learn on the go', icon: <Mic size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] text-white shadow-[0_0_20px_rgba(6,182,212,0.4)]', colorTheme: 'cyan-500', rgbGlow: '6,182,212', isComingSoon: true },
+    { title: 'Guru Store', desc: 'Premium Scholar Gear', icon: <ShoppingBag size={24} className="text-white" />, color: 'bg-gradient-to-br from-[#F59E0B] to-[#D97706] text-white shadow-[0_0_20px_rgba(245,158,11,0.4)]', colorTheme: 'amber-500', rgbGlow: '245,158,11', path: '#scholar-store' },
   ];
 
   const demoCourses = [
@@ -157,7 +157,12 @@ const Dashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    whileHover={!feature.isComingSoon ? { y: -10, scale: 1.02 } : {}}
+                    whileHover={{ 
+                        y: -10, 
+                        scale: 1.03,
+                        borderColor: `rgba(${feature.rgbGlow}, 0.3)`,
+                        boxShadow: `0 20px 45px -5px rgba(0, 0, 0, 0.7), 0 0 30px rgba(${feature.rgbGlow}, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.08)`
+                    }}
                     onClick={() => {
                         if (feature.path && !feature.isComingSoon) {
                             if (feature.path === '#scholar-store') {
@@ -169,7 +174,7 @@ const Dashboard = () => {
                             }
                         }
                     }}
-                    className={`premium-glow-card rounded-[32px] p-8 relative overflow-hidden group h-full cursor-pointer ${
+                    className={`premium-glow-card rounded-[32px] p-8 relative overflow-hidden group h-full cursor-pointer border border-white/5 ${
                         feature.isComingSoon ? 'opacity-65 cursor-not-allowed grayscale-[0.2]' : ''
                     }`}
                 >
