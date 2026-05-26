@@ -57,21 +57,24 @@ const Courses = () => {
         const res = await axios.get(`${API_BASE_URL}/api/courses`);
         if (res.data && res.data.length > 0) {
           // Format server courses to match catalog requirements
-          const formatted = res.data.map(c => ({
-            id: c._id,
-            title: c.name,
-            instructor: c.instructor,
-            rating: 4.9,
-            reviews: String(c.students ? Math.round(c.students * 0.15) : 42),
-            students: c.students ? `${c.students} joined` : '150+ joined',
-            duration: c.watchTime || '12 hrs',
-            level: c.isPremium ? 'Advanced' : 'All Levels',
-            price: `₹${c.price}`,
-            originalPrice: `₹${Math.round(c.price * 1.5)}`,
-            category: c.category,
-            thumbnail: c.demoUrl || 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800',
-            modules: c.modules || []
-          }));
+          const formatted = res.data.map(c => {
+            const priceVal = typeof c.price === 'number' ? c.price : parseFloat(c.price) || 0;
+            return {
+              id: c._id || `course-${Math.random()}`,
+              title: c.name || 'Untitled Course',
+              instructor: c.instructor || 'Guest Instructor',
+              rating: 4.9,
+              reviews: String(c.students ? Math.round(c.students * 0.15) : 42),
+              students: c.students ? `${c.students} joined` : '150+ joined',
+              duration: c.watchTime || '12 hrs',
+              level: c.isPremium ? 'Advanced' : 'All Levels',
+              price: `₹${priceVal}`,
+              originalPrice: `₹${Math.round(priceVal * 1.5)}`,
+              category: c.category || 'General',
+              thumbnail: c.demoUrl || 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800',
+              modules: c.modules || []
+            };
+          });
           
           // Merge dynamic courses at the top, static courses next
           setCourses([...formatted, ...staticCourses]);
@@ -301,7 +304,7 @@ const Courses = () => {
                               <div className="space-y-2">
                                 {sub.lessons?.map((les, lIdx) => {
                                   const isActive = activeLesson?.id === les.id;
-                                  const isAllowed = user?.isSubscribed || les.isFreePreview || !selectedCourse.id.startsWith('static-');
+                                  const isAllowed = user?.isSubscribed || les.isFreePreview || (selectedCourse.id && typeof selectedCourse.id === 'string' && !selectedCourse.id.startsWith('static-'));
                                   
                                   return (
                                     <div 

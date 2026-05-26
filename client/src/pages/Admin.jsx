@@ -552,7 +552,12 @@ const Admin = () => {
               {/* Courses Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {courses
-                  .filter(c => c.name.toLowerCase().includes(courseSearch.toLowerCase()) || c.instructor.toLowerCase().includes(courseSearch.toLowerCase()))
+                  .filter(c => {
+                    const name = c.name || '';
+                    const instructor = c.instructor || '';
+                    return name.toLowerCase().includes(courseSearch.toLowerCase()) || 
+                           instructor.toLowerCase().includes(courseSearch.toLowerCase());
+                  })
                   .map((course) => (
                     <div key={course.id} className="bg-[#131B2C] border border-slate-800/80 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between relative group overflow-hidden">
                       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity rounded-t-full"></div>
