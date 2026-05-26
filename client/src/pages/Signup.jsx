@@ -222,13 +222,13 @@ const Signup = () => {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="w-full max-w-2xl bg-[#0B0F19]/80 backdrop-blur-xl p-10 md:p-14 rounded-[48px] shadow-2xl border border-white/5 relative z-10"
+        className="w-full max-w-2xl bg-[#111625]/90 backdrop-blur-2xl p-10 md:p-14 rounded-[40px] shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-slate-800/80 relative z-10 hover:border-cyan-500/20 transition-colors duration-500"
       >
         <div className="text-center mb-12">
-          <div className="w-20 h-20 bg-white rounded-[24px] flex items-center justify-center text-[#0A0E1A] font-black text-3xl mx-auto mb-8 shadow-2xl shadow-white/10 group-hover:rotate-6 transition-transform border border-white/10">
+          <div className="w-20 h-20 bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 rounded-[24px] flex items-center justify-center text-white font-black text-3xl mx-auto mb-8 shadow-[0_0_20px_rgba(6,182,212,0.45)] hover:rotate-6 transition-transform border border-cyan-400/20">
             G
           </div>
-          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Academic <span className="text-white opacity-80">Registration</span></h1>
+          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">Registration</span></h1>
           <p className="text-slate-400 font-bold text-sm tracking-wide">Join 50,000+ scholars mastering the future</p>
         </div>
 
@@ -249,14 +249,14 @@ const Signup = () => {
             <div className="space-y-3">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Full Name</label>
               <div className="relative group">
-                <User className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-400 transition-colors" size={20} />
+                <User className="absolute left-5 top-1/2 -translate-y-1/2 text-cyan-400 group-focus-within:text-purple-400 transition-colors drop-shadow-[0_0_6px_rgba(34,211,238,0.4)]" size={20} />
                 <input 
                   type="text" 
                   placeholder="e.g. Alex River"
-                  className={`w-full pl-14 pr-6 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
-                    !touched.username ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
-                    errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
-                    'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
+                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                    !touched.username ? 'border-slate-800 focus:border-cyan-400 focus:ring-cyan-500/10' :
+                    errors.username ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
+                    'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
                   }`}
                   value={formData.username}
                   onBlur={() => setTouched({ ...touched, username: true })}
@@ -270,14 +270,14 @@ const Signup = () => {
             <div className="space-y-3">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Phone Number</label>
               <div className="relative group">
-                <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-400 transition-colors" size={20} />
+                <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-teal-400 group-focus-within:text-cyan-400 transition-colors drop-shadow-[0_0_6px_rgba(45,212,191,0.4)]" size={20} />
                 <input 
                   type="tel" 
                   placeholder="9876543210"
-                  className={`w-full pl-14 pr-6 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
-                    !touched.phone ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
-                    errors.phone ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
-                    'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
+                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                    !touched.phone ? 'border-slate-800 focus:border-teal-400 focus:ring-teal-500/10' :
+                    errors.phone ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
+                    'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
                   }`}
                   value={formData.phone}
                   onBlur={() => setTouched({ ...touched, phone: true })}
@@ -296,14 +296,14 @@ const Signup = () => {
           <div className="space-y-3">
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Email Address</label>
             <div className="relative group">
-              <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-400 transition-colors" size={20} />
+              <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-indigo-400 group-focus-within:text-pink-400 transition-colors drop-shadow-[0_0_6px_rgba(129,140,248,0.4)]" size={20} />
               <input 
                 type="email" 
                 placeholder="scholar@gurubramha.edu"
-                className={`w-full pl-14 pr-6 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
-                  !touched.email ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
-                  errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
-                  'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
+                className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                  !touched.email ? 'border-slate-800 focus:border-indigo-400 focus:ring-indigo-500/10' :
+                  errors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
+                  'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
                 }`}
                 value={formData.email}
                 onBlur={() => setTouched({ ...touched, email: true })}
@@ -317,14 +317,14 @@ const Signup = () => {
           <div className="space-y-3">
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Address</label>
             <div className="relative group">
-              <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-400 transition-colors" size={20} />
+              <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-sky-400 group-focus-within:text-violet-400 transition-colors drop-shadow-[0_0_6px_rgba(56,189,248,0.4)]" size={20} />
               <input 
                 type="text" 
                 placeholder="Enter your street address (e.g. 123 Main Street)"
-                className={`w-full pl-14 pr-6 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
-                  !touched.address ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
-                  errors.address ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
-                  'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
+                className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                  !touched.address ? 'border-slate-800 focus:border-sky-400 focus:ring-sky-500/10' :
+                  errors.address ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
+                  'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
                 }`}
                 value={formData.address}
                 onBlur={() => setTouched({ ...touched, address: true })}
@@ -335,20 +335,18 @@ const Signup = () => {
             {touched.address && errors.address && <p className="text-red-400 text-xs font-bold px-1 mt-1">{errors.address}</p>}
           </div>
 
-
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-3">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Password</label>
               <div className="relative group">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-400 transition-colors" size={20} />
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-fuchsia-400 group-focus-within:text-rose-400 transition-colors drop-shadow-[0_0_6px_rgba(232,121,249,0.4)]" size={20} />
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="••••••••"
-                  className={`w-full pl-14 pr-14 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
-                    !touched.password ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
-                    errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
-                    'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
+                  className={`w-full pl-14 pr-14 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                    !touched.password ? 'border-slate-800 focus:border-fuchsia-400 focus:ring-fuchsia-500/10' :
+                    errors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
+                    'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
                   }`}
                   value={formData.password}
                   onBlur={() => setTouched({ ...touched, password: true })}
@@ -387,14 +385,14 @@ const Signup = () => {
             <div className="space-y-3">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Confirm Password</label>
               <div className="relative group">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-400 transition-colors" size={20} />
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-fuchsia-400 group-focus-within:text-rose-400 transition-colors drop-shadow-[0_0_6px_rgba(232,121,249,0.4)]" size={20} />
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="••••••••"
-                  className={`w-full pl-14 pr-6 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
-                    !touched.confirmPassword ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
-                    errors.confirmPassword ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
-                    'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
+                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                    !touched.confirmPassword ? 'border-slate-800 focus:border-fuchsia-400 focus:ring-fuchsia-500/10' :
+                    errors.confirmPassword ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
+                    'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
                   }`}
                   value={formData.confirmPassword}
                   onBlur={() => setTouched({ ...touched, confirmPassword: true })}
@@ -409,33 +407,33 @@ const Signup = () => {
           <button 
             type="submit" 
             disabled={isLoading || !isFormValid}
-            className="w-full py-5 bg-white text-[#0A0E1A] font-black rounded-2xl shadow-2xl shadow-white/5 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-5 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white font-black rounded-2xl shadow-[0_0_25px_rgba(6,182,212,0.45)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed border border-cyan-400/20"
           >
             {isLoading ? (
-              <div className="w-6 h-6 border-4 border-[#0A0E1A]/30 border-t-[#0A0E1A] rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
             ) : (
               <>Establish Scholar Profile <ArrowRight size={20} /></>
             )}
           </button>
 
           <div className="relative py-2 flex items-center">
-            <div className="flex-grow border-t border-slate-700"></div>
+            <div className="flex-grow border-t border-slate-800"></div>
             <span className="flex-shrink mx-6 text-slate-500 text-[10px] font-black uppercase tracking-[0.3em]">Direct Integration</span>
-            <div className="flex-grow border-t border-slate-700"></div>
+            <div className="flex-grow border-t border-slate-800"></div>
           </div>
 
           <button 
             type="button" 
             onClick={handleGoogleSignup}
             disabled={isLoading}
-            className="w-full py-4 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center gap-4 hover:bg-slate-700 transition-all font-black text-[10px] uppercase tracking-widest text-white shadow-sm disabled:opacity-70"
+            className="w-full py-4 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl flex items-center justify-center gap-4 hover:bg-slate-800/80 transition-all font-black text-[10px] uppercase tracking-widest text-white shadow-sm disabled:opacity-70"
           >
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
             <span>Register with Google Vault</span>
           </button>
 
           <p className="text-center text-slate-400 font-bold text-sm">
-            Already an established scholar? <Link to="/login" className="text-white font-black hover:underline ml-1">Secure Login</Link>
+            Already an established scholar? <Link to="/login" className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 font-black hover:underline ml-1">Secure Login</Link>
           </p>
         </form>
       </motion.div>
