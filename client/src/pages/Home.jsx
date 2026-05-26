@@ -103,7 +103,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight text-glow"
           >
-            Welcome to <span className="text-gradient">GuruBramha</span>
+            Welcome to <span className="text-gradient-rose">GuruBramha</span>
           </motion.h1>
 
           <motion.p 
@@ -199,7 +199,7 @@ const Home = () => {
                 >
                     <BookOpen size={14} /> Academy Preview
                 </motion.div>
-                <h2 className="heading-lg mb-4 text-3xl md:text-4xl text-white">Explore <span className="text-gradient">Demo Classes</span></h2>
+                <h2 className="heading-lg mb-4 text-3xl md:text-4xl text-white">Explore <span className="text-gradient-rose">Demo Classes</span></h2>
                 <p className="text-slate-400 font-medium text-base max-w-2xl mx-auto">Experience the quality of GuruBramha with our free sessions.</p>
             </div>
 

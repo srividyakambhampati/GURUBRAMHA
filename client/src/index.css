@@ -74,6 +74,10 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFFFFF] via-[#E0E7FF] to-[#6366F1];
   }
 
+  .text-gradient-rose {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F43F5E] via-[#EC4899] to-[#F59E0B];
+  }
+
   .text-glow {
     text-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
   }

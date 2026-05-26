@@ -116,7 +116,7 @@ const Dashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight text-glow"
           >
-            Welcome to <span className="text-gradient">GuruBramha</span>
+            Welcome to <span className="text-gradient-rose">GuruBramha</span>
           </motion.h1>
 
           <motion.p 
@@ -204,7 +204,7 @@ const Dashboard = () => {
                 >
                     <BookOpen size={16} /> Restricted Academic Catalog
                 </motion.div>
-                <h2 className="text-5xl font-black text-white mb-6 tracking-tight">Open <span className="text-white opacity-80">Sessions</span></h2>
+                <h2 className="text-5xl font-black text-white mb-6 tracking-tight">Open <span className="text-gradient-rose">Sessions</span></h2>
                 <p className="text-slate-455 font-bold text-xl max-w-2xl mx-auto">Establish your technical foundation with our high-fidelity free sessions.</p>
             </div>
 
@@ -240,7 +240,7 @@ const Dashboard = () => {
                             
                             <div className="flex items-center justify-between pt-6 border-t border-white/5">
                                 <span className="text-white font-black text-lg tracking-tighter">₹349</span>
-                                <button className="flex items-center gap-3 px-5 py-2.5 bg-white text-[#0A0E1A] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all">
+                                <button className="flex items-center gap-3 px-5 py-2.5 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:scale-[1.05] transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)]">
                                     Watch Now <ArrowRight size={14} />
                                 </button>
                             </div>
@@ -349,14 +349,14 @@ const Dashboard = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="p-10 border-t border-white/5 bg-[#0B0F19]">
-                            <button 
-                                onClick={() => handlePayment({ amount: 349, description: `Demo: ${selectedDemo.title}`, user })}
-                                className="w-full py-6 bg-white text-[#0A0E1A] font-black rounded-[24px] shadow-lg shadow-white/5 hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest"
-                            >
-                                Unlock Academy Vault <Lock size={20} />
-                            </button>
-                        </div>
+                         <div className="p-10 border-t border-white/5 bg-[#0B0F19]">
+                             <button 
+                                 onClick={() => handlePayment({ amount: 349, description: `Demo: ${selectedDemo.title}`, user })}
+                                 className="w-full py-6 bg-gradient-to-r from-[#FB923C] via-[#F43F5E] to-[#EC4899] text-white font-black rounded-[24px] shadow-lg shadow-rose-500/20 hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest"
+                             >
+                                 Unlock Academy Vault <Lock size={20} />
+                             </button>
+                         </div>
                     </div>
                 </motion.div>
             </motion.div>
