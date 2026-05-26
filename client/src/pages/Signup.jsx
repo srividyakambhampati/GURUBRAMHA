@@ -214,21 +214,21 @@ const Signup = () => {
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-24 relative overflow-hidden bg-[#0F172A] selection:bg-cyan-400/30">
+    <div className="min-h-screen flex items-center justify-center px-6 py-24 relative overflow-hidden bg-[#0A0E1A] selection:bg-white/20">
       {/* Decorative Elite Blobs */}
-      <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-cyan-500/10 rounded-full blur-[150px]"></div>
-      <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-400/10 rounded-full blur-[150px]"></div>
+      <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-slate-900/30 rounded-full blur-[150px]"></div>
+      <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-slate-900/30 rounded-full blur-[150px]"></div>
 
       <motion.div 
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="w-full max-w-2xl bg-slate-800/80 backdrop-blur-xl p-10 md:p-14 rounded-[48px] shadow-2xl border border-slate-700 relative z-10"
+        className="w-full max-w-2xl bg-[#0B0F19]/80 backdrop-blur-xl p-10 md:p-14 rounded-[48px] shadow-2xl border border-white/5 relative z-10"
       >
         <div className="text-center mb-12">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-[24px] flex items-center justify-center text-white font-black text-3xl mx-auto mb-8 shadow-2xl shadow-cyan-400/30 group-hover:rotate-6 transition-transform">
+          <div className="w-20 h-20 bg-white rounded-[24px] flex items-center justify-center text-[#0A0E1A] font-black text-3xl mx-auto mb-8 shadow-2xl shadow-white/10 group-hover:rotate-6 transition-transform border border-white/10">
             G
           </div>
-          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Academic <span className="text-cyan-400">Registration</span></h1>
+          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Academic <span className="text-white opacity-80">Registration</span></h1>
           <p className="text-slate-400 font-bold text-sm tracking-wide">Join 50,000+ scholars mastering the future</p>
         </div>
 
@@ -409,10 +409,10 @@ const Signup = () => {
           <button 
             type="submit" 
             disabled={isLoading || !isFormValid}
-            className="w-full py-5 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-black rounded-2xl shadow-2xl shadow-cyan-400/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-5 bg-white text-[#0A0E1A] font-black rounded-2xl shadow-2xl shadow-white/5 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
-              <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-4 border-[#0A0E1A]/30 border-t-[#0A0E1A] rounded-full animate-spin"></div>
             ) : (
               <>Establish Scholar Profile <ArrowRight size={20} /></>
             )}
@@ -435,7 +435,7 @@ const Signup = () => {
           </button>
 
           <p className="text-center text-slate-400 font-bold text-sm">
-            Already an established scholar? <Link to="/login" className="text-cyan-400 font-black hover:underline ml-1">Secure Login</Link>
+            Already an established scholar? <Link to="/login" className="text-white font-black hover:underline ml-1">Secure Login</Link>
           </p>
         </form>
       </motion.div>

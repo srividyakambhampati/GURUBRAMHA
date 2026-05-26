@@ -47,14 +47,14 @@ const Dashboard = () => {
   const [showStore, setShowStore] = useState(false);
 
   const features = [
-    { title: 'Candidate Profile', desc: 'View & edit your info', icon: <User className="text-indigo-400" />, color: 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20', path: '/profile' },
-    { title: 'My Documents', desc: 'Certificates & uploads', icon: <Folder className="text-blue-400" />, color: 'bg-blue-500/10 text-blue-400 border border-blue-500/20', path: '/documents' },
-    { title: 'Finance', desc: 'Payments & history', icon: <DollarSign className="text-amber-400" />, color: 'bg-amber-500/10 text-amber-400 border border-amber-500/20', isComingSoon: true },
-    { title: 'Internships', desc: 'Find opportunities', icon: <Layout className="text-teal-400" />, color: 'bg-teal-500/10 text-teal-400 border border-teal-500/20', isComingSoon: true },
-    { title: 'Jobs', desc: 'Browse job listings', icon: <Briefcase className="text-red-400" />, color: 'bg-red-500/10 text-red-400 border border-red-500/20', isComingSoon: true },
-    { title: 'Hackathons', desc: 'Compete & win', icon: <Trophy className="text-orange-400" />, color: 'bg-orange-500/10 text-orange-400 border border-orange-500/20', isComingSoon: true },
-    { title: 'Podcasts', desc: 'Learn on the go', icon: <Mic className="text-pink-400" />, color: 'bg-pink-500/10 text-pink-400 border border-pink-500/20', isComingSoon: true },
-    { title: 'Guru Store', desc: 'Premium Scholar Gear', icon: <ShoppingBag className="text-rose-400" />, color: 'bg-rose-500/10 text-rose-400 border border-rose-500/20', path: '#scholar-store' },
+    { title: 'Candidate Profile', desc: 'View & edit your info', icon: <User className="text-white" />, color: 'bg-white/5 text-white border border-white/10', path: '/profile' },
+    { title: 'My Documents', desc: 'Certificates & uploads', icon: <Folder className="text-white" />, color: 'bg-white/5 text-white border border-white/10', path: '/documents' },
+    { title: 'Finance', desc: 'Payments & history', icon: <DollarSign className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
+    { title: 'Internships', desc: 'Find opportunities', icon: <Layout className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
+    { title: 'Jobs', desc: 'Browse job listings', icon: <Briefcase className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
+    { title: 'Hackathons', desc: 'Compete & win', icon: <Trophy className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
+    { title: 'Podcasts', desc: 'Learn on the go', icon: <Mic className="text-slate-400" />, color: 'bg-white/5 text-slate-400 border border-white/5', isComingSoon: true },
+    { title: 'Guru Store', desc: 'Premium Scholar Gear', icon: <ShoppingBag className="text-white" />, color: 'bg-white/5 text-white border border-white/10', path: '#scholar-store' },
   ];
 
   const demoCourses = [
@@ -91,12 +91,12 @@ const Dashboard = () => {
   }, [selectedDemo, showSubscription]);
 
   return (
-    <div className="bg-[#0F172A] min-h-screen selection:bg-orange-500/30 text-white relative overflow-hidden">
+    <div className="bg-[#0A0E1A] min-h-screen selection:bg-white/20 text-white relative overflow-hidden">
       {/* Background Glowing Effects */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-indigo-600/10 rounded-full blur-[150px]"></div>
-        <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[150px]"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-850/40 via-transparent to-transparent"></div>
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-slate-900/30 rounded-full blur-[150px]"></div>
+        <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] bg-slate-900/30 rounded-full blur-[150px]"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/40 via-transparent to-transparent"></div>
       </div>
 
       <div className="max-w-[1600px] mx-auto px-8 md:px-12 pt-20 pb-20 relative z-10">
@@ -106,17 +106,17 @@ const Dashboard = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-slate-800/50 backdrop-blur-md border border-slate-700 text-slate-300 text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl"
+            className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-slate-800/50 backdrop-blur-md border border-slate-700/50 text-slate-300 text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl"
           >
-            <Rocket size={14} className="text-amber-400" /> India's #1 Career-Ready Platform
+            <Rocket size={14} className="text-white" /> India's #1 Career-Ready Platform
           </motion.div>
 
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight"
+            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight text-glow"
           >
-            Welcome to <span className="text-[#FFB800]">GuruBramha</span>
+            Welcome to <span className="text-gradient">GuruBramha</span>
           </motion.h1>
 
           <motion.p 
@@ -133,7 +133,7 @@ const Dashboard = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-slate-800/50 pt-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-slate-850 pt-12"
           >
             {[
                 { v: '10+', l: 'Courses' },
@@ -142,7 +142,7 @@ const Dashboard = () => {
                 { v: '95%', l: 'Placement Rate' }
             ].map((stat, i) => (
                 <div key={i} className="text-center">
-                    <p className="text-4xl font-black text-[#FFB800] mb-2">{stat.v}</p>
+                    <p className="text-4xl font-black text-white mb-2 text-glow">{stat.v}</p>
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{stat.l}</p>
                 </div>
             ))}
@@ -169,19 +169,19 @@ const Dashboard = () => {
                             }
                         }
                     }}
-                    className={`bg-slate-800/50 backdrop-blur-md rounded-[32px] p-8 shadow-xl border border-slate-700 transition-all relative overflow-hidden group h-full hover:bg-slate-800 hover:shadow-2xl hover:border-slate-650 cursor-pointer ${
+                    className={`premium-glow-card rounded-[32px] p-8 relative overflow-hidden group h-full cursor-pointer ${
                         feature.isComingSoon ? 'opacity-65 cursor-not-allowed grayscale-[0.2]' : ''
                     }`}
                 >
                     {feature.isComingSoon && (
-                        <div className="absolute top-6 right-6 px-3 py-1 bg-slate-800/80 border border-slate-700 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full">
+                        <div className="absolute top-6 right-6 px-3 py-1 bg-slate-800/80 border border-slate-700/50 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full">
                             Coming Soon
                         </div>
                     )}
                     <div className={`w-14 h-14 ${feature.color} rounded-[20px] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform shadow-md`}>
                         {feature.icon}
                     </div>
-                    <h4 className="font-black text-white mb-2 text-xl tracking-tight">{feature.title}</h4>
+                    <h4 className="font-black text-white mb-2 text-xl tracking-tight text-glow">{feature.title}</h4>
                     <p className="text-xs font-bold text-slate-400 tracking-wide leading-relaxed">{feature.desc}</p>
                 </motion.div>
             ))}
@@ -195,12 +195,12 @@ const Dashboard = () => {
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-[0.3em] mb-8"
+                    className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-slate-800/50 border border-slate-700/50 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8"
                 >
                     <BookOpen size={16} /> Restricted Academic Catalog
                 </motion.div>
-                <h2 className="text-5xl font-black text-slate-900 mb-6 tracking-tight">Open <span className="text-orange-500">Sessions</span></h2>
-                <p className="text-slate-500 font-bold text-xl max-w-2xl mx-auto">Establish your technical foundation with our high-fidelity free sessions.</p>
+                <h2 className="text-5xl font-black text-white mb-6 tracking-tight">Open <span className="text-white opacity-80">Sessions</span></h2>
+                <p className="text-slate-455 font-bold text-xl max-w-2xl mx-auto">Establish your technical foundation with our high-fidelity free sessions.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
@@ -212,12 +212,12 @@ const Dashboard = () => {
                       transition={{ delay: i * 0.05 }}
                       whileHover={{ y: -15 }}
                       onClick={() => setSelectedDemo(course)}
-                      className="bg-white border border-slate-100 p-0 overflow-hidden group cursor-pointer hover:border-orange-200 hover:shadow-lg transition-all duration-500 rounded-[32px]"
+                      className="bg-[#0B0F19]/40 border border-white/5 p-0 overflow-hidden group cursor-pointer hover:border-white/20 hover:shadow-lg transition-all duration-500 rounded-[32px]"
                     >
                         <div className="h-48 relative overflow-hidden">
                             <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90" />
                             <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/5 transition-all"></div>
-                            <div className="absolute top-5 left-5 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl shadow-sm">
+                            <div className="absolute top-5 left-5 bg-white text-[#0A0E1A] text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-xl shadow-sm">
                                 Free
                             </div>
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -227,15 +227,15 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className="p-8">
-                            <div className="flex items-center gap-2 mb-4 text-orange-500 font-black text-xs">
-                                <Star size={16} fill="currentColor" /> {course.rating}
+                            <div className="flex items-center gap-2 mb-4 text-white font-black text-xs opacity-80">
+                                <Star size={16} fill="currentColor" className="text-white" /> {course.rating}
                             </div>
-                            <h3 className="font-black text-slate-900 mb-2 text-base group-hover:text-orange-500 transition-colors line-clamp-1 tracking-tight">{course.title}</h3>
-                            <p className="text-slate-500 text-[10px] font-black mb-8 italic uppercase tracking-widest">Expert: {course.mentor}</p>
+                            <h3 className="font-black text-white mb-2 text-base group-hover:text-white/80 transition-colors line-clamp-1 tracking-tight">{course.title}</h3>
+                            <p className="text-slate-400 text-[10px] font-black mb-8 italic uppercase tracking-widest">Expert: {course.mentor}</p>
                             
-                            <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-                                <span className="text-slate-900 font-black text-lg tracking-tighter">₹349</span>
-                                <button className="flex items-center gap-3 px-5 py-2.5 bg-slate-50 text-slate-700 border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 hover:text-white hover:border-transparent transition-all">
+                            <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                                <span className="text-white font-black text-lg tracking-tighter">₹349</span>
+                                <button className="flex items-center gap-3 px-5 py-2.5 bg-white text-[#0A0E1A] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all">
                                     Watch Now <ArrowRight size={14} />
                                 </button>
                             </div>
@@ -244,21 +244,19 @@ const Dashboard = () => {
                 ))}
             </div>
         </section>
-      </div>
-
-      {/* Video Player Modal */}
+      </div>      {/* Video Player Modal */}
       <AnimatePresence>
         {selectedDemo && (
             <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[1000] flex items-center justify-center p-6 md:p-12 bg-[#0F172A]/80 backdrop-blur-2xl"
+                className="fixed inset-0 z-[1000] flex items-center justify-center p-6 md:p-12 bg-[#0A0E1A]/80 backdrop-blur-2xl"
             >
                 <motion.div 
                     initial={{ scale: 0.95, y: 30 }}
                     animate={{ scale: 1, y: 0 }}
-                    className="relative w-full max-w-[1400px] bg-[#0F172A] rounded-[48px] shadow-[0_40px_100px_rgba(0,0,0,0.6)] overflow-hidden border border-white/10 flex flex-col lg:flex-row h-[90vh]"
+                    className="relative w-full max-w-[1400px] bg-[#0A0E1A] rounded-[48px] shadow-[0_40px_100px_rgba(0,0,0,0.6)] overflow-hidden border border-white/10 flex flex-col lg:flex-row h-[90vh]"
                 >
                     <button 
                         onClick={() => setSelectedDemo(null)}
@@ -280,33 +278,33 @@ const Dashboard = () => {
                             <div className="absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-black to-transparent">
                                 <div className="h-2 w-full bg-white/10 rounded-full mb-8 overflow-hidden">
                                     <div 
-                                        className="h-full bg-[#FFB800] shadow-[0_0_20px_rgba(255,184,0,0.8)] transition-all duration-300" 
+                                        className="h-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)] transition-all duration-300" 
                                         style={{ width: `${(currentTime / (parseInt(selectedDemo.duration.split(':')[0]) * 60)) * 100}%` }}
                                     ></div>
                                 </div>
                                 <div className="flex items-center justify-between text-white">
                                     <div className="flex items-center gap-10">
-                                        <Play fill="currentColor" size={28} className="cursor-pointer hover:text-[#FFB800] transition-colors" />
-                                        <Volume2 size={28} className="cursor-pointer hover:text-[#FFB800] transition-colors" />
+                                        <Play fill="currentColor" size={28} className="cursor-pointer hover:text-white transition-colors" />
+                                        <Volume2 size={28} className="cursor-pointer hover:text-white transition-colors" />
                                         <span className="text-sm font-black tracking-widest opacity-80 uppercase">
                                             {Math.floor(currentTime / 60)}:{String(currentTime % 60).padStart(2, '0')} <span className="mx-2 text-slate-600">/</span> {selectedDemo.duration}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-6">
                                         <span className="text-[10px] font-black px-4 py-1.5 bg-white/5 rounded-lg border border-white/5 uppercase tracking-widest">Premium 4K</span>
-                                        <Maximize2 size={28} className="cursor-pointer hover:text-[#FFB800] transition-colors opacity-80" />
+                                        <Maximize2 size={28} className="cursor-pointer hover:text-white transition-colors opacity-80" />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="p-12 overflow-y-auto custom-scrollbar flex-grow bg-gradient-to-b from-[#0F172A] to-black">
+                        <div className="p-12 overflow-y-auto custom-scrollbar flex-grow bg-gradient-to-b from-[#0A0E1A] to-black">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                             >
                                 <h2 className="text-4xl font-black text-white mb-4 tracking-tight">{selectedDemo.title}</h2>
-                                <p className="text-orange-500 font-black text-sm uppercase tracking-[0.3em] mb-10">By {selectedDemo.mentor} • Master Academy Mentor</p>
+                                <p className="text-white opacity-80 font-black text-sm uppercase tracking-[0.3em] mb-10">By {selectedDemo.mentor} • Master Academy Mentor</p>
                                 <div className="prose prose-invert prose-slate max-w-none text-slate-400 font-bold text-lg leading-relaxed">
                                     <p>Experience industry-standard pedagogical excellence. This high-fidelity session establishes the conceptual architecture required for professional mastery.</p>
                                 </div>
@@ -315,10 +313,10 @@ const Dashboard = () => {
                     </div>
 
                     {/* Playlist Sidebar */}
-                    <div className="w-full lg:w-[450px] bg-[#0F172A] border-l border-white/5 flex flex-col h-full overflow-hidden">
+                    <div className="w-full lg:w-[450px] bg-[#0A0E1A] border-l border-white/5 flex flex-col h-full overflow-hidden">
                         <div className="p-10 border-b border-white/5 bg-white/5 text-center">
                             <h3 className="text-xl font-black text-white flex items-center justify-center gap-4">
-                                <Activity className="text-[#FFB800]" /> Academy Roadmap
+                                <Activity className="text-white" /> Academy Roadmap
                             </h3>
                         </div>
                         <div className="flex-grow overflow-y-auto custom-scrollbar p-8 space-y-6">
@@ -329,27 +327,27 @@ const Dashboard = () => {
                                 { t: 'Project Walkthrough', d: '45:00', active: false }
                             ].map((item, i) => (
                                 <div key={i} className={`p-6 rounded-[24px] border transition-all flex items-center justify-between group cursor-pointer ${
-                                    item.active ? 'bg-white/10 border-[#FFB800]/50 shadow-2xl' : 'bg-white/5 border-white/5 hover:border-white/20'
+                                    item.active ? 'bg-white/10 border-white/50 shadow-2xl' : 'bg-white/5 border-white/5 hover:border-white/20'
                                 }`}>
                                     <div className="flex items-center gap-6">
                                         <div className={`w-12 h-12 rounded-[18px] flex items-center justify-center font-black text-sm shadow-inner transition-colors ${
-                                            item.active ? 'bg-[#FFB800] text-[#0F172A]' : 'bg-white/5 text-slate-600'
+                                            item.active ? 'bg-white text-[#0A0E1A]' : 'bg-white/5 text-slate-650'
                                         }`}>
                                             {item.active ? <Play size={18} fill="currentColor" /> : i + 1}
                                         </div>
                                         <div>
                                             <p className={`text-base font-black tracking-tight ${item.active ? 'text-white' : 'text-slate-400'}`}>{item.t}</p>
-                                            <p className="text-[10px] font-black uppercase text-slate-600 tracking-widest mt-1.5">{item.d} Duration</p>
+                                            <p className="text-[10px] font-black uppercase text-slate-650 tracking-widest mt-1.5">{item.d} Duration</p>
                                         </div>
                                     </div>
                                     {!item.active && <Lock size={18} className="text-slate-800" />}
                                 </div>
                             ))}
                         </div>
-                        <div className="p-10 border-t border-slate-800 bg-slate-900">
+                        <div className="p-10 border-t border-white/5 bg-[#0B0F19]">
                             <button 
                                 onClick={() => handlePayment({ amount: 349, description: `Demo: ${selectedDemo.title}`, user })}
-                                className="w-full py-6 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black rounded-[24px] shadow-lg shadow-orange-500/20 hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest"
+                                className="w-full py-6 bg-white text-[#0A0E1A] font-black rounded-[24px] shadow-lg shadow-white/5 hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest"
                             >
                                 Unlock Academy Vault <Lock size={20} />
                             </button>

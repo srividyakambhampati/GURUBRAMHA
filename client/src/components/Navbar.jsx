@@ -60,11 +60,11 @@ const Navbar = () => {
           {/* Logo - Left */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-cyan-400/20 group-hover:rotate-6 transition-transform">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#0A0E1A] font-bold text-xl shadow-lg shadow-white/10 group-hover:rotate-6 transition-transform">
                 G
               </div>
               <span className={`text-2xl font-black tracking-tight text-white`}>
-                Guru<span className="text-cyan-500">Bramha</span>
+                Guru<span className="text-white opacity-90">Bramha</span>
               </span>
             </Link>
           </div>
@@ -78,7 +78,7 @@ const Navbar = () => {
                   to={link.path}
                   className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${
                     location.pathname === link.path 
-                      ? 'bg-slate-700 text-cyan-400 shadow-sm' 
+                      ? 'bg-slate-700 text-white shadow-sm' 
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -91,15 +91,15 @@ const Navbar = () => {
 
           {/* Actions - Right */}
           <div className="hidden lg:flex items-center space-x-5 flex-shrink-0">
-            <button className={`p-2.5 rounded-xl transition-all text-slate-400 hover:text-cyan-400 hover:bg-slate-800`}>
+            <button className={`p-2.5 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800`}>
               <Search size={20} />
             </button>
             
             {user ? (
               <div className="flex items-center space-x-4">
-                <button className={`p-2.5 rounded-xl relative transition-all text-slate-400 hover:text-cyan-400 hover:bg-slate-800`}>
+                <button className={`p-2.5 rounded-xl relative transition-all text-slate-400 hover:text-white hover:bg-slate-800`}>
                   <Bell size={20} />
-                  <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                  <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-white rounded-full border-2 border-[#0A0E1A]"></span>
                 </button>
                 
                 {/* Profile Dropdown */}
@@ -111,7 +111,7 @@ const Navbar = () => {
                     }}
                     className="flex items-center space-x-2 p-1 bg-slate-800 border border-slate-700 rounded-full shadow-sm hover:shadow-md transition-all group"
                   >
-                    <div className="w-9 h-9 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-sm border border-white/10">
                       {user.displayName?.[0] || 'U'}
                     </div>
                     <ChevronDown size={14} className={`text-slate-400 mr-2 transition-transform ${showProfileMenu ? 'rotate-180' : ''}`} />
@@ -135,7 +135,7 @@ const Navbar = () => {
                               key={link.name}
                               to={link.path}
                               onClick={() => setShowProfileMenu(false)}
-                              className="flex items-center gap-3 p-3 rounded-2xl text-sm font-bold text-slate-300 hover:text-cyan-400 hover:bg-slate-700 transition-all"
+                              className="flex items-center gap-3 p-3 rounded-2xl text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition-all"
                             >
                               {link.icon}
                               {link.name}
@@ -147,7 +147,7 @@ const Navbar = () => {
                               logout();
                               setShowProfileMenu(false);
                             }}
-                            className="w-full flex items-center gap-3 p-3 rounded-2xl text-sm font-bold text-red-500 hover:bg-red-900/20 transition-all"
+                            className="w-full flex items-center gap-3 p-3 rounded-2xl text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-700/50 transition-all"
                           >
                             <LogOut size={18} />
                             Sign Out
@@ -188,12 +188,12 @@ const Navbar = () => {
             <div className="px-6 py-8 space-y-6">
               {user && (
                 <div className="flex items-center gap-4 p-4 bg-slate-900 rounded-3xl mb-4 border border-slate-700">
-                  <div className="w-12 h-12 rounded-2xl bg-cyan-500 flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-700 flex items-center justify-center text-white font-bold text-xl">
                     {user.displayName?.[0] || 'U'}
                   </div>
                   <div>
                     <p className="font-black text-white">{user.displayName || 'Scholar'}</p>
-                    <p className="text-xs font-bold text-cyan-500 uppercase tracking-widest">Premium Account</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Premium Account</p>
                   </div>
                 </div>
               )}
@@ -202,9 +202,9 @@ const Navbar = () => {
                   key={link.name}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-4 text-lg font-bold text-slate-300 hover:text-cyan-400 p-2"
+                  className="flex items-center gap-4 text-lg font-bold text-slate-300 hover:text-white p-2"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-slate-400 group-hover:text-cyan-400">
+                  <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-slate-400 group-hover:text-white">
                     {link.icon}
                   </div>
                   {link.name}
@@ -213,7 +213,7 @@ const Navbar = () => {
               <div className="pt-6 border-t border-slate-700 flex flex-col gap-4">
                 {user ? (
                    profileLinks.map((link) => (
-                    <Link key={link.name} to={link.path} onClick={() => setIsOpen(false)} className="flex items-center gap-4 text-lg font-bold text-slate-300 hover:text-cyan-400 p-2">
+                    <Link key={link.name} to={link.path} onClick={() => setIsOpen(false)} className="flex items-center gap-4 text-lg font-bold text-slate-300 hover:text-white p-2">
                         <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-slate-400">
                             {link.icon}
                         </div>

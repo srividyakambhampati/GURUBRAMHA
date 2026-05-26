@@ -37,14 +37,14 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(0);
 
   const features = [
-    { title: 'Candidate Profile', desc: 'View & edit your info', icon: <User className="text-indigo-500" />, color: 'bg-indigo-50', path: '/profile' },
-    { title: 'My Documents', desc: 'Certificates & uploads', icon: <Folder className="text-blue-500" />, color: 'bg-blue-50', path: '/documents' },
-    { title: 'Finance', desc: 'Payments & history', icon: <DollarSign className="text-amber-500" />, color: 'bg-amber-50', isComingSoon: true },
-    { title: 'Internships', desc: 'Find opportunities', icon: <Layout className="text-teal-500" />, color: 'bg-teal-50', isComingSoon: true },
-    { title: 'Jobs', desc: 'Browse job listings', icon: <Briefcase className="text-red-500" />, color: 'bg-red-50', isComingSoon: true },
-    { title: 'Hackathons', desc: 'Compete & win', icon: <Trophy className="text-orange-500" />, color: 'bg-orange-50', isComingSoon: true },
-    { title: 'Resume Builder', desc: 'Create your resume', icon: <FileText className="text-purple-500" />, color: 'bg-purple-50', isComingSoon: true },
-    { title: 'Podcasts', desc: 'Learn on the go', icon: <Mic className="text-pink-500" />, color: 'bg-pink-50', isComingSoon: true },
+    { title: 'Candidate Profile', desc: 'View & edit your info', icon: <User className="text-white" />, color: 'bg-white/5', path: '/profile' },
+    { title: 'My Documents', desc: 'Certificates & uploads', icon: <Folder className="text-white" />, color: 'bg-white/5', path: '/documents' },
+    { title: 'Finance', desc: 'Payments & history', icon: <DollarSign className="text-slate-400" />, color: 'bg-white/5', isComingSoon: true },
+    { title: 'Internships', desc: 'Find opportunities', icon: <Layout className="text-slate-400" />, color: 'bg-white/5', isComingSoon: true },
+    { title: 'Jobs', desc: 'Browse job listings', icon: <Briefcase className="text-slate-400" />, color: 'bg-white/5', isComingSoon: true },
+    { title: 'Hackathons', desc: 'Compete & win', icon: <Trophy className="text-slate-400" />, color: 'bg-white/5', isComingSoon: true },
+    { title: 'Resume Builder', desc: 'Create your resume', icon: <FileText className="text-slate-400" />, color: 'bg-white/5', isComingSoon: true },
+    { title: 'Podcasts', desc: 'Learn on the go', icon: <Mic className="text-slate-400" />, color: 'bg-white/5', isComingSoon: true },
   ];
 
   const demoCourses = [
@@ -79,31 +79,31 @@ const Home = () => {
   }, [selectedDemo, showSubscription]);
 
   return (
-    <div className="bg-[#0F172A]">
+    <div className="bg-[#0A0E1A]">
       {/* New Premium Dark Hero Section */}
       <section className="relative min-h-[75vh] flex flex-col items-center justify-center pt-20 pb-16 overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-indigo-600/10 rounded-full blur-[150px]"></div>
-          <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[150px]"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-800/50 via-transparent to-transparent"></div>
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-slate-900/30 rounded-full blur-[150px]"></div>
+          <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-slate-900/30 rounded-full blur-[150px]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/40 via-transparent to-transparent"></div>
         </div>
 
         <div className="section-container relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-slate-800/50 backdrop-blur-md border border-slate-700 text-slate-300 text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl"
+            className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-slate-800/50 backdrop-blur-md border border-slate-700/50 text-slate-300 text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl"
           >
-            <Rocket size={14} className="text-amber-400" /> India's #1 Career-Ready Platform
+            <Rocket size={14} className="text-white" /> India's #1 Career-Ready Platform
           </motion.div>
 
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight"
+            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight text-glow"
           >
-            Welcome to <span className="text-[#FFB800]">GuruBramha</span>
+            Welcome to <span className="text-gradient">GuruBramha</span>
           </motion.h1>
 
           <motion.p 
@@ -121,7 +121,7 @@ const Home = () => {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
           >
-            <Link to={user ? "/courses" : "/login"} className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-black text-base shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
+            <Link to={user ? "/courses" : "/login"} className="px-8 py-4 bg-white text-[#0A0E1A] rounded-2xl font-black text-base shadow-[0_20px_50px_rgba(255,255,255,0.05)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
               <Rocket size={18} /> Get Started
             </Link>
             <Link to="/courses" className="px-8 py-4 border-2 border-slate-700 text-white rounded-2xl font-black text-base hover:bg-slate-800/50 transition-all">
@@ -134,7 +134,7 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-slate-800/50 pt-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-slate-850 pt-12"
           >
             {[
                 { v: '10+', l: 'Courses' },
@@ -143,7 +143,7 @@ const Home = () => {
                 { v: '95%', l: 'Placement Rate' }
             ].map((stat, i) => (
                 <div key={i} className="text-center">
-                    <p className="text-4xl font-black text-[#FFB800] mb-2">{stat.v}</p>
+                    <p className="text-4xl font-black text-white mb-2 text-glow">{stat.v}</p>
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{stat.l}</p>
                 </div>
             ))}
@@ -152,7 +152,7 @@ const Home = () => {
       </section>
 
       {/* Feature Grid Section */}
-      <section className="bg-[#0F172A] pt-12 pb-16 relative z-20">
+      <section className="bg-[#0A0E1A] pt-12 pb-16 relative z-20">
         <div className="section-container">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 mb-12">
                 {features.map((feature, i) => (
@@ -169,32 +169,32 @@ const Home = () => {
                                 navigate('/coming-soon');
                             }
                         }}
-                        className={`glass-card !p-6 !bg-slate-800/50 border-slate-700 shadow-xl transition-all relative overflow-hidden group h-full hover:shadow-2xl hover:bg-slate-800 cursor-pointer`}
+                        className={`premium-glow-card !p-6 relative overflow-hidden group h-full cursor-pointer`}
                     >
                         {feature.isComingSoon && (
-                            <div className="absolute top-3 right-3 px-3 py-1 bg-slate-100 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full border border-slate-200">
+                            <div className="absolute top-3 right-3 px-3 py-1 bg-slate-800/80 text-slate-450 text-[8px] font-black uppercase tracking-widest rounded-full border border-white/5">
                                 Coming Soon
                             </div>
                         )}
                         <div className={`w-14 h-14 ${feature.color} rounded-[20px] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                             {feature.icon}
                         </div>
-                        <h4 className="font-black text-white mb-2 text-lg">{feature.title}</h4>
+                        <h4 className="font-black text-white mb-2 text-lg text-glow">{feature.title}</h4>
                         <p className="text-xs font-bold text-slate-400">{feature.desc}</p>
                     </motion.div>
                 ))}
             </div>
 
             {/* Demo Classes Section */}
-            <div className="text-center mb-12 border-t border-slate-800/50 pt-16">
+            <div className="text-center mb-12 border-t border-white/5 pt-16">
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-slate-800/50 text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-slate-700"
+                    className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-slate-800/50 text-white text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-slate-700/50"
                 >
                     <BookOpen size={14} /> Academy Preview
                 </motion.div>
-                <h2 className="heading-lg mb-4 text-3xl md:text-4xl text-white">Explore <span className="text-[#FFB800]">Demo Classes</span></h2>
+                <h2 className="heading-lg mb-4 text-3xl md:text-4xl text-white">Explore <span className="text-gradient">Demo Classes</span></h2>
                 <p className="text-slate-400 font-medium text-base max-w-2xl mx-auto">Experience the quality of GuruBramha with our free sessions.</p>
             </div>
 
@@ -207,11 +207,11 @@ const Home = () => {
                       transition={{ delay: i * 0.05 }}
                       whileHover={{ y: -12 }}
                       onClick={() => setSelectedDemo(course)}
-                      className="glass-card !p-0 overflow-hidden group cursor-pointer border-slate-700 hover:shadow-2xl hover:shadow-indigo-900/50 transition-all duration-500 !bg-slate-800/50 hover:!bg-slate-800"
+                      className="premium-glow-card !p-0 overflow-hidden group cursor-pointer transition-all duration-500 hover:!bg-[#0A0E1A]"
                     >
                         <div className="h-44 relative overflow-hidden">
                             <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-indigo-600 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-xl shadow-lg border border-white/50">
+                            <div className="absolute top-4 left-4 bg-white text-[#0A0E1A] text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-xl shadow-lg border border-white/10">
                                 Free
                             </div>
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -221,15 +221,15 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="p-5">
-                            <div className="flex items-center gap-1 mb-2 text-amber-500 font-black text-xs">
-                                <Star size={14} fill="currentColor" /> {course.rating}
+                            <div className="flex items-center gap-1 mb-2 text-white font-black text-xs opacity-80">
+                                <Star size={14} fill="currentColor" className="text-white" /> {course.rating}
                             </div>
-                            <h3 className="font-black text-white mb-1 text-sm group-hover:text-[#FFB800] transition-colors line-clamp-1">{course.title}</h3>
+                            <h3 className="font-black text-white mb-1 text-sm group-hover:text-white/80 transition-colors line-clamp-1 text-glow">{course.title}</h3>
                             <p className="text-slate-400 text-[10px] font-bold mb-4">Mentor: {course.mentor}</p>
                             
-                            <div className="flex items-center justify-between pt-4 border-t border-slate-700">
-                                <span className="text-[#FFB800] font-black text-base">₹349</span>
-                                <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-slate-300 border border-slate-700 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#FFB800] hover:text-slate-900 hover:border-[#FFB800] transition-all">
+                            <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                                <span className="text-white font-black text-base text-glow">₹349</span>
+                                <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-slate-350 border border-slate-700/50 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-[#0A0E1A] transition-all">
                                     Watch <ArrowRight size={12} />
                                 </button>
                             </div>
@@ -247,21 +247,21 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md"
+                className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
             >
                 <motion.div 
                     initial={{ scale: 0.9, y: 20 }}
                     animate={{ scale: 1, y: 0 }}
-                    className="relative w-full max-w-6xl bg-slate-900 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden border border-slate-700 flex flex-col lg:flex-row h-[85vh]"
+                    className="relative w-full max-w-6xl bg-[#0A0E1A] rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden border border-white/10 flex flex-col lg:flex-row h-[85vh]"
                 >
                     <button 
                         onClick={() => setSelectedDemo(null)}
-                        className="absolute top-6 right-6 p-3 text-slate-400 hover:text-[#FFB800] hover:bg-slate-800 rounded-2xl transition-all z-20"
+                        className="absolute top-6 right-6 p-3 text-slate-400 hover:text-white hover:bg-slate-800 rounded-2xl transition-all z-20"
                     >
                         <X size={24} />
                     </button>
-
-                    <div className="flex-grow flex flex-col bg-slate-800 h-full overflow-hidden">
+ 
+                    <div className="flex-grow flex flex-col bg-black h-full overflow-hidden">
                         <div className="aspect-video bg-black relative flex-shrink-0">
                             <img src={selectedDemo.thumbnail} alt={selectedDemo.title} className="w-full h-full object-cover opacity-50" />
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -271,28 +271,28 @@ const Home = () => {
                             </div>
                             <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <div className="h-1.5 w-full bg-white/20 rounded-full mb-6 overflow-hidden">
-                                    <div className="h-full bg-[#FFB800] shadow-[0_0_15px_rgba(255,184,0,0.8)]" style={{ width: `${(currentTime / (parseInt(selectedDemo.duration.split(':')[0]) * 60)) * 100}%` }}></div>
+                                    <div className="h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]" style={{ width: `${(currentTime / (parseInt(selectedDemo.duration.split(':')[0]) * 60)) * 100}%` }}></div>
                                 </div>
                                 <div className="flex items-center justify-between text-white font-bold text-sm">
                                     <div className="flex items-center gap-6">
-                                        <Play fill="currentColor" size={24} />
-                                        <Volume2 size={24} />
+                                        <Play fill="currentColor" size={24} className="hover:text-white transition-colors" />
+                                        <Volume2 size={24} className="hover:text-white transition-colors" />
                                         <span>{Math.floor(currentTime / 60)}:{String(currentTime % 60).padStart(2, '0')} / {selectedDemo.duration}</span>
                                     </div>
-                                    <Maximize2 size={24} className="opacity-80" />
+                                    <Maximize2 size={24} className="opacity-80 hover:text-white transition-colors" />
                                 </div>
                             </div>
                         </div>
-                        <div className="p-10 overflow-y-auto">
+                        <div className="p-10 overflow-y-auto bg-gradient-to-b from-[#0A0E1A] to-black">
                             <h2 className="text-3xl font-black text-white mb-2">{selectedDemo.title}</h2>
                             <p className="text-slate-400 font-medium mb-8">By {selectedDemo.mentor} • Senior Academy Mentor</p>
                         </div>
                     </div>
-
-                    <div className="w-full lg:w-[400px] bg-slate-900 border-l border-slate-700 flex flex-col h-full overflow-hidden">
-                        <div className="p-8 border-b border-slate-800 bg-slate-800/50 text-center">
+ 
+                    <div className="w-full lg:w-[400px] bg-[#0A0E1A] border-l border-white/5 flex flex-col h-full overflow-hidden">
+                        <div className="p-8 border-b border-white/5 bg-slate-900/50 text-center">
                             <h3 className="text-xl font-black text-white flex items-center justify-center gap-3">
-                                <BookOpen className="text-[#FFB800]" /> Lesson Playlist
+                                <BookOpen className="text-white" /> Lesson Playlist
                             </h3>
                         </div>
                         <div className="flex-grow overflow-y-auto p-6 space-y-4">
@@ -302,10 +302,10 @@ const Home = () => {
                                 { t: 'Advanced Logic & Flow', d: '25:40', active: false }
                             ].map((item, i) => (
                                 <div key={i} className={`p-5 rounded-3xl border transition-all flex items-center justify-between group cursor-pointer ${
-                                    item.active ? 'bg-slate-800 border-slate-600 shadow-lg' : 'bg-slate-900 border-slate-800 hover:border-slate-700'
+                                    item.active ? 'bg-white/10 border-white/50 shadow-lg' : 'bg-slate-900/40 border-white/5 hover:border-white/20'
                                 }`}>
                                     <div className="flex items-center gap-4">
-                                        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs ${item.active ? 'bg-[#FFB800] text-slate-900' : 'bg-slate-800 text-slate-400'}`}>
+                                        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs ${item.active ? 'bg-white text-[#0A0E1A]' : 'bg-slate-800 text-slate-400'}`}>
                                             {item.active ? <Play size={14} fill="currentColor" /> : i + 1}
                                         </div>
                                         <div>
@@ -317,13 +317,13 @@ const Home = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="p-8 border-t border-slate-800 bg-slate-800/50">
+                        <div className="p-8 border-t border-white/5 bg-slate-900/50">
                             <button 
                                 onClick={() => {
                                     if (user?.isSubscribed) alert('🚀 You already have Full Access!');
                                     else setShowSubscription(true);
                                 }} 
-                                className="w-full py-5 bg-gradient-to-r from-orange-500 to-[#FFB800] text-slate-900 font-black rounded-3xl shadow-2xl shadow-orange-900/50 flex items-center justify-center gap-3 hover:scale-105 transition-all"
+                                className="w-full py-5 bg-white text-[#0A0E1A] font-black rounded-3xl shadow-2xl shadow-white/5 flex items-center justify-center gap-3 hover:scale-105 transition-all"
                             >
                                 {user?.isSubscribed ? 'Premium Access Active' : 'Unlock All Content'} {user?.isSubscribed ? <CheckCircle2 size={18} /> : <Lock size={18} />}
                             </button>
