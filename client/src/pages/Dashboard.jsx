@@ -240,9 +240,9 @@ const Dashboard = () => {
                             
                             <div className="flex items-center justify-between pt-6 border-t border-white/5">
                                 <span className="text-white font-black text-lg tracking-tighter">₹349</span>
-                                <button className="flex items-center gap-3 px-5 py-2.5 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:scale-[1.05] transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)]">
-                                    Watch Now <ArrowRight size={14} />
-                                </button>
+                                 <button className="flex items-center gap-3 px-5 py-2.5 btn-radiant-purple text-white rounded-2xl text-[10px] font-black uppercase tracking-widest border-none">
+                                     Watch Now <ArrowRight size={14} />
+                                 </button>
                             </div>
                         </div>
                     </motion.div>

@@ -121,10 +121,10 @@ const Home = () => {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
           >
-            <Link to={user ? "/courses" : "/login"} className="px-8 py-4 bg-white text-[#0A0E1A] rounded-2xl font-black text-base shadow-[0_20px_50px_rgba(255,255,255,0.05)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
+            <Link to={user ? "/courses" : "/login"} className="px-8 py-4 btn-radiant-orange text-white rounded-2xl font-black text-base flex items-center gap-3">
               <Rocket size={18} /> Get Started
             </Link>
-            <Link to="/courses" className="px-8 py-4 border-2 border-slate-700 text-white rounded-2xl font-black text-base hover:bg-slate-800/50 transition-all">
+            <Link to="/courses" className="px-8 py-4 border-2 border-white/10 hover:border-white/20 text-white rounded-2xl font-black text-base hover:bg-white/5 active:scale-95 transition-all">
               Explore Courses
             </Link>
           </motion.div>
@@ -233,11 +233,11 @@ const Home = () => {
                             <p className="text-slate-400 text-[10px] font-bold mb-4">Mentor: {course.mentor}</p>
                             
                             <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                                <span className="text-white font-black text-base text-glow">₹349</span>
-                                <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-slate-350 border border-slate-700/50 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-[#0A0E1A] transition-all">
-                                    Watch <ArrowRight size={12} />
-                                </button>
-                            </div>
+                                 <span className="text-white font-black text-base text-glow">₹349</span>
+                                 <button className="flex items-center gap-2 px-4 py-2 btn-radiant-purple text-white rounded-xl text-[10px] font-black uppercase tracking-widest border-none">
+                                     Watch <ArrowRight size={12} />
+                                 </button>
+                             </div>
                         </div>
                     </motion.div>
                 ))}
@@ -322,17 +322,17 @@ const Home = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="p-8 border-t border-white/5 bg-slate-900/50">
-                            <button 
-                                onClick={() => {
-                                    if (user?.isSubscribed) alert('🚀 You already have Full Access!');
-                                    else setShowSubscription(true);
-                                }} 
-                                className="w-full py-5 bg-white text-[#0A0E1A] font-black rounded-3xl shadow-2xl shadow-white/5 flex items-center justify-center gap-3 hover:scale-105 transition-all"
-                            >
-                                {user?.isSubscribed ? 'Premium Access Active' : 'Unlock All Content'} {user?.isSubscribed ? <CheckCircle2 size={18} /> : <Lock size={18} />}
-                            </button>
-                        </div>
+                         <div className="p-8 border-t border-white/5 bg-slate-900/50">
+                             <button 
+                                 onClick={() => {
+                                     if (user?.isSubscribed) alert('🚀 You already have Full Access!');
+                                     else setShowSubscription(true);
+                                 }} 
+                                 className="w-full py-5 bg-gradient-to-r from-[#FB923C] via-[#F43F5E] to-[#EC4899] text-white font-black rounded-3xl shadow-2xl shadow-rose-500/20 flex items-center justify-center gap-3 hover:scale-105 transition-all"
+                             >
+                                 {user?.isSubscribed ? 'Premium Access Active' : 'Unlock All Content'} {user?.isSubscribed ? <CheckCircle2 size={18} /> : <Lock size={18} />}
+                             </button>
+                         </div>
                     </div>
                 </motion.div>
             </motion.div>

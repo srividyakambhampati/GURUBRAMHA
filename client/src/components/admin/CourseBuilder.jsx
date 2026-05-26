@@ -24,7 +24,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'htt
 // Basic Sortable Item Component
 const SortableModule = ({ module, index, onUpdate, onDelete }) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: module.id });
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [editTitle, setEditTitle] = useState(module.title);
 
@@ -97,50 +97,108 @@ const SortableModule = ({ module, index, onUpdate, onDelete }) => {
                 </div>
                 <div className="p-3">
                   {submod.lessons?.map((lesson, lIdx) => (
-                    <div key={lesson.id} className="flex flex-col p-2 mb-2 bg-slate-900/60 rounded-lg border border-slate-700/30">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Video size={14} className="text-cyan-400" />
-                          <span className="text-xs text-slate-400">{lesson.title}</span>
+                    <div key={lesson.id} className="flex flex-col p-3 mb-3 bg-slate-950/80 rounded-xl border border-slate-800/80">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2 flex-grow mr-2">
+                          <Video size={14} className="text-cyan-400 shrink-0" />
+                          <input 
+                            type="text" 
+                            value={lesson.title}
+                            onChange={(e) => {
+                              const newLessons = submod.lessons.map(l => l.id === lesson.id ? {...l, title: e.target.value} : l);
+                              onUpdate({...module, submodules: module.submodules.map(s => s.id === submod.id ? {...s, lessons: newLessons} : s)});
+                            }}
+                            placeholder="Video Lesson Title"
+                            className="bg-transparent border-b border-transparent hover:border-slate-800 focus:border-cyan-500/50 text-sm font-bold text-white outline-none w-full pb-0.5 transition-colors"
+                          />
                         </div>
-                        <div className="flex items-center gap-2">
-                           <label className="text-[10px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer">
-                             <FileText size={10}/> Add PDF
-                             <input type="file" accept=".pdf" className="hidden" onChange={async (e) => {
-                                const file = e.target.files[0];
-                                if(!file) return;
-                                const formData = new FormData();
-                                formData.append('file', file);
-                                try {
-                                   const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/courses/upload`, formData);
-                                   const newRes = { id: `res-${Date.now()}`, title: file.name, url: res.data.url, type: 'PDF' };
-                                   const newLessons = submod.lessons.map(l => l.id === lesson.id ? {...l, resources: [...(l.resources||[]), newRes]} : l);
-                                   onUpdate({...module, submodules: module.submodules.map(s => s.id === submod.id ? {...s, lessons: newLessons} : s)});
-                                } catch (err) {
-                                   alert('Failed to upload PDF');
-                                }
-                             }} />
-                           </label>
+                        <div className="flex items-center gap-2 shrink-0">
                            <button onClick={() => {
                               if (confirm(`Delete ${lesson.title}?`)) {
                                  const newLessons = submod.lessons.filter(l => l.id !== lesson.id);
                                  onUpdate({...module, submodules: module.submodules.map(s => s.id === submod.id ? {...s, lessons: newLessons} : s)});
                               }
-                           }} className="text-[10px] text-rose-500/70 hover:text-rose-500 ml-2"><Trash2 size={10}/></button>
+                           }} className="text-xs text-rose-500/70 hover:text-rose-500 ml-2"><Trash2 size={12}/></button>
                         </div>
                       </div>
                       
-                      {/* Display Uploaded Resources */}
-                      {lesson.resources && lesson.resources.length > 0 && (
-                        <div className="mt-2 pl-6 space-y-1">
-                           {lesson.resources.map((res) => (
-                              <div key={res.id} className="flex items-center gap-2 text-[10px] text-slate-500">
-                                 <FileText size={10} className="text-emerald-500" />
-                                 <span>{res.title}</span>
-                              </div>
-                           ))}
+                      {/* Video URL Input */}
+                      <div className="mt-1 mb-2">
+                        <label className="text-xs uppercase text-slate-500 font-bold block mb-1">Video URL (YouTube, MP4, etc.)</label>
+                        <input 
+                          type="text" 
+                          placeholder="Paste video URL here" 
+                          value={lesson.videoUrl || ''} 
+                          onChange={(e) => {
+                            const newLessons = submod.lessons.map(l => l.id === lesson.id ? {...l, videoUrl: e.target.value} : l);
+                            onUpdate({...module, submodules: module.submodules.map(s => s.id === submod.id ? {...s, lessons: newLessons} : s)});
+                          }}
+                          className="w-full bg-slate-900 border border-slate-800/85 focus:border-cyan-500 text-xs text-white rounded-lg px-2.5 py-1.5 outline-none transition-colors"
+                        />
+                      </div>
+
+                      {/* PDF / Resources Section */}
+                      <div className="mt-2 pt-2 border-t border-slate-800/50">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs uppercase text-slate-500 font-bold">PDF Resources / Attachments</span>
+                          <div className="flex items-center gap-3">
+                             {/* Upload PDF */}
+                             <label className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer font-bold transition-colors">
+                               <FileText size={12}/> Upload PDF
+                               <input type="file" accept=".pdf" className="hidden" onChange={async (e) => {
+                                  const file = e.target.files[0];
+                                  if(!file) return;
+                                  const formData = new FormData();
+                                  formData.append('file', file);
+                                  try {
+                                     const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/courses/upload`, formData);
+                                     const newRes = { id: `res-${Date.now()}`, title: file.name, url: res.data.url, type: 'PDF' };
+                                     const newLessons = submod.lessons.map(l => l.id === lesson.id ? {...l, resources: [...(l.resources||[]), newRes]} : l);
+                                     onUpdate({...module, submodules: module.submodules.map(s => s.id === submod.id ? {...s, lessons: newLessons} : s)});
+                                  } catch (err) {
+                                     alert('Failed to upload PDF');
+                                  }
+                               }} />
+                             </label>
+
+                             {/* Add PDF URL */}
+                             <button onClick={() => {
+                                const pdfUrl = prompt("Enter PDF / Resource URL:");
+                                if (pdfUrl && pdfUrl.trim()) {
+                                   const pdfTitle = prompt("Enter Resource Title (e.g. Lesson Slides PDF):", "Resource PDF");
+                                   const newRes = { id: `res-${Date.now()}`, title: pdfTitle || 'Resource PDF', url: pdfUrl, type: 'PDF' };
+                                   const newLessons = submod.lessons.map(l => l.id === lesson.id ? {...l, resources: [...(l.resources||[]), newRes]} : l);
+                                   onUpdate({...module, submodules: module.submodules.map(s => s.id === submod.id ? {...s, lessons: newLessons} : s)});
+                                }
+                             }} className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-bold transition-colors">
+                               <Plus size={12} /> Add PDF URL
+                             </button>
+                          </div>
                         </div>
-                      )}
+
+                        {/* Display Uploaded/Linked Resources */}
+                        <div className="space-y-1">
+                          {lesson.resources && lesson.resources.length > 0 ? (
+                            lesson.resources.map((res) => (
+                               <div key={res.id} className="flex items-center justify-between text-xs bg-slate-900/40 px-2 py-1.5 rounded-md border border-slate-800/40">
+                                  <div className="flex items-center gap-2 text-slate-300 truncate">
+                                     <FileText size={12} className="text-emerald-500 shrink-0" />
+                                     <a href={res.url} target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-cyan-400 truncate">{res.title}</a>
+                                  </div>
+                                  <button onClick={() => {
+                                     if (confirm(`Remove resource ${res.title}?`)) {
+                                        const newResources = lesson.resources.filter(r => r.id !== res.id);
+                                        const newLessons = submod.lessons.map(l => l.id === lesson.id ? {...l, resources: newResources} : l);
+                                        onUpdate({...module, submodules: module.submodules.map(s => s.id === submod.id ? {...s, lessons: newLessons} : s)});
+                                     }
+                                  }} className="text-rose-500 hover:text-rose-400 px-1 transition-colors"><X size={12}/></button>
+                               </div>
+                            ))
+                          ) : (
+                            <span className="text-xs text-slate-600 italic">No resources added yet.</span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   ))}
                   <button onClick={() => {
@@ -150,8 +208,8 @@ const SortableModule = ({ module, index, onUpdate, onDelete }) => {
                          const newSubs = module.submodules.map(s => s.id === submod.id ? {...s, lessons: [...(s.lessons||[]), newLesson]} : s);
                          onUpdate({...module, submodules: newSubs});
                      }
-                  }} className="text-[10px] text-emerald-400 hover:text-emerald-300 font-bold tracking-wider uppercase mt-2 flex items-center gap-1">
-                    <Plus size={10} /> Add Video Lesson
+                  }} className="text-xs text-emerald-400 hover:text-emerald-300 font-bold tracking-wider uppercase mt-2 flex items-center gap-1">
+                    <Plus size={12} /> Add Video Lesson
                   </button>
                 </div>
               </div>
@@ -160,7 +218,7 @@ const SortableModule = ({ module, index, onUpdate, onDelete }) => {
             <button onClick={() => {
               const newSub = { id: `sub-${Date.now()}`, title: 'New Submodule', lessons: [] };
               onUpdate({...module, submodules: [...(module.submodules||[]), newSub]});
-            }} className="mt-3 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-lg text-[10px] font-bold tracking-widest flex items-center gap-1 transition-colors">
+            }} className="mt-3 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-lg text-xs font-bold tracking-widest flex items-center gap-1 transition-colors">
               <Plus size={12} /> Add Submodule
             </button>
         </div>
@@ -235,7 +293,7 @@ const CourseBuilder = ({ course, onSave, onClose }) => {
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
       exit={{ opacity: 0, y: 20 }}
-      className="fixed inset-0 z-50 bg-[#0F172A] overflow-y-auto font-sans"
+      className="fixed inset-0 z-[9999] bg-[#0F172A] overflow-y-auto font-sans"
     >
       {/* Header Bar */}
       <div className="sticky top-0 z-10 bg-[#131B2C]/90 backdrop-blur-md border-b border-slate-800/80 px-6 py-4 flex items-center justify-between">
@@ -264,9 +322,9 @@ const CourseBuilder = ({ course, onSave, onClose }) => {
         </div>
       </div>
 
-      <div className="w-full max-w-[1400px] mx-auto p-8 flex gap-8">
+      <div className="w-full max-w-full px-12 py-8 flex gap-10">
         {/* Sidebar Settings */}
-        <div className="w-1/3 space-y-6">
+        <div className="w-[360px] shrink-0 space-y-6">
           <div className="bg-[#131B2C] border border-slate-800/80 rounded-3xl p-6">
             <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Course Settings</h3>
             
@@ -292,7 +350,7 @@ const CourseBuilder = ({ course, onSave, onClose }) => {
         </div>
 
         {/* Builder Canvas */}
-        <div className="w-2/3">
+        <div className="flex-grow">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-black text-white">Curriculum Map</h2>
             <button onClick={addModule} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2">

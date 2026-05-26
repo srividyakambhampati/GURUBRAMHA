@@ -63,11 +63,23 @@ body {
   }
 
   .btn-primary {
-    @apply px-8 py-4 bg-gradient-to-r from-[#6366F1] to-[#4F46E5] text-white font-bold rounded-2xl shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-300;
+    @apply px-8 py-4 bg-gradient-to-r from-[#FB923C] via-[#F43F5E] to-[#EC4899] text-white font-bold rounded-2xl shadow-[0_4px_20px_rgba(244,63,94,0.3)] hover:shadow-[0_4px_30px_rgba(244,63,94,0.5)] hover:scale-[1.03] active:scale-95 transition-all duration-300;
   }
 
   .btn-secondary {
     @apply px-8 py-4 bg-transparent border border-white/10 text-white font-bold rounded-2xl hover:bg-white/5 active:scale-95 transition-all duration-300;
+  }
+
+  .btn-radiant-cyan {
+    @apply bg-gradient-to-r from-[#38BDF8] to-[#34D399] text-white font-bold rounded-[20px] shadow-[0_4px_20px_rgba(56,189,248,0.3)] hover:shadow-[0_4px_30px_rgba(56,189,248,0.5)] hover:scale-[1.03] active:scale-95 transition-all duration-300;
+  }
+
+  .btn-radiant-orange {
+    @apply bg-gradient-to-r from-[#FB923C] via-[#F43F5E] to-[#EC4899] text-white font-bold rounded-[20px] shadow-[0_4px_20px_rgba(244,63,94,0.3)] hover:shadow-[0_4px_30px_rgba(244,63,94,0.5)] hover:scale-[1.03] active:scale-95 transition-all duration-300;
+  }
+
+  .btn-radiant-purple {
+    @apply bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold rounded-[20px] shadow-[0_4px_20px_rgba(99,102,241,0.3)] hover:shadow-[0_4px_30px_rgba(99,102,241,0.5)] hover:scale-[1.03] active:scale-95 transition-all duration-300;
   }
 
   .text-gradient {
