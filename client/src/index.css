@@ -6,15 +6,15 @@
 
 :root {
   --primary: #f97316;
-  --primary-soft: #fff7ed;
-  --secondary: #1e3a8a;
-  --secondary-soft: #f0f9ff;
-  --bg-main: #FFFFFF;
-  --bg-secondary: #F8FAFC;
-  --text-main: #0F172A;
-  --text-muted: #475569;
-  --glass-white: rgba(255, 255, 255, 0.95);
-  --glass-border: rgba(226, 232, 240, 0.8);
+  --primary-soft: #1e293b;
+  --secondary: #0ea5e9;
+  --secondary-soft: #0b1329;
+  --bg-main: #0F172A;
+  --bg-secondary: #0B0F19;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --glass-white: rgba(15, 23, 42, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.05);
 }
 
 body {
@@ -101,4 +101,17 @@ body {
 /* Bright Theme Specific Adjustments */
 .dark-mode-overlay {
   display: none;
+}
+
+/* Scrolled Navbar Bulletproof Dark Navy Overrides */
+.custom-navbar {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.custom-navbar.scrolled {
+  background-color: #0F172A !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.5) !important;
 }

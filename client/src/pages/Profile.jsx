@@ -179,13 +179,13 @@ const Profile = () => {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center justify-between px-6 py-4.5 rounded-2xl transition-all group ${
+                  className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all group ${
                     activeTab === item.id 
                       ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
                       : 'text-slate-400 hover:bg-slate-850/50 hover:text-slate-200'
                   }`}
                 >
-                  <div className="flex items-center gap-4.5">
+                  <div className="flex items-center gap-4">
                     <span className={activeTab === item.id ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'}>{item.icon}</span>
                     <span className="font-semibold text-xs uppercase tracking-wider">{item.label}</span>
                   </div>
@@ -195,7 +195,7 @@ const Profile = () => {
               <div className="h-px bg-slate-800/60 my-5 mx-4"></div>
               <button 
                 onClick={handleLogout}
-                className="w-full flex items-center gap-4.5 px-6 py-4.5 text-rose-500 hover:bg-rose-500/10 rounded-2xl transition-all font-semibold text-xs uppercase tracking-wider"
+                className="w-full flex items-center gap-4 px-6 py-4 text-rose-500 hover:bg-rose-500/10 rounded-2xl transition-all font-semibold text-xs uppercase tracking-wider"
               >
                 <LogOut size={20} />
                 <span>Terminate Session</span>
@@ -304,7 +304,7 @@ const Profile = () => {
                         setLeetcode(localStorage.getItem('guru_leetcode') || '');
                         setCodechef(localStorage.getItem('guru_codechef') || '');
                       }}
-                      className="px-6 py-4.5 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all"
+                      className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all"
                     >
                       Discard Changes
                     </button>

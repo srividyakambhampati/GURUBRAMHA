@@ -28,13 +28,15 @@ import {
   BookOpen,
   Lock,
   Volume2,
-  Maximize2
+  Maximize2,
+  ShoppingBag
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import SubscriptionPopup from '../components/SubscriptionPopup';
 import { useAuth } from '../context/AuthContext';
 import { handlePayment } from '../utils/razorpay';
+import ProductDetails from '../components/ProductDetails';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -42,16 +44,17 @@ const Dashboard = () => {
   const [selectedDemo, setSelectedDemo] = useState(null);
   const [showSubscription, setShowSubscription] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [showStore, setShowStore] = useState(false);
 
   const features = [
-    { title: 'Scholar Profile', desc: 'Manage Identity', icon: <User className="text-indigo-600" />, color: 'bg-indigo-50', path: '/profile' },
-    { title: 'Academic Vault', desc: 'Secure Documents', icon: <Folder className="text-blue-600" />, color: 'bg-blue-50', path: '/documents' },
-    { title: 'Financials', desc: 'Scholarship Logs', icon: <DollarSign className="text-amber-600" />, color: 'bg-amber-50', isComingSoon: true },
-    { title: 'Elite Internships', desc: 'Career Gateway', icon: <Layout className="text-teal-600" />, color: 'bg-teal-50', isComingSoon: true },
-    { title: 'Placements', desc: 'Corporate Tie-ups', icon: <Briefcase className="text-red-600" />, color: 'bg-red-50', isComingSoon: true },
-    { title: 'Hackathons', desc: 'Compete Global', icon: <Trophy className="text-orange-600" />, color: 'bg-orange-50', isComingSoon: true },
-    { title: 'CV Architect', desc: 'Premium Resume', icon: <FileText className="text-purple-600" />, color: 'bg-purple-50', isComingSoon: true },
-    { title: 'Guru Podcasts', desc: 'Listen & Learn', icon: <Mic className="text-pink-600" />, color: 'bg-pink-50', isComingSoon: true },
+    { title: 'Candidate Profile', desc: 'View & edit your info', icon: <User className="text-indigo-400" />, color: 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20', path: '/profile' },
+    { title: 'My Documents', desc: 'Certificates & uploads', icon: <Folder className="text-blue-400" />, color: 'bg-blue-500/10 text-blue-400 border border-blue-500/20', path: '/documents' },
+    { title: 'Finance', desc: 'Payments & history', icon: <DollarSign className="text-amber-400" />, color: 'bg-amber-500/10 text-amber-400 border border-amber-500/20', isComingSoon: true },
+    { title: 'Internships', desc: 'Find opportunities', icon: <Layout className="text-teal-400" />, color: 'bg-teal-500/10 text-teal-400 border border-teal-500/20', isComingSoon: true },
+    { title: 'Jobs', desc: 'Browse job listings', icon: <Briefcase className="text-red-400" />, color: 'bg-red-500/10 text-red-400 border border-red-500/20', isComingSoon: true },
+    { title: 'Hackathons', desc: 'Compete & win', icon: <Trophy className="text-orange-400" />, color: 'bg-orange-500/10 text-orange-400 border border-orange-500/20', isComingSoon: true },
+    { title: 'Podcasts', desc: 'Learn on the go', icon: <Mic className="text-pink-400" />, color: 'bg-pink-500/10 text-pink-400 border border-pink-500/20', isComingSoon: true },
+    { title: 'Guru Store', desc: 'Premium Scholar Gear', icon: <ShoppingBag className="text-rose-400" />, color: 'bg-rose-500/10 text-rose-400 border border-rose-500/20', path: '#scholar-store' },
   ];
 
   const demoCourses = [
@@ -88,32 +91,65 @@ const Dashboard = () => {
   }, [selectedDemo, showSubscription]);
 
   return (
-    <div className="bg-slate-50 min-h-screen selection:bg-orange-500/30">
-      <div className="max-w-[1600px] mx-auto px-8 md:px-12 pt-10 pb-20">
-        {/* Welcome Section */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-12 mb-16">
-            <div>
-                <motion.h1 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-4xl md:text-5xl font-black mb-4 text-slate-900 tracking-tight"
-                >
-                    Scholar <span className="text-orange-500">Control Center</span>
-                </motion.h1>
-                <p className="text-slate-500 font-bold text-lg tracking-wide">Manage your academic journey and explore elite content.</p>
-            </div>
-            <div className="flex items-center gap-6">
-                <div className="bg-white py-4 px-10 border border-slate-200 rounded-[24px] flex items-center gap-5 shadow-sm">
-                    <Calendar size={22} className="text-orange-500" />
-                    <div className="text-left">
-                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Academic Cycle</p>
-                        <p className="text-sm font-black text-slate-900">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-                    </div>
+    <div className="bg-[#0F172A] min-h-screen selection:bg-orange-500/30 text-white relative overflow-hidden">
+      {/* Background Glowing Effects */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-indigo-600/10 rounded-full blur-[150px]"></div>
+        <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[150px]"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-850/40 via-transparent to-transparent"></div>
+      </div>
+
+      <div className="max-w-[1600px] mx-auto px-8 md:px-12 pt-20 pb-20 relative z-10">
+        
+        {/* Welcome Hero Section in Premium Dark Theme */}
+        <div className="text-center mb-20 max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-slate-800/50 backdrop-blur-md border border-slate-700 text-slate-300 text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl"
+          >
+            <Rocket size={14} className="text-amber-400" /> India's #1 Career-Ready Platform
+          </motion.div>
+
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight"
+          >
+            Welcome to <span className="text-[#FFB800]">GuruBramha</span>
+          </motion.h1>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto mb-12 font-medium leading-relaxed"
+          >
+            Manage your academic profile, secure your files in the vault, and explore your premium scholar accessories store!
+          </motion.p>
+
+          {/* Stats Grid */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-slate-800/50 pt-12"
+          >
+            {[
+                { v: '10+', l: 'Courses' },
+                { v: '500+', l: 'Students' },
+                { v: '50+', l: 'Companies' },
+                { v: '95%', l: 'Placement Rate' }
+            ].map((stat, i) => (
+                <div key={i} className="text-center">
+                    <p className="text-4xl font-black text-[#FFB800] mb-2">{stat.v}</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{stat.l}</p>
                 </div>
-            </div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Features Bento Grid */}
+        {/* Features Bento Grid (Glassmorphic Dark Theme Cards) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
             {features.map((feature, i) => (
                 <motion.div
@@ -124,26 +160,34 @@ const Dashboard = () => {
                     whileHover={!feature.isComingSoon ? { y: -10, scale: 1.02 } : {}}
                     onClick={() => {
                         if (feature.path && !feature.isComingSoon) {
-                            navigate(feature.path);
+                            if (feature.path === '#scholar-store') {
+                                setShowStore(true);
+                            } else if (feature.path.startsWith('#')) {
+                                document.getElementById(feature.path.substring(1))?.scrollIntoView({ behavior: 'smooth' });
+                            } else {
+                                navigate(feature.path);
+                            }
                         }
                     }}
-                    className={`bg-white rounded-[40px] p-10 shadow-sm border border-slate-100 transition-all relative overflow-hidden group h-full ${
-                        feature.isComingSoon ? 'opacity-60 cursor-not-allowed grayscale-[0.3]' : 'hover:shadow-md hover:border-slate-200 cursor-pointer'
+                    className={`bg-slate-800/50 backdrop-blur-md rounded-[32px] p-8 shadow-xl border border-slate-700 transition-all relative overflow-hidden group h-full hover:bg-slate-800 hover:shadow-2xl hover:border-slate-650 cursor-pointer ${
+                        feature.isComingSoon ? 'opacity-65 cursor-not-allowed grayscale-[0.2]' : ''
                     }`}
                 >
                     {feature.isComingSoon && (
-                        <div className="absolute top-6 right-6 px-4 py-1.5 bg-slate-100 text-slate-500 text-[8px] font-black uppercase tracking-[0.2em] rounded-full">
-                            Developing
+                        <div className="absolute top-6 right-6 px-3 py-1 bg-slate-800/80 border border-slate-700 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full">
+                            Coming Soon
                         </div>
                     )}
-                    <div className={`w-16 h-16 ${feature.color} rounded-[24px] flex items-center justify-center mb-8 group-hover:rotate-6 transition-transform shadow-sm`}>
+                    <div className={`w-14 h-14 ${feature.color} rounded-[20px] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform shadow-md`}>
                         {feature.icon}
                     </div>
-                    <h4 className="font-black text-slate-900 mb-2 text-xl tracking-tight">{feature.title}</h4>
+                    <h4 className="font-black text-white mb-2 text-xl tracking-tight">{feature.title}</h4>
                     <p className="text-xs font-bold text-slate-400 tracking-wide leading-relaxed">{feature.desc}</p>
                 </motion.div>
             ))}
         </div>
+
+
 
         {/* Demo Classes Section */}
         <section className="relative mt-32">
@@ -322,6 +366,28 @@ const Dashboard = () => {
             <SubscriptionPopup 
                 onClose={() => setShowSubscription(false)} 
             />
+        )}
+      </AnimatePresence>
+
+      {/* Luxury Store Overlay Modal */}
+      <AnimatePresence>
+        {showStore && (
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[1000] overflow-y-auto bg-slate-950/80 backdrop-blur-2xl p-4 sm:p-8 flex items-center justify-center pt-24"
+            >
+                <div className="relative w-full max-w-[1450px] mx-auto my-auto">
+                    <button 
+                        onClick={() => setShowStore(false)}
+                        className="absolute top-8 right-8 z-[1002] w-12 h-12 bg-slate-900/80 hover:bg-slate-800 text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105 active:scale-95 border border-white/10"
+                    >
+                        <X size={20} />
+                    </button>
+                    <ProductDetails />
+                </div>
+            </motion.div>
         )}
       </AnimatePresence>
 

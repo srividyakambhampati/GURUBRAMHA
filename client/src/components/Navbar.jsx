@@ -54,7 +54,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled ? 'bg-[#0F172A]/90 backdrop-blur-xl py-2 shadow-lg shadow-slate-900/50 border-b border-slate-800' : 'bg-transparent py-3'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] custom-navbar ${scrolled ? 'scrolled py-2' : 'bg-transparent py-3'}`}>
       <div className="section-container">
         <div className="flex items-center justify-between gap-8">
           {/* Logo - Left */}

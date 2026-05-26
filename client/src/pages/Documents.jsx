@@ -245,7 +245,7 @@ const Documents = () => {
                 <motion.div 
                    initial={{ opacity: 0, x: 20 }}
                    animate={{ opacity: 1, x: 0 }}
-                   className="bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-[56px] p-12 md:p-16 min-h-[850px] shadow-2xl relative overflow-hidden"
+                   className="bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-[56px] p-12 md:p-16 min-h-[500px] shadow-2xl relative overflow-hidden"
                 >
                     <div className="absolute top-[-5%] right-[-5%] w-96 h-96 bg-blue-900/20 rounded-full blur-[100px] opacity-40"></div>
                     

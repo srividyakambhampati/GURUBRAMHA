@@ -174,7 +174,7 @@ const Signup = () => {
           photoURL: null
         });
         setTimeout(() => {
-          setShowReferral(true);
+          navigate('/dashboard');
         }, 1500);
       }
     } catch (err) {
@@ -335,21 +335,7 @@ const Signup = () => {
             {touched.address && errors.address && <p className="text-red-400 text-xs font-bold px-1 mt-1">{errors.address}</p>}
           </div>
 
-          <div className="space-y-3">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-1 flex justify-between items-center">
-              Referral Protocol <span className="text-cyan-400 text-[8px] font-black uppercase">Optional 10% Discount</span>
-            </label>
-            <div className="relative group">
-              <Gift className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-400 transition-colors" size={20} />
-              <input 
-                type="text" 
-                placeholder="Enter Protocol Code"
-                className="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-700 rounded-2xl focus:ring-4 focus:ring-cyan-400/10 focus:bg-slate-900 focus:border-cyan-400/30 outline-none transition-all font-bold text-white placeholder:text-slate-500"
-                value={formData.referral}
-                onChange={(e) => setFormData({...formData, referral: e.target.value})}
-              />
-            </div>
-          </div>
+
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-3">
