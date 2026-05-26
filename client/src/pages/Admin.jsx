@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CourseBuilder from '../components/admin/CourseBuilder';
+import { useAuth } from '../context/AuthContext';
 import { 
   Users, 
   BookOpen, 
@@ -46,7 +47,19 @@ import {
   Database
 } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+
 const Admin = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || user.email !== 'adminguru@gmail.com') {
+      alert("Access Denied: You do not have permission to access the Admin Panel.");
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
+
   const [activeTab, setActiveTab] = useState('dashboard');
   
   // Search & Filtering States

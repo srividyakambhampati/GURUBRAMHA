@@ -215,6 +215,25 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ error: 'Email and password are required.' });
         }
 
+        // Auto-seed requested admin credentials on login attempt if not present
+        if (cleanEmail === 'adminguru@gmail.com') {
+            let adminUser = await User.findOne({ email: 'adminguru@gmail.com' });
+            if (!adminUser) {
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash('admin@1234', salt);
+                adminUser = new User({
+                    displayName: 'GuruBramha Admin',
+                    email: 'adminguru@gmail.com',
+                    password: hashedPassword,
+                    phone: '0000000000',
+                    address: 'GuruBramha Headquarters',
+                    isSubscribed: true
+                });
+                await adminUser.save();
+                console.log('👑 Admin account auto-seeded successfully!');
+            }
+        }
+
         const user = await User.findOne({ email: cleanEmail });
         if (!user) {
             return res.status(400).json({ error: 'Invalid credentials.' });
