@@ -125,12 +125,18 @@ const digilockerRoutes = require('./routes/digilocker');
 const documentRoutes = require('./routes/documents');
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/courses');
+const problemRoutes = require('./routes/problems');
+const contestRoutes = require('./routes/contests');
+const submissionRoutes = require('./routes/submissions');
 
 app.use('/api/payment', paymentRoutes);
 app.use('/api/digilocker', digilockerRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
+app.use('/api/problems', problemRoutes);
+app.use('/api/contests', contestRoutes);
+app.use('/api/submissions', submissionRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 /* ======================================================

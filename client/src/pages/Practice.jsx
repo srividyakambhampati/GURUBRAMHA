@@ -127,7 +127,9 @@ class Solution {
 };
 
 const Practice = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
   const { user } = useAuth();
+  const [problems, setProblems] = useState([]);
   const [selectedProblem, setSelectedProblem] = useState(null);
   const [activeTab, setActiveTab] = useState('description');
   const [selectedLanguage, setSelectedLanguage] = useState('javascript');
@@ -142,14 +144,42 @@ const Practice = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const fetchChallenges = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/problems`);
+      const data = await response.json();
+      setProblems(data);
+    } catch (e) {
+      console.error('Failed to load challenges:', e);
+    }
+  };
+
   useEffect(() => {
-      if (selectedProblem?.isDebug) {
-          setCode(debugCodeTemplates);
+    fetchChallenges();
+  }, []);
+
+  useEffect(() => {
+    if (selectedProblem) {
+      if (selectedProblem.starterCode && selectedProblem.starterCode.length > 0) {
+        const templates = {};
+        selectedProblem.starterCode.forEach(sc => {
+          templates[sc.language] = sc.code;
+        });
+        // Backwards compatibility fallbacks
+        ['javascript', 'python', 'cpp', 'java'].forEach(lang => {
+          if (!templates[lang]) {
+            templates[lang] = defaultCodeTemplates[lang] || '';
+          }
+        });
+        setCode(templates);
       } else {
-          setCode(defaultCodeTemplates);
+        setCode(defaultCodeTemplates);
       }
-      setOutput('');
-      setCustomInput('');
+    } else {
+      setCode(defaultCodeTemplates);
+    }
+    setOutput('');
+    setCustomInput('');
   }, [selectedProblem]);
 
   const topics = ['All', 'Arrays', 'Strings', 'Linked List', 'Trees', 'Graphs', 'DP', 'Greedy', 'Recursion', 'Backtracking', 'Binary Search'];
@@ -159,17 +189,6 @@ const Practice = () => {
     { id: 'python', name: 'Python', icon: <Globe size={14} className="text-blue-400" /> },
     { id: 'cpp', name: 'C++', icon: <Globe size={14} className="text-orange-400" /> },
     { id: 'java', name: 'Java', icon: <Globe size={14} className="text-red-400" /> }
-  ];
-
-  const problems = [
-    { id: 1, title: 'Two Sum', difficulty: 'Easy', category: 'Arrays', accuracy: '45.2%', points: 100, status: 'Solved', tags: ['Hash Table', 'Array'] },
-    { id: 2, title: 'Longest Palindrome', difficulty: 'Medium', category: 'Strings', accuracy: '32.1%', points: 250, status: 'Attempted', tags: ['String', 'DP'] },
-    { id: 11, title: 'Debug: Reverse Array', difficulty: 'Medium', category: 'Arrays', accuracy: '38.0%', points: 200, status: 'Unsolved', tags: ['Debug', 'Array'], isDebug: true },
-    { id: 3, title: 'Binary Tree Level Order', difficulty: 'Hard', category: 'Trees', accuracy: '18.5%', points: 500, status: 'Unsolved', tags: ['Tree', 'BFS'] },
-    { id: 4, title: 'Merge K Sorted Lists', difficulty: 'Hard', category: 'Linked List', accuracy: '12.8%', points: 600, status: 'Unsolved', tags: ['Linked List', 'Heap'] },
-    { id: 5, title: 'Valid Parentheses', difficulty: 'Easy', category: 'Strings', accuracy: '68.9%', points: 100, status: 'Solved', tags: ['Stack', 'String'] },
-    { id: 6, title: 'LRU Cache', difficulty: 'Medium', category: 'Design', accuracy: '24.3%', points: 300, status: 'Unsolved', tags: ['Linked List', 'Hash Table'] },
-    { id: 7, title: 'House Robber', difficulty: 'Medium', category: 'DP', accuracy: '42.1%', points: 200, status: 'Solved', tags: ['DP'] },
   ];
 
   const filteredProblems = problems.filter(p => {
@@ -184,25 +203,21 @@ const Practice = () => {
     setIsRunning(true);
     setOutput("Executing code via Code Engine...");
     
-    const languageMap = { javascript: 'javascript', python: 'python', cpp: 'c++', java: 'java' };
-    const versionMap = { javascript: '18.15.0', python: '3.10.0', cpp: '10.2.0', java: '15.0.2' };
-    
     try {
-        const response = await fetch('https://emkc.org/api/v2/piston/execute', {
+        const response = await fetch(`${API_BASE_URL}/api/submissions/execute`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                language: languageMap[selectedLanguage],
-                version: versionMap[selectedLanguage],
-                files: [{ content: code[selectedLanguage] }],
+                language: selectedLanguage,
+                code: code[selectedLanguage],
                 stdin: customInput || ""
             })
         });
         const result = await response.json();
         
-        if (result.run) {
-            let out = result.run.stdout;
-            let err = result.run.stderr;
+        if (result.stdout !== undefined) {
+            let out = result.stdout;
+            let err = result.stderr;
             
             if (err) {
                 setOutput(`Execution Error:\n${err}`);
@@ -210,22 +225,55 @@ const Practice = () => {
                 setOutput(`Output:\n${out || 'Program finished successfully without standard output.'}`);
             }
         } else {
-            setOutput(`Execution failed: ${result.message || 'Unknown network error.'}`);
+            setOutput(`Execution failed: ${result.error || 'Unknown compiler error.'}`);
         }
     } catch (e) {
-        setOutput(`Network Error: ${e.message}\nPlease check your connection to the execution API.`);
+        setOutput(`Network Error: ${e.message}\nPlease check backend server compiler status.`);
     } finally {
         setIsRunning(false);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!selectedProblem || !user) {
+      return alert('Mandatory Action: Please login to save submission coordinates.');
+    }
     setIsSubmitting(true);
-    setOutput("Submitting code to Judge... Verifying hidden test cases.");
-    setTimeout(() => {
-      setOutput("Verifying against hidden test cases...\nProcessing 158 hidden test cases...\n\n✅ Acceptance: 100%\n🚀 Points Earned: +100\n🔥 Streak Maintained!");
+    setOutput("Submitting code to Judge... Evaluating hidden test cases.");
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/submissions/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          problemId: selectedProblem._id,
+          userId: user.id || user._id, // Support different token models
+          language: selectedLanguage,
+          code: code[selectedLanguage]
+        })
+      });
+      const res = await response.json();
+      
+      if (res.success) {
+        const sub = res.submission;
+        let log = `STATUS: ${sub.status}\n`;
+        log += `PASSED TEST CASES: ${res.passedCount} / ${res.totalCount}\n`;
+        log += `AVERAGE RUNTIME: ${sub.runtime} ms\n`;
+        
+        if (sub.status === 'Accepted') {
+          log += `\n✅ Acceptance: 100%\n🚀 Points Earned: +${sub.pointsEarned} XP\n🔥 Streak Maintained!`;
+        } else {
+          log += `\n❌ Failure Output:\n${sub.errorDetails || 'Incorrect output matching expected case.'}`;
+        }
+        setOutput(log);
+      } else {
+        setOutput(`Acceptance failed: ${res.error || 'Compiler service error.'}`);
+      }
+    } catch (err) {
+      setOutput(`Submission Network Error: ${err.message}`);
+    } finally {
       setIsSubmitting(false);
-    }, 2500);
+    }
   };
 
   return (

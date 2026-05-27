@@ -51,7 +51,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           </div>
           {!isCollapsed && (
             <span className="text-xl font-black tracking-tight text-white">
-              Guru<span className="text-[#FFB800]">Bramha</span>
+              Guru<span className="text-gradient-rose">Bramha</span>
             </span>
           )}
         </Link>

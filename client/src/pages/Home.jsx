@@ -101,7 +101,7 @@ const Home = () => {
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight text-glow"
+            className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight text-glow whitespace-nowrap"
           >
             Welcome to <span className="text-gradient-rose">GuruBramha</span>
           </motion.h1>

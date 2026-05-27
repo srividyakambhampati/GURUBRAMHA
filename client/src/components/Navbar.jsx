@@ -64,7 +64,7 @@ const Navbar = () => {
                 G
               </div>
               <span className={`text-2xl font-black tracking-tight text-white`}>
-                Guru<span className="text-white opacity-90">Bramha</span>
+                Guru<span className="text-gradient-rose">Bramha</span>
               </span>
             </Link>
           </div>

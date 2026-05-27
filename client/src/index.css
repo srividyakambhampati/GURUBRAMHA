@@ -87,7 +87,7 @@ body {
   }
 
   .text-gradient-rose {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F43F5E] via-[#EC4899] to-[#F59E0B];
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFF0F3] via-[#FF8E9C] to-[#F43F5E];
   }
 
   .text-glow {

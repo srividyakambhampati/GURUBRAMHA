@@ -127,10 +127,10 @@ const Login = () => {
         className="w-full max-w-[500px] bg-slate-800/80 backdrop-blur-xl p-10 md:p-14 rounded-[48px] shadow-2xl border border-slate-700 relative z-10"
       >
         <div className="text-center mb-12">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-[24px] flex items-center justify-center text-white font-black text-3xl mx-auto mb-8 shadow-2xl shadow-cyan-400/30 group-hover:rotate-6 transition-transform">
+          <div className="w-20 h-20 bg-gradient-to-br from-[#FF8E9C] via-[#F43F5E] to-[#E11D48] rounded-[24px] flex items-center justify-center text-white font-black text-3xl mx-auto mb-8 shadow-2xl shadow-rose-500/30 group-hover:rotate-6 transition-transform border border-rose-400/20">
             G
           </div>
-          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Elite <span className="text-cyan-400">Access</span></h1>
+          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Elite <span className="text-gradient-rose">Access</span></h1>
           <p className="text-slate-400 font-bold text-sm tracking-wide">Enter the GuruBramha Academy Vault</p>
         </div>
 
@@ -145,7 +145,7 @@ const Login = () => {
                 <input 
                   type="email" 
                   placeholder="scholar@gurubramha.edu"
-                  className={`w-full pl-14 pr-6 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
+                  className={`w-full pl-14 pr-6 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                     !touched.email ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
                     errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
                     'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -166,7 +166,7 @@ const Login = () => {
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="••••••••"
-                  className={`w-full pl-14 pr-14 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-500 focus:ring-4 ${
+                  className={`w-full pl-14 pr-14 py-5 bg-slate-900/50 border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                     !touched.password ? 'border-slate-700 focus:border-cyan-400/30 focus:ring-cyan-400/10' :
                     errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' :
                     'border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -206,7 +206,11 @@ const Login = () => {
           <button 
             type="submit" 
             disabled={isLoading || !isFormValid}
-            className="w-full py-5 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-black rounded-2xl shadow-2xl shadow-cyan-400/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
+            className={`w-full py-5 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest border border-cyan-400/20 ${
+              !isFormValid 
+                ? 'bg-slate-800/80 border-slate-700/50 text-slate-500 cursor-not-allowed shadow-none' 
+                : 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-[1.02] active:scale-[0.98] shadow-2xl shadow-cyan-400/20'
+            }`}
           >
             {isLoading ? (
               <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>

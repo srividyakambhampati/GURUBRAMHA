@@ -225,10 +225,10 @@ const Signup = () => {
         className="w-full max-w-2xl bg-[#111625]/90 backdrop-blur-2xl p-10 md:p-14 rounded-[40px] shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-slate-800/80 relative z-10 hover:border-cyan-500/20 transition-colors duration-500"
       >
         <div className="text-center mb-12">
-          <div className="w-20 h-20 bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 rounded-[24px] flex items-center justify-center text-white font-black text-3xl mx-auto mb-8 shadow-[0_0_20px_rgba(6,182,212,0.45)] hover:rotate-6 transition-transform border border-cyan-400/20">
+          <div className="w-20 h-20 bg-gradient-to-tr from-[#FF8E9C] via-[#F43F5E] to-[#E11D48] rounded-[24px] flex items-center justify-center text-white font-black text-3xl mx-auto mb-8 shadow-[0_0_20px_rgba(244,63,94,0.45)] hover:rotate-6 transition-transform border border-rose-400/20">
             G
           </div>
-          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">Registration</span></h1>
+          <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Academic <span className="text-gradient-rose">Registration</span></h1>
           <p className="text-slate-400 font-bold text-sm tracking-wide">Join 50,000+ scholars mastering the future</p>
         </div>
 
@@ -253,7 +253,7 @@ const Signup = () => {
                 <input 
                   type="text" 
                   placeholder="e.g. Alex River"
-                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                     !touched.username ? 'border-slate-800 focus:border-cyan-400 focus:ring-cyan-500/10' :
                     errors.username ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
                     'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -274,7 +274,7 @@ const Signup = () => {
                 <input 
                   type="tel" 
                   placeholder="9876543210"
-                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                     !touched.phone ? 'border-slate-800 focus:border-teal-400 focus:ring-teal-500/10' :
                     errors.phone ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
                     'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -300,7 +300,7 @@ const Signup = () => {
               <input 
                 type="email" 
                 placeholder="scholar@gurubramha.edu"
-                className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                   !touched.email ? 'border-slate-800 focus:border-indigo-400 focus:ring-indigo-500/10' :
                   errors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
                   'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -321,7 +321,7 @@ const Signup = () => {
               <input 
                 type="text" 
                 placeholder="Enter your street address (e.g. 123 Main Street)"
-                className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                   !touched.address ? 'border-slate-800 focus:border-sky-400 focus:ring-sky-500/10' :
                   errors.address ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
                   'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -343,7 +343,7 @@ const Signup = () => {
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="••••••••"
-                  className={`w-full pl-14 pr-14 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                  className={`w-full pl-14 pr-14 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                     !touched.password ? 'border-slate-800 focus:border-fuchsia-400 focus:ring-fuchsia-500/10' :
                     errors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
                     'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -389,7 +389,7 @@ const Signup = () => {
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="••••••••"
-                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-650 focus:ring-4 ${
+                  className={`w-full pl-14 pr-6 py-5 bg-[#0E1321] border rounded-2xl outline-none transition-all font-bold text-white placeholder:text-slate-400 focus:ring-4 ${
                     !touched.confirmPassword ? 'border-slate-800 focus:border-fuchsia-400 focus:ring-fuchsia-500/10' :
                     errors.confirmPassword ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' :
                     'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/10'
@@ -407,7 +407,11 @@ const Signup = () => {
           <button 
             type="submit" 
             disabled={isLoading || !isFormValid}
-            className="w-full py-5 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white font-black rounded-2xl shadow-[0_0_25px_rgba(6,182,212,0.45)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed border border-cyan-400/20"
+            className={`w-full py-5 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-4 text-sm uppercase tracking-widest border border-cyan-400/20 ${
+              !isFormValid 
+                ? 'bg-slate-800/80 border-slate-700/50 text-slate-500 cursor-not-allowed shadow-none' 
+                : 'bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:brightness-110 active:scale-[0.98] shadow-[0_0_25px_rgba(6,182,212,0.45)]'
+            }`}
           >
             {isLoading ? (
               <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>

@@ -34,7 +34,8 @@ const MainLayout = ({ isDarkMode, toggleDarkMode }) => {
   const location = useLocation();
   const hideNavbar = location.pathname.startsWith('/shared') || 
                      location.pathname.startsWith('/forgot-password') || 
-                     location.pathname.startsWith('/reset-password');
+                     location.pathname.startsWith('/reset-password') ||
+                     location.pathname.startsWith('/admin');
   
   const isOverlayPage = location.pathname === '/' || 
                         location.pathname === '/login' || 

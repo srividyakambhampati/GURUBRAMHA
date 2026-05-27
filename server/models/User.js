@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({
   scholarPoints: { type: Number, default: 0 },
   currentStreak: { type: Number, default: 0 },
   solvedProblems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Problem' }],
-  bookmarkedCompanies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }]
+  bookmarkedCompanies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }],
+  isBanned: { type: Boolean, default: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

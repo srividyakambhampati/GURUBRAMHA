@@ -153,9 +153,9 @@ const Profile = () => {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-[#090d20]/90 backdrop-blur-md rounded-[32px] p-10 text-center shadow-[0_0_50px_-12px_rgba(236,72,153,0.3)] border border-pink-500/30 hover:border-pink-500/50 transition-all duration-500 relative overflow-hidden"
+              className="bg-[#090d20]/90 backdrop-blur-md rounded-[32px] p-10 text-center shadow-[0_0_50px_-12px_rgba(6,182,212,0.3)] border border-cyan-500/30 hover:border-cyan-500/50 transition-all duration-500 relative overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-cyan-400 via-pink-500 to-fuchsia-600"></div>
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600"></div>
               <div className="relative inline-block mb-8 group">
                 {user?.photoURL ? (
                   <img src={user.photoURL} alt="Profile" className="w-40 h-40 rounded-[32px] object-cover border-4 border-slate-800 shadow-lg transition-transform group-hover:scale-102 duration-500" />
@@ -175,8 +175,8 @@ const Profile = () => {
               <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">{user?.displayName || 'Guru Scholar'}</h2>
               <p className="text-cyan-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-8">Academy Scholar Level 1</p>
               
-              <div className="p-4 bg-purple-500/5 border border-purple-500/30 rounded-[20px] text-purple-400 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(168,85,247,0.1)] backdrop-blur-md">
-                <Award size={16} className="text-purple-405 animate-pulse" /> Verified Professional
+              <div className="p-4 bg-cyan-500/5 border border-cyan-500/30 rounded-[20px] text-cyan-400 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(6,182,212,0.1)] backdrop-blur-md">
+                <Award size={16} className="text-cyan-400 animate-pulse" /> Verified Professional
               </div>
             </motion.div>
 
@@ -192,7 +192,7 @@ const Profile = () => {
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all group ${
                     activeTab === item.id 
-                      ? 'bg-gradient-to-r from-cyan-500 via-pink-500 to-fuchsia-600 text-white shadow-[0_4px_25px_rgba(236,72,153,0.35)]' 
+                      ? 'bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white shadow-[0_4px_25px_rgba(6,182,212,0.35)]' 
                       : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
                   }`}
                 >
