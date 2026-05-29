@@ -15,13 +15,14 @@ const generateSlug = (title) => {
 // 1. GET ALL PROBLEMS WITH SEARCH & FILTERS
 router.get('/', async (req, res) => {
   try {
-    const { searchQuery, difficulty, category, status } = req.query;
+    const { searchQuery, difficulty, category, status, company, level } = req.query;
     let query = {};
 
     if (searchQuery) {
       query.$or = [
         { title: { $regex: searchQuery, $options: 'i' } },
-        { tags: { $in: [new RegExp(searchQuery, 'i')] } }
+        { tags: { $in: [new RegExp(searchQuery, 'i')] } },
+        { companyTags: { $in: [new RegExp(searchQuery, 'i')] } }
       ];
     }
     if (difficulty && difficulty !== 'All') {
@@ -32,6 +33,12 @@ router.get('/', async (req, res) => {
     }
     if (status && status !== 'All') {
       query.status = status;
+    }
+    if (company && company !== 'All') {
+      query.companyTags = { $in: [new RegExp(company, 'i')] };
+    }
+    if (level && level !== 'All') {
+      query.level = level;
     }
 
     const problems = await Problem.find(query).sort({ order: 1, createdAt: -1 });
@@ -146,7 +153,7 @@ router.put('/reorder', async (req, res) => {
   }
 });
 
-// 8. BULK IMPORT PROBLEMS
+// 8. BULK IMPORT PROBLEMS (With Duplicate Prevention & Safe Sync)
 router.post('/import', async (req, res) => {
   try {
     const { problems } = req.body;
@@ -155,15 +162,37 @@ router.post('/import', async (req, res) => {
     }
 
     const importedProblems = [];
+    let duplicateCount = 0;
+
     for (let prob of problems) {
       if (!prob.title || !prob.description) continue;
       
-      prob.slug = generateSlug(prob.title) + '-' + Math.floor(1000 + Math.random() * 9000);
+      // Calculate active slug index
+      const targetSlug = prob.slug || (generateSlug(prob.title) + '-' + Math.floor(1000 + Math.random() * 9000));
+      
+      // Duplicate Prevention by Title or Slug mapping
+      const existing = await Problem.findOne({ 
+        $or: [
+          { title: { $regex: `^${prob.title.trim()}$`, $options: 'i' } },
+          { slug: targetSlug }
+        ] 
+      });
+
+      if (existing) {
+        duplicateCount++;
+        continue; // Skip duplicate record silently
+      }
+
+      prob.slug = targetSlug;
       prob.difficulty = prob.difficulty || 'Easy';
       prob.category = prob.category || 'Arrays';
       prob.points = Number(prob.points) || 100;
-      prob.status = prob.status || 'Draft';
-      
+      prob.status = prob.status || 'Published'; // Auto-publish seeded challenges
+      prob.accuracy = Number(prob.accuracy) || 72.5;
+      prob.level = prob.level || 'Intermediate';
+      prob.tags = Array.isArray(prob.tags) ? prob.tags : (prob.tags ? prob.tags.split(',').map(t => t.trim()) : []);
+      prob.companyTags = Array.isArray(prob.companyTags) ? prob.companyTags : (prob.companyTags ? prob.companyTags.split(',').map(c => c.trim()) : []);
+
       // Starter code templates default
       if (!prob.starterCode || prob.starterCode.length === 0) {
         prob.starterCode = [
@@ -179,12 +208,21 @@ router.post('/import', async (req, res) => {
         ];
       }
 
+      // Reorder indexing count
+      const count = await Problem.countDocuments();
+      prob.order = count;
+
       const problem = new Problem(prob);
       await problem.save();
       importedProblems.push(problem);
     }
 
-    res.status(201).json({ message: `Successfully imported ${importedProblems.length} problems`, data: importedProblems });
+    res.status(201).json({ 
+      message: `Sync completed successfully. Imported ${importedProblems.length} new problems, skipped ${duplicateCount} duplicate records.`, 
+      data: importedProblems,
+      importedCount: importedProblems.length,
+      skippedCount: duplicateCount
+    });
   } catch (err) {
     res.status(500).json({ error: 'Failed to import problems', details: err.message });
   }
@@ -311,6 +349,103 @@ router.post('/ai-generate', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: 'Failed to generate AI question', details: err.message });
+  }
+});
+
+// 10. AUTOMATED LEETCODE SYSTEM SYNC ENGINE
+router.post('/sync-leetcode', async (req, res) => {
+  try {
+    const { syncUrl, categories, limitCount } = req.body;
+    let problemsToSync = [];
+
+    if (syncUrl) {
+      // Dynamic remote sync from user-defined JSON database url
+      const axios = require('axios');
+      const response = await axios.get(syncUrl);
+      problemsToSync = Array.isArray(response.data) ? response.data : [response.data];
+    } else {
+      // Fallback local high-fidelity database sync
+      const fs = require('fs');
+      const path = require('path');
+      const dbPath = path.join(__dirname, '../config/leetcode_problems_db.json');
+      if (fs.existsSync(dbPath)) {
+        const raw = fs.readFileSync(dbPath, 'utf8');
+        problemsToSync = JSON.parse(raw);
+      } else {
+        return res.status(404).json({ error: 'Local problems database not found' });
+      }
+    }
+
+    if (categories && Array.isArray(categories) && categories.length > 0) {
+      problemsToSync = problemsToSync.filter(p => categories.includes(p.category));
+    }
+
+    if (limitCount && Number(limitCount) > 0) {
+      problemsToSync = problemsToSync.slice(0, Number(limitCount));
+    }
+
+    const syncedProblems = [];
+    let duplicateCount = 0;
+
+    for (let prob of problemsToSync) {
+      if (!prob.title || !prob.description) continue;
+
+      const targetSlug = prob.slug || prob.title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+      
+      // Duplicate prevention
+      const existing = await Problem.findOne({
+        $or: [
+          { title: { $regex: `^${prob.title.trim()}$`, $options: 'i' } },
+          { slug: targetSlug }
+        ]
+      });
+
+      if (existing) {
+        duplicateCount++;
+        continue;
+      }
+
+      prob.slug = targetSlug;
+      prob.difficulty = prob.difficulty || 'Easy';
+      prob.category = prob.category || 'Arrays';
+      prob.points = Number(prob.points) || 100;
+      prob.status = 'Published'; // Automatically publish synced problems
+      prob.accuracy = Number(prob.accuracy) || 72.5;
+      prob.level = prob.level || 'Intermediate';
+      prob.tags = Array.isArray(prob.tags) ? prob.tags : (prob.tags ? prob.tags.split(',').map(t => t.trim()) : []);
+      prob.companyTags = Array.isArray(prob.companyTags) ? prob.companyTags : (prob.companyTags ? prob.companyTags.split(',').map(c => c.trim()) : []);
+      
+      // Map Problem ID cleanly
+      const count = await Problem.countDocuments();
+      prob.problemId = prob.problemId || String(count + 1);
+      prob.order = count;
+
+      if (!prob.starterCode || prob.starterCode.length === 0) {
+        prob.starterCode = [
+          { language: 'javascript', code: `function solution() {\n  // your code here\n}` },
+          { language: 'python', code: `def solution():\n    # your code here\n    pass` }
+        ];
+      }
+
+      if (!prob.testCases || prob.testCases.length === 0) {
+        prob.testCases = [
+          { input: '1 2', expectedOutput: '3', explanation: 'Sample case', isHidden: false }
+        ];
+      }
+
+      const problem = new Problem(prob);
+      await problem.save();
+      syncedProblems.push(problem);
+    }
+
+    res.status(201).json({
+      message: `Sync completed successfully. Synced ${syncedProblems.length} new problems, skipped ${duplicateCount} duplicate records.`,
+      syncedCount: syncedProblems.length,
+      skippedCount: duplicateCount,
+      data: syncedProblems
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to sync LeetCode problems', details: err.message });
   }
 });
 

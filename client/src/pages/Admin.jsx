@@ -83,6 +83,13 @@ const Admin = () => {
   const [subFilterPlan, setSubFilterPlan] = useState('All'); // All, Monthly, Yearly
   const [subFilterStatus, setSubFilterStatus] = useState('All'); // All, Successful, Failed, Refunded
 
+  // LeetCode Automated Sync States
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncLogs, setSyncLogs] = useState('');
+  const [syncStats, setSyncStats] = useState(null);
+  const [syncUrl, setSyncUrl] = useState('');
+  const [syncLimit, setSyncLimit] = useState(100);
+
   // Mock Data lists (stored in React state for full in-memory CRUD operations)
   const [users, setUsers] = useState([
     { id: 1, name: 'Alex Mercer', email: 'alex@gurubramha.edu', phone: '+91 98765 43210', joinedDate: '2026-01-15', subStatus: 'Active', plan: 'Yearly', avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&h=100&q=80', activeDuration: '142 hrs', activity: '94 problems' },
@@ -128,6 +135,30 @@ const Admin = () => {
       setProblems(res.data);
     } catch (err) {
       console.error('Failed to fetch problems:', err);
+    }
+  };
+
+  const handleLeetCodeSync = async () => {
+    setIsSyncing(true);
+    setSyncLogs('Initializing LeetCode Auto-Sync Engine...\nConnecting to GuruBramha Backend API...\n');
+    setSyncStats(null);
+    try {
+      setSyncLogs(prev => prev + 'Fetching problems in secure database sync window...\n');
+      const res = await axios.post(`${API_BASE_URL}/api/problems/sync-leetcode`, {
+        syncUrl: syncUrl ? syncUrl.trim() : undefined,
+        limitCount: syncLimit
+      });
+
+      setSyncLogs(prev => prev + `\nSync Status: SUCCESS\n` + (res.data.message || 'Successfully seeded coding library.') + '\n');
+      setSyncStats({
+        syncedCount: res.data.syncedCount,
+        skippedCount: res.data.skippedCount
+      });
+      fetchProblems();
+    } catch (err) {
+      setSyncLogs(prev => prev + `\nSync Status: FAILED\nError details: ${err.response?.data?.error || err.message}\n`);
+    } finally {
+      setIsSyncing(false);
     }
   };
 
@@ -203,20 +234,24 @@ const Admin = () => {
     title: '', slug: '', difficulty: 'Easy', category: 'Arrays', points: 100,
     description: '', constraints: '', inputFormat: '', outputFormat: '',
     sampleInput: '', sampleOutput: '', explanation: '',
-    hints: [''], tags: [], timeLimit: 1, memoryLimit: 256, status: 'Draft',
+    hints: [''], tags: [], companyTags: [], level: 'Intermediate', timeLimit: 1, memoryLimit: 256, status: 'Draft',
     starterCode: [
       { language: 'javascript', code: 'function solution(nums, target) {\n  // your JS code\n}' },
       { language: 'python', code: 'def solution(nums, target):\n    # your Python code\n    pass' },
       { language: 'cpp', code: '#include <vector>\nusing namespace std;\nvector<int> solution(vector<int>& nums, int target) {\n    return {};\n}' },
       { language: 'java', code: 'import java.util.*;\nclass Solution {\n    public int[] solution(int[] nums, int target) {\n        return new int[]{};\n    }\n}' },
-      { language: 'c', code: '#include <stdio.h>\n// your C starter' }
+      { language: 'c', code: '#include <stdio.h>\n// your C starter' },
+      { language: 'sql', code: 'SELECT * FROM employees;' },
+      { language: 'bash', code: '# Bash script' }
     ],
     solutions: [
       { language: 'javascript', code: '' },
       { language: 'python', code: '' },
       { language: 'cpp', code: '' },
       { language: 'java', code: '' },
-      { language: 'c', code: '' }
+      { language: 'c', code: '' },
+      { language: 'sql', code: '' },
+      { language: 'bash', code: '' }
     ],
     testCases: [
       { input: '', expectedOutput: '', explanation: '', isHidden: false }
@@ -229,6 +264,8 @@ const Admin = () => {
         ...editingProblem,
         hints: editingProblem.hints && editingProblem.hints.length > 0 ? editingProblem.hints : [''],
         tags: editingProblem.tags || [],
+        companyTags: editingProblem.companyTags || [],
+        level: editingProblem.level || 'Intermediate',
         starterCode: editingProblem.starterCode && editingProblem.starterCode.length > 0 ? editingProblem.starterCode : modalProblemState.starterCode,
         solutions: editingProblem.solutions && editingProblem.solutions.length > 0 ? editingProblem.solutions : modalProblemState.solutions,
         testCases: editingProblem.testCases && editingProblem.testCases.length > 0 ? editingProblem.testCases : [{ input: '', expectedOutput: '', explanation: '', isHidden: false }]
@@ -238,20 +275,24 @@ const Admin = () => {
         title: '', slug: '', difficulty: 'Easy', category: 'Arrays', points: 100,
         description: '', constraints: '', inputFormat: '', outputFormat: '',
         sampleInput: '', sampleOutput: '', explanation: '',
-        hints: [''], tags: [], timeLimit: 1, memoryLimit: 256, status: 'Draft',
+        hints: [''], tags: [], companyTags: [], level: 'Intermediate', timeLimit: 1, memoryLimit: 256, status: 'Draft',
         starterCode: [
           { language: 'javascript', code: 'function solution(nums, target) {\n  // your JS code\n}' },
           { language: 'python', code: 'def solution(nums, target):\n    # your Python code\n    pass' },
           { language: 'cpp', code: '#include <vector>\nusing namespace std;\nvector<int> solution(vector<int>& nums, int target) {\n    return {};\n}' },
           { language: 'java', code: 'import java.util.*;\nclass Solution {\n    public int[] solution(int[] nums, int target) {\n        return new int[]{};\n    }\n}' },
-          { language: 'c', code: '#include <stdio.h>\n// your C starter' }
+          { language: 'c', code: '#include <stdio.h>\n// your C starter' },
+          { language: 'sql', code: 'SELECT * FROM employees;' },
+          { language: 'bash', code: '# Bash script' }
         ],
         solutions: [
           { language: 'javascript', code: '' },
           { language: 'python', code: '' },
           { language: 'cpp', code: '' },
           { language: 'java', code: '' },
-          { language: 'c', code: '' }
+          { language: 'c', code: '' },
+          { language: 'sql', code: '' },
+          { language: 'bash', code: '' }
         ],
         testCases: [
           { input: '', expectedOutput: '', explanation: '', isHidden: false }
@@ -1411,7 +1452,7 @@ const Admin = () => {
                       <input
                         type="file"
                         id="bulk-problems-json-file"
-                        accept=".json"
+                        accept=".json,.csv"
                         onChange={async (e) => {
                           const file = e.target.files[0];
                           if (!file) return;
@@ -1419,14 +1460,86 @@ const Admin = () => {
                           const reader = new FileReader();
                           reader.onload = async (evt) => {
                             try {
-                              const parsed = JSON.parse(evt.target.result);
-                              const problemsArr = Array.isArray(parsed) ? parsed : [parsed];
+                              let problemsArr = [];
+                              if (file.name.endsWith('.csv')) {
+                                const text = evt.target.result;
+                                // Robust pure-JS CSV Parser
+                                const lines = [];
+                                let row = [""];
+                                let inQuotes = false;
+                                
+                                for (let i = 0; i < text.length; i++) {
+                                  const c = text[i];
+                                  const next = text[i+1];
+                                  if (c === '"') {
+                                    if (inQuotes && next === '"') {
+                                      row[row.length - 1] += '"';
+                                      i++;
+                                    } else {
+                                      inQuotes = !inQuotes;
+                                    }
+                                  } else if (c === ',' && !inQuotes) {
+                                    row.push("");
+                                  } else if ((c === '\r' || c === '\n') && !inQuotes) {
+                                    if (c === '\r' && next === '\n') i++;
+                                    lines.push(row);
+                                    row = [""];
+                                  } else {
+                                    row[row.length - 1] += c;
+                                  }
+                                }
+                                if (row.length > 1 || row[0] !== "") {
+                                  lines.push(row);
+                                }
+                                
+                                if (lines.length < 2) throw new Error("Empty CSV structure");
+                                const headers = lines[0].map(h => h.trim().toLowerCase());
+                                
+                                for (let i = 1; i < lines.length; i++) {
+                                  const values = lines[i];
+                                  if (values.length < headers.length) continue;
+                                  const obj = {};
+                                  headers.forEach((header, index) => {
+                                    obj[header] = values[index] ? values[index].trim() : "";
+                                  });
+                                  
+                                  const mappedProb = {
+                                    title: obj.title || obj.name,
+                                    description: obj.description || obj.statement || obj.problem_statement,
+                                    difficulty: obj.difficulty || 'Easy',
+                                    category: obj.category || 'Arrays',
+                                    level: obj.level || 'Intermediate',
+                                    constraints: obj.constraints || '',
+                                    inputFormat: obj.inputformat || obj.input_format || '',
+                                    outputFormat: obj.outputformat || obj.output_format || '',
+                                    sampleInput: obj.sampleinput || obj.sample_input || '',
+                                    sampleOutput: obj.sampleoutput || obj.sample_output || '',
+                                    explanation: obj.explanation || '',
+                                    points: Number(obj.points) || 100,
+                                    accuracy: Number(obj.accuracy) || 72.5,
+                                    status: obj.status || 'Published',
+                                    tags: obj.tags ? obj.tags.split(';').map(t => t.trim()) : [],
+                                    companyTags: obj.companytags || obj.companies ? (obj.companytags || obj.companies).split(';').map(c => c.trim()) : []
+                                  };
+
+                                  if (mappedProb.title && mappedProb.description) {
+                                    problemsArr.push(mappedProb);
+                                  }
+                                }
+                              } else {
+                                const parsed = JSON.parse(evt.target.result);
+                                problemsArr = Array.isArray(parsed) ? parsed : [parsed];
+                              }
+
+                              if (problemsArr.length === 0) {
+                                return alert('No valid problems were found in the uploaded file.');
+                              }
 
                               const res = await axios.post(`${API_BASE_URL}/api/problems/import`, { problems: problemsArr });
-                              alert(res.data.message || 'Problems imported successfully');
+                              alert(res.data.message || 'Problems synced successfully');
                               fetchProblems();
                             } catch (err) {
-                              alert('Failed to parse and import JSON: ' + err.message);
+                              alert('Failed to parse and import file: ' + err.message);
                             }
                           };
                           reader.readAsText(file);
@@ -1436,8 +1549,99 @@ const Admin = () => {
                       <label htmlFor="bulk-problems-json-file" className="cursor-pointer space-y-3 block">
                         <Upload size={28} className="text-slate-500 group-hover:text-emerald-500 mx-auto transition-colors" />
                         <p className="text-slate-300 font-bold text-xs">Drag and drop file here, or click to browse</p>
-                        <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">supports only formatted .json problems bundle</p>
+                        <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">supports formatted .json and .csv problem sheets</p>
                       </label>
+                    </div>
+                  </div>
+
+                  {/* Automated LeetCode Sync Engine */}
+                  <div className="bg-[#131B2C] border border-slate-800/80 rounded-3xl p-8 hover:border-slate-700 transition-all duration-300 space-y-6 mt-8">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                      <div>
+                        <h3 className="text-xl font-bold text-white flex items-center gap-2.5">
+                          <Cpu size={20} className="text-emerald-500" /> LeetCode Auto-Sync Engine
+                        </h3>
+                        <p className="text-slate-400 text-xs font-medium mt-1 leading-relaxed">
+                          Query, import, and sync GuruBramha with thousands of professional LeetCode DSA problems. Supports automatic field mapping, difficulty classification, and duplicate checks.
+                        </p>
+                      </div>
+                      <span className="text-xs font-bold uppercase text-emerald-400 tracking-[0.1em] bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1.5 rounded-full">
+                        Dynamic Importer V2
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      {/* Configuration Controls */}
+                      <div className="space-y-5">
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-wider text-slate-500">Sync Data Source URL</label>
+                          <input
+                            type="text"
+                            placeholder="Defaulting to local high-fidelity curated DSA database (Standard LeetCode essentials)"
+                            value={syncUrl}
+                            onChange={(e) => setSyncUrl(e.target.value)}
+                            className="w-full bg-[#0a0f1d] border border-slate-800 focus:border-emerald-500/50 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-600 focus:outline-none transition-all"
+                          />
+                          <p className="text-[10px] text-slate-500 leading-normal">
+                            Leave empty to sync the built-in standard LeetCode DSA problemset across 13 core collections. Or supply a raw GitHub JSON database URL.
+                          </p>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-wider text-slate-500">Maximum Sync Range (Limit Count)</label>
+                          <input
+                            type="number"
+                            min="1"
+                            max="2000"
+                            value={syncLimit}
+                            onChange={(e) => setSyncLimit(Number(e.target.value))}
+                            className="w-full bg-[#0a0f1d] border border-slate-800 focus:border-emerald-500/50 rounded-xl px-4 py-3 text-xs text-white focus:outline-none transition-all"
+                          />
+                        </div>
+
+                        <button
+                          onClick={handleLeetCodeSync}
+                          disabled={isSyncing}
+                          className={`w-full py-4 font-bold rounded-2xl active:scale-[0.98] transition-all text-xs uppercase tracking-wider flex items-center justify-center gap-2 ${
+                            isSyncing 
+                            ? 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed' 
+                            : 'bg-emerald-600 hover:bg-emerald-550 text-white shadow-lg shadow-emerald-600/15 active:scale-[0.97]'
+                          }`}
+                        >
+                          {isSyncing ? (
+                            <>
+                              <RefreshCw size={14} className="animate-spin" /> Synchronizing problemset...
+                            </>
+                          ) : (
+                            <>
+                              <Cpu size={14} /> Start Automated Sync
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Synchronization Logs and Status */}
+                      <div className="space-y-4 flex flex-col h-full justify-between">
+                        <div className="space-y-2 flex-grow">
+                          <label className="text-[10px] font-black uppercase tracking-wider text-slate-500">Sync Execution Logs</label>
+                          <div className="w-full bg-[#0a0f1d] border border-slate-800 rounded-xl p-4 font-mono text-[10px] text-emerald-400 overflow-y-auto h-44 whitespace-pre-wrap leading-relaxed">
+                            {syncLogs || 'No active sync running. Click "Start Automated Sync" to execute.'}
+                          </div>
+                        </div>
+
+                        {syncStats && (
+                          <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 flex justify-between items-center gap-4 animate-fadeIn">
+                            <div>
+                              <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Seeded / Synced</p>
+                              <p className="text-xl font-bold text-emerald-400 mt-1">{syncStats.syncedCount} Problems</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Duplicate Skipped</p>
+                              <p className="text-xl font-bold text-orange-400 mt-1">{syncStats.skippedCount} Records</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2321,6 +2525,19 @@ const Admin = () => {
                       </select>
                     </div>
 
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-wider text-slate-500">DSA Roadmap Level</label>
+                      <select
+                        value={modalProblemState.level || 'Intermediate'}
+                        onChange={(e) => setModalProblemState({ ...modalProblemState, level: e.target.value })}
+                        className="w-full pl-4 pr-4 py-3 bg-slate-900 border border-slate-800 rounded-xl outline-none font-bold text-white focus:border-emerald-500 transition-all text-xs"
+                      >
+                        <option value="Beginner">Beginner Level</option>
+                        <option value="Intermediate">Intermediate Level</option>
+                        <option value="Advanced">Advanced Level</option>
+                      </select>
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <label className="text-[10px] uppercase tracking-wider text-slate-500">Difficulty Grade</label>
@@ -2474,7 +2691,7 @@ const Admin = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center bg-slate-900/60 p-3 rounded-xl border border-slate-800">
                       <div className="flex gap-2">
-                        {['javascript', 'python', 'cpp', 'java', 'c'].map(lang => (
+                        {['javascript', 'python', 'cpp', 'java', 'c', 'sql', 'bash'].map(lang => (
                           <button
                             key={lang}
                             type="button"
@@ -2715,6 +2932,38 @@ const Admin = () => {
                                 }`}
                             >
                               {tag}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Company tags */}
+                    <div className="space-y-3 pt-4 border-t border-slate-800/60">
+                      <h4 className="text-[10px] uppercase font-black text-slate-500 tracking-wider">Company Wise Preparation Tags</h4>
+
+                      <div className="flex flex-wrap gap-2 p-4 bg-slate-900/50 border border-slate-800 rounded-xl">
+                        {['Google', 'Amazon', 'Microsoft', 'Meta', 'Adobe', 'TCS', 'Infosys', 'Zoho', 'Flipkart'].map(company => {
+                          const isSelected = (modalProblemState.companyTags || []).includes(company);
+                          return (
+                            <button
+                              key={company}
+                              type="button"
+                              onClick={() => {
+                                let compList = [...(modalProblemState.companyTags || [])];
+                                if (compList.includes(company)) {
+                                  compList = compList.filter(c => c !== company);
+                                } else {
+                                  compList.push(company);
+                                }
+                                setModalProblemState({ ...modalProblemState, companyTags: compList });
+                              }}
+                              className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all border ${isSelected
+                                  ? 'bg-blue-600 text-white border-transparent'
+                                  : 'bg-slate-900 text-slate-450 border-slate-800 hover:border-slate-700'
+                                }`}
+                            >
+                              {company}
                             </button>
                           );
                         })}

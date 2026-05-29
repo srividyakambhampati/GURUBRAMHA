@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
 const problemSchema = new mongoose.Schema({
+  problemId: { type: String },
   title: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
   difficulty: { type: String, enum: ['Easy', 'Medium', 'Hard'], required: true },
   category: { type: String, required: true },
   tags: [{ type: String }],
+  companyTags: [{ type: String }],
+  level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'], default: 'Intermediate' },
   
   accuracy: { type: Number, default: 0 },
   points: { type: Number, default: 100 },

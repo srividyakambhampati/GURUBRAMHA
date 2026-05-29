@@ -9,18 +9,30 @@ const PISTON_URL = 'https://emkc.org/api/v2/piston/execute';
 
 const languageMap = {
   javascript: 'javascript',
+  typescript: 'typescript',
   python: 'python',
   cpp: 'c++',
   java: 'java',
-  c: 'c'
+  c: 'c',
+  csharp: 'csharp',
+  go: 'go',
+  kotlin: 'kotlin',
+  sql: 'sqlite3',
+  bash: 'bash'
 };
 
 const versionMap = {
   javascript: '18.15.0',
+  typescript: '5.0.3',
   python: '3.10.0',
   cpp: '10.2.0',
   java: '15.0.2',
-  c: '10.2.0'
+  c: '10.2.0',
+  csharp: '6.12.0',
+  go: '1.16.2',
+  kotlin: '1.8.20',
+  sql: '3.36.0',
+  bash: '5.1.0'
 };
 
 // Helper function to execute code via Piston API
