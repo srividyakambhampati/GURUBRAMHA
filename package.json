@@ -1,19 +1,28 @@
 {
-  "name": "gurubramha",
+  "name": "gurubramha-server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "node server/index.js",
-    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
-    "install-all": "npm install && cd client && npm install && cd ../server && npm install"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
+
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+
+  "engines": {
+    "node": "20.x"
+  },
+
   "dependencies": {
-    "concurrently": "^9.2.1",
-    "dotenv": "^17.4.2"
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^4.19.2",
+    "mongoose": "^8.13.2",
+    "razorpay": "^2.9.6"
+  },
+
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
