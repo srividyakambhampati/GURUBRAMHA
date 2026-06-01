@@ -5,12 +5,33 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const fs = require('fs');
 
-require('dotenv').config();
+/* ======================================================
+   LOAD ENV VARIABLES
+====================================================== */
+
+require('dotenv').config({
+    path: path.join(__dirname, '.env')
+});
+
+console.log('✅ Environment Variables Loaded');
+
+console.log(
+    'MONGODB_URI:',
+    process.env.MONGODB_URI ? 'FOUND' : 'MISSING'
+);
+
+console.log(
+    'RAZORPAY_KEY_ID:',
+    process.env.RAZORPAY_KEY_ID ? 'FOUND' : 'MISSING'
+);
+
+/* ======================================================
+   EXPRESS APP
+====================================================== */
 
 const app = express();
 
-// Azure prefers PORT from environment
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 /* ======================================================
    CORS CONFIGURATION
@@ -23,47 +44,47 @@ const allowedOrigins = [
 ];
 
 if (process.env.FRONTEND_URL) {
-    // Add the URL as provided
+
     allowedOrigins.push(process.env.FRONTEND_URL);
 
-    // Also add it without a trailing slash (if it has one) or with a trailing slash (if it doesn't)
     if (process.env.FRONTEND_URL.endsWith('/')) {
-        allowedOrigins.push(process.env.FRONTEND_URL.slice(0, -1));
+
+        allowedOrigins.push(
+            process.env.FRONTEND_URL.slice(0, -1)
+        );
+
     } else {
-        allowedOrigins.push(process.env.FRONTEND_URL + '/');
+
+        allowedOrigins.push(
+            process.env.FRONTEND_URL + '/'
+        );
     }
 }
 
 app.use(cors({
+
     origin: function (origin, callback) {
 
         console.log('Incoming Origin:', origin);
 
-        // Allow requests without origin
-        // (Postman, mobile apps, same-origin requests)
         if (!origin) {
             return callback(null, true);
         }
 
-        // Remove trailing slash
         const cleanOrigin = origin.replace(/\/$/, '');
 
-        // Allow localhost
         if (cleanOrigin.includes('localhost')) {
             return callback(null, true);
         }
 
-        // Allow Azure Static Web Apps
         if (cleanOrigin.includes('azurestaticapps.net')) {
             return callback(null, true);
         }
 
-        // Allow Azure App Service / SCM / Kudu
         if (cleanOrigin.includes('azurewebsites.net')) {
             return callback(null, true);
         }
 
-        // Allow manually added origins
         if (allowedOrigins.includes(cleanOrigin)) {
             return callback(null, true);
         }
@@ -87,9 +108,12 @@ app.use(cookieParser());
    REQUEST LOGGER
 ====================================================== */
 
-
 app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+
+    console.log(
+        `[${new Date().toISOString()}] ${req.method} ${req.url}`
+    );
+
     next();
 });
 
@@ -102,17 +126,23 @@ if (process.env.MONGODB_URI) {
     mongoose.connect(process.env.MONGODB_URI)
 
         .then(() => {
+
             console.log('✅ Connected to MongoDB');
+
         })
 
         .catch((err) => {
-            console.error('❌ MongoDB connection error:', err);
+
+            console.error(
+                '❌ MongoDB connection error:',
+                err
+            );
         });
 
 } else {
 
     console.error(
-        '❌ WARNING: MONGODB_URI is not defined in environment variables.'
+        '❌ WARNING: MONGODB_URI is missing.'
     );
 }
 
@@ -120,89 +150,35 @@ if (process.env.MONGODB_URI) {
    ROUTES
 ====================================================== */
 
-const paymentRoutes = require('./routes/payment');
-const digilockerRoutes = require('./routes/digilocker');
-const documentRoutes = require('./routes/documents');
-const authRoutes = require('./routes/auth');
-const courseRoutes = require('./routes/courses');
-const problemRoutes = require('./routes/problems');
-const contestRoutes = require('./routes/contests');
-const submissionRoutes = require('./routes/submissions');
+try {
 
-app.use('/api/payment', paymentRoutes);
-app.use('/api/digilocker', digilockerRoutes);
-app.use('/api/documents', documentRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/courses', courseRoutes);
-app.use('/api/problems', problemRoutes);
-app.use('/api/contests', contestRoutes);
-app.use('/api/submissions', submissionRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+    const paymentRoutes = require('./routes/payment');
+    const digilockerRoutes = require('./routes/digilocker');
+    const documentRoutes = require('./routes/documents');
+    const authRoutes = require('./routes/auth');
+    const courseRoutes = require('./routes/courses');
+    const problemRoutes = require('./routes/problems');
+    const contestRoutes = require('./routes/contests');
+    const submissionRoutes = require('./routes/submissions');
 
-/* ======================================================
-   DEBUG ENDPOINT
-====================================================== */
+    app.use('/api/payment', paymentRoutes);
+    app.use('/api/digilocker', digilockerRoutes);
+    app.use('/api/documents', documentRoutes);
+    app.use('/api/auth', authRoutes);
+    app.use('/api/courses', courseRoutes);
+    app.use('/api/problems', problemRoutes);
+    app.use('/api/contests', contestRoutes);
+    app.use('/api/submissions', submissionRoutes);
 
-let lastError = null;
+    console.log('✅ Routes Loaded Successfully');
 
-app.get('/api/debug', (req, res) => {
+} catch (routeErr) {
 
-    try {
-
-        const pubPath = path.join(__dirname, 'public');
-
-        const files = fs.readdirSync(pubPath);
-
-        let assetsFiles = [];
-
-        try {
-
-            assetsFiles = fs.readdirSync(
-                path.join(pubPath, 'assets')
-            );
-
-        } catch (assetErr) {
-
-            assetsFiles = [
-                'Error listing assets: ' + assetErr.toString()
-            ];
-        }
-
-        const indexHtml = path.join(pubPath, 'index.html');
-
-        const stats = fs.statSync(indexHtml);
-
-        const content = fs.readFileSync(indexHtml, 'utf8');
-
-        res.json({
-            status: 'ok',
-            publicFiles: files,
-            assetsFiles,
-            indexSize: stats.size,
-            indexPreview: content.substring(0, 200),
-
-            lastError: lastError
-                ? {
-                    message: lastError.message,
-                    stack: lastError.stack
-                }
-                : null
-        });
-
-    } catch (e) {
-
-        res.status(500).json({
-            error: e.toString(),
-
-            lastError: lastError
-                ? {
-                    message: lastError.message,
-                    stack: lastError.stack
-                }
-                : null
-        });
-    }
-});
+    console.error(
+        '❌ Route loading failed:',
+        routeErr
+    );
+}
 
 /* ======================================================
    STATIC FILES
@@ -211,12 +187,17 @@ app.get('/api/debug', (req, res) => {
 const clientDistPath =
     (
         process.env.NODE_ENV === 'production' ||
-        !fs.existsSync(path.join(__dirname, '../client/dist'))
+        !fs.existsSync(
+            path.join(__dirname, '../client/dist')
+        )
     )
         ? path.join(__dirname, 'public')
         : path.join(__dirname, '../client/dist');
 
-console.log('📁 Serving static files from:', clientDistPath);
+console.log(
+    '📁 Serving static files from:',
+    clientDistPath
+);
 
 app.use(express.static(clientDistPath, {
 
@@ -253,6 +234,96 @@ app.use(express.static(clientDistPath, {
 }));
 
 /* ======================================================
+   UPLOADS STATIC
+====================================================== */
+
+app.use(
+    '/uploads',
+    express.static(
+        path.join(__dirname, 'public/uploads')
+    )
+);
+
+/* ======================================================
+   DEBUG ENDPOINT
+====================================================== */
+
+let lastError = null;
+
+app.get('/api/debug', (req, res) => {
+
+    try {
+
+        const pubPath = path.join(__dirname, 'public');
+
+        const files = fs.existsSync(pubPath)
+            ? fs.readdirSync(pubPath)
+            : [];
+
+        let assetsFiles = [];
+
+        try {
+
+            const assetsPath = path.join(pubPath, 'assets');
+
+            if (fs.existsSync(assetsPath)) {
+
+                assetsFiles = fs.readdirSync(assetsPath);
+            }
+
+        } catch (assetErr) {
+
+            assetsFiles = [
+                'Error listing assets: ' + assetErr.toString()
+            ];
+        }
+
+        const indexHtml = path.join(pubPath, 'index.html');
+
+        let stats = null;
+        let content = '';
+
+        if (fs.existsSync(indexHtml)) {
+
+            stats = fs.statSync(indexHtml);
+
+            content = fs.readFileSync(
+                indexHtml,
+                'utf8'
+            );
+        }
+
+        res.json({
+            status: 'ok',
+            publicFiles: files,
+            assetsFiles,
+            indexSize: stats ? stats.size : 0,
+            indexPreview: content.substring(0, 200),
+
+            lastError: lastError
+                ? {
+                    message: lastError.message,
+                    stack: lastError.stack
+                }
+                : null
+        });
+
+    } catch (e) {
+
+        res.status(500).json({
+            error: e.toString(),
+
+            lastError: lastError
+                ? {
+                    message: lastError.message,
+                    stack: lastError.stack
+                }
+                : null
+        });
+    }
+});
+
+/* ======================================================
    REACT CLIENT-SIDE ROUTING
 ====================================================== */
 
@@ -262,6 +333,13 @@ app.get(/.*/, (req, res) => {
         clientDistPath,
         'index.html'
     );
+
+    if (!fs.existsSync(indexPath)) {
+
+        return res.status(500).send(
+            '❌ index.html not found.'
+        );
+    }
 
     res.sendFile(indexPath, (err) => {
 
